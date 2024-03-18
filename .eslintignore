@@ -1,0 +1,6 @@
+.astro
+.vscode
+dist
+node_modules
+public
+src/env.d.ts
