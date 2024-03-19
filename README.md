@@ -4,7 +4,11 @@ Astro Sphere is a static, minimalist, lightweight, lightning fast portfolio and 
 
 It is primarily Astro, Tailwind and Typescript, with a very small amount of SolidJS for stateful components.
 
-## 🚀 Features
+## 🚀 Deploy your own
+
+[![Deploy with Vercel](_deploy_vercel.svg)](https://vercel.com/new/clone?repository-url=https://github.com/markhorn-dev/astro-sphere)  [![Deploy with Netlify](_deploy_netlify.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/markhorn-dev/astro-sphere)
+
+## 📋 Features
 
 - ✅ 100/100 Lighthouse performance
 - ✅ Responsive
@@ -62,6 +66,7 @@ A few features I plan to implement
 ## ✨ Acknowledgement
 
 Theme inspired by [Paco Coursey](https://paco.me/), [Lee Robinson](https://leerob.io/) and [Hayden Bleasel](https://www.haydenbleasel.com/)
+
 
 ## 🏛️ License
 
