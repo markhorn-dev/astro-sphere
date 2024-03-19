@@ -9,7 +9,7 @@ tags:
 - Typescript
 - Tailwind
 - SolidJs
-demoUrl: https://astro-sphere.vercel.app
+demoUrl: https://astro-sphere-demo.vercel.app
 repoUrl: https://github.com/markhorn-dev/astro-sphere
 ---
 
