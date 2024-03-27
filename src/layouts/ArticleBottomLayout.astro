@@ -11,7 +11,9 @@ const { collection } = entry
 const { Content } = await entry.render()
 
 // Get the next and prev entries (modulo to wrap index)
-const items = await getCollection(collection)
+const items = (await getCollection(collection))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const index = items.findIndex(x => x.slug === entry.slug)
 const prev = items[(index - 1 + items.length) % items.length]
 const next = items[(index + 1) % items.length]
