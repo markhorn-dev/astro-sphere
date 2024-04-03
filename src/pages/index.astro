@@ -4,6 +4,8 @@ import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
 import StackCard from "@components/StackCard.astro"
 import { SITE, SOCIALS } from "@consts"
+import TwinklingStars from "@components/TwinklingStars.astro"
+import MeteorShower from "@components/MeteorShower.astro"
 
 const posts = (await getCollection("blog"))
   .filter(post => !post.data.draft)
@@ -53,6 +55,14 @@ const stack = [
     <div id='stars1' class='fixed inset-0'></div>
     <div id='stars2' class='fixed inset-0'></div>
     <div id='stars3' class='fixed inset-0'></div>
+  </div>
+
+  <!-- Dark Theme: Twinkling Stars / Metors -->
+  <div id="galaxy" class="fixed inset-0">
+    <div class="hidden dark:block">
+      <TwinklingStars/>
+      <MeteorShower/>
+    </div>
   </div>
 
   <script is:inline src="/js/bg.js"></script>

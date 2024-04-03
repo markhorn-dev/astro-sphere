@@ -103,3 +103,48 @@ article img {
   display: block;
   margin: 0 auto;
 }
+
+/**
+ * TWINKLE STARS
+ */
+
+ #twinkle-star.template {
+  @apply absolute -left-full; /* hide offscreen */
+}
+
+#twinkle-star.twinkle {
+  @apply animate-twinkle; /* defined in tailwind.config */
+}
+
+
+/**
+ * Meteors
+ */
+
+#meteors .shower {
+  @apply absolute inset-0 top-0;;
+  @apply left-1/2 -translate-x-1/2;
+  @apply w-screen aspect-square;
+}
+
+#meteors .meteor {
+  @apply animate-meteor; /* defined in tailwind.config */
+  @apply absolute top-1/2 left-1/2 w-px h-[75vh];
+  @apply bg-gradient-to-b from-white to-transparent;
+}
+
+#meteors .shower.ur {
+  @apply rotate-45;
+}
+
+#meteors .shower.dr {
+  @apply rotate-135;
+}
+
+#meteors .shower.dl {
+  @apply rotate-225;
+}
+
+#meteors .shower.ul {
+  @apply rotate-315;
+}

@@ -11,6 +11,11 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro"
+  ],
   "exclude": [
     "dist",
     "node_modules"

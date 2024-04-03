@@ -48,9 +48,11 @@ Replace npm with your package manager of choice. `npm`, `pnpm`, `yarn`, `bun`, e
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run dev:network`     | Starts dev server on local network               |
 | `npm run sync`            | Generates TypeScript types for all Astro modules.|
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run preview:network` | Starts preview server on local network           |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 | `npm run lint`            | Run ESLint                                       |
@@ -71,3 +73,17 @@ Theme inspired by [Paco Coursey](https://paco.me/), [Lee Robinson](https://leero
 ## 🏛️ License
 
 MIT
+
+
+# 1.0.1 Update
+
+Added ability to run dev and preview on local network.
+added npm run dev:network
+added npm run preview:network
+
+Added slightly more particle density in both light and dark mode.
+
+Added subtle dark mode star and meteor animations.
+
+Removed eslint config
+
