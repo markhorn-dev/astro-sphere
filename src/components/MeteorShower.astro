@@ -25,9 +25,11 @@
   
   // append the meteor to a random meteor shower (direction)
   const showers = document.querySelectorAll(".shower");
-  const random = Math.floor(Math.random() * showers.length);
-  const shower = showers[random];
-  shower.append(meteor);
+  if (showers.length > 0) {
+    const random = Math.floor(Math.random() * showers.length);
+    const shower = showers[random];
+    shower.append(meteor);
+  }
 
   // remove the meteor after the animation duration
   setTimeout(() => {

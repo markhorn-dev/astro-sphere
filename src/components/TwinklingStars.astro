@@ -39,8 +39,10 @@
 <script is:inline>
   // Generate a twinkle star and append it to the galaxy, remove it after animation.
   function generateTwinkleStar() {
+    const twinkleStarTemplate = document.getElementById("twinkle-star")
+    if (!twinkleStarTemplate) { return; }
     // Clone the twinkle star template and set its attributes.
-    const twinkleStar = document.getElementById("twinkle-star").cloneNode(true);
+    const twinkleStar = twinkleStarTemplate.cloneNode(true);
     twinkleStar.style.position = "absolute";
     twinkleStar.style.left = Math.floor(Math.random() * window.innerWidth) + "px";
     twinkleStar.style.top = Math.floor(Math.random() * (window.innerHeight/3)) + "px";
