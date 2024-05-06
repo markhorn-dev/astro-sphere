@@ -66,6 +66,12 @@ export const SOCIALS: Socials = [
     HREF: "https://github.com/markhorn-dev/astro-sphere"
   },
   { 
+    NAME: "Gitlab",
+    ICON: "gitlab",
+    TEXT: "markhorn-dev",
+    HREF: "https://gitlab.com/"
+  },
+  { 
     NAME: "LinkedIn",
     ICON: "linkedin",
     TEXT: "markhorn-dev",
@@ -74,6 +80,12 @@ export const SOCIALS: Socials = [
   { 
     NAME: "Twitter",
     ICON: "twitter-x",
+    TEXT: "markhorn_dev",
+    HREF: "https://mastodon.social",
+  },
+  { 
+    NAME: "Mastodon",
+    ICON: "mastodon",
     TEXT: "markhorn_dev",
     HREF: "https://twitter.com/markhorn_dev",
   },
