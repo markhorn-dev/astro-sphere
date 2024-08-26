@@ -31,6 +31,12 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all posts and projects by keyword.",
 }
 
+// Gallery Page
+export const GALLERY: Page = {
+  TITLE: "Gallery",
+  DESCRIPTION: "Photographs organized by album.",
+}
+
 // Links
 export const LINKS: Links = [
   { 
@@ -48,6 +54,10 @@ export const LINKS: Links = [
   { 
     TEXT: "Projects", 
     HREF: "/projects", 
+  },
+  {
+    TEXT: "Gallery",
+    HREF: "/gallery",
   },
 ]
 
