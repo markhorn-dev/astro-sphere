@@ -1,0 +1,39 @@
+---
+import Image from "astro/components/Image.astro";
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import { GALLERY } from "@consts";
+
+const albums = await getCollection("albums");
+---
+
+<PageLayout title={GALLERY.TITLE} description={GALLERY.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate page-heading">
+      {GALLERY.TITLE}
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate columns-2 gap-4 min-w-80">
+      {albums.map((album) => (
+        <a href={`/gallery/${album.id}`} class="animate group relative block rounded bg-black">
+          <Image
+            src={album.data.cover}
+            alt={album.data.title}
+            width={960}
+            class="mb-4 h-full w-full rounded opacity-70 transition-opacity group-hover:opacity-40"
+          />
+          <p class="absolute inset-0 flex justify-center items-center z-50 transition-all group-hover:-translate-y-12 text-4xl font-extrabold text-white">
+            {album.data.title}
+          </p>
+          <p class="absolute bottom-0 px-4 pb-2 opacity-0 transform transition-all translate-y-8 group-hover:translate-y-0 group-hover:opacity-100 text-white text-sm md:text-base">
+            {album.data.description}
+          </p>
+        </a>
+      ))}
+    </div>
+  </BottomLayout>
+</PageLayout>
+

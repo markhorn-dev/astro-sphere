@@ -1,0 +1,63 @@
+---
+import { getAlbumImages } from "../../lib/utils.ts";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+
+export async function getStaticPaths() {
+  const albums = await getCollection("albums");
+
+  const paths = albums.map((album) => {
+    return {
+      params: {
+        id: album.id,
+      },
+      props: {
+        album,
+      },
+    };
+  });
+  
+  return paths;
+}
+
+const { album } = Astro.props;
+const images = await getAlbumImages(album.id)
+---
+
+<PageLayout title={album.data.title} description={"description"}>
+  <TopLayout>
+    <a href={`/gallery`} class="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white">
+        <line x1="19" y1="12" x2="5" y2="12" class="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
+        <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
+      </svg>
+      <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
+        Back to albums
+      </div>
+    </a>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate page-heading pb-5">
+      {album.data.title}
+    </div>
+    <div class="animate sm:columns-2 min-w-80">
+      {images.map((image) => (
+        <a href={image.src} data-fslightbox>
+          <Image
+            src={image}
+            alt=""
+            width={640}
+            quality="mid"
+            class="rounded mb-4 w-full object-cover hover:opacity-70 transition-opacity duration-300 ease-in-out"
+            loading="lazy"
+          />
+        </a>
+      ))}
+    </div>
+  </BottomLayout>
+</PageLayout>
+
+<script src="src/lib/fslightbox.js"></script>
