@@ -1,0 +1,9 @@
+.twinkle-star.template {
+  @apply absolute -left-full;
+  /* hide offscreen */
+}
+
+.twinkle-star.twinkle {
+  @apply animate-twinkle;
+  /* defined in tailwind.config */
+}

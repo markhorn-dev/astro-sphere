@@ -1,0 +1,15 @@
+#header-drawer-button>#drawer-open {
+  @apply block;
+}
+
+#header-drawer-button>#drawer-close {
+  @apply hidden;
+}
+
+#header-drawer-button.open>#drawer-open {
+  @apply hidden;
+}
+
+#header-drawer-button.open>#drawer-close {
+  @apply block;
+}
