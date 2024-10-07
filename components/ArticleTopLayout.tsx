@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ViewTransitionLink";
 
 import { type PostItem } from "@/lib/data/blog";
 import { type ProjectItem } from "@/lib/data/projects";
@@ -21,7 +21,7 @@ const readingTime = (html: string) => {
 export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
   return (
     <div>
-      <a
+      <Link
         href={`/${entry?.metadata.collection}`}
         className="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
       >
@@ -51,7 +51,7 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
         <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
           Back to {entry?.metadata.collection}
         </div>
-      </a>
+      </Link>
       <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
         <div className="flex items-center gap-2">
           <svg className="size-5 stroke-current">

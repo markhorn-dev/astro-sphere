@@ -1,6 +1,6 @@
-import Link from "next/link";
-
 import Container from "@/components/Container";
+import Link from "@/components/ViewTransitionLink";
+
 import { SITE, SOCIALS } from "@/lib/config";
 
 export default function Footer() {
@@ -83,7 +83,7 @@ export default function Footer() {
                   >
                     Terms
                   </Link>{" "}
-                  |
+                  |{" "}
                   <Link
                     href="/legal/privacy"
                     className="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
