@@ -1,4 +1,4 @@
-import Link from "@/components/ViewTransitionLink";
+import Link from "next/link";
 
 export interface StackCardProps {
   text: string;

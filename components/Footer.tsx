@@ -1,5 +1,6 @@
+import Link from "next/link";
+
 import Container from "@/components/Container";
-import Link from "@/components/ViewTransitionLink";
 
 import { SITE, SOCIALS } from "@/lib/config";
 

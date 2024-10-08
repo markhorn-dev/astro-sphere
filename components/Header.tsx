@@ -4,13 +4,13 @@ import "@/styles/header.css";
 
 import classnames from "classnames";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Container from "@/components/Container";
-import Link from "@/components/ViewTransitionLink";
 
 import { LINKS, SITE } from "@/lib/config";
 import getTheme from "@/lib/getTheme";

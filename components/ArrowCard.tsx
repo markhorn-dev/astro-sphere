@@ -1,4 +1,4 @@
-import Link from "@/components/ViewTransitionLink";
+import Link from "next/link";
 
 import type { PostItem } from "@/lib/data/blog";
 import type { ProjectItem } from "@/lib/data/projects";

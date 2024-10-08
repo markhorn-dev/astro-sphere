@@ -4,10 +4,9 @@ import "@/styles/drawer.css";
 
 import classnames from "classnames";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-
-import Link from "@/components/ViewTransitionLink";
 
 import { LINKS, SITE } from "@/lib/config";
 

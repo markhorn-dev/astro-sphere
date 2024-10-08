@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useCallback, useEffect, useRef } from "react";
 
@@ -7,7 +8,7 @@ import ArrowCard from "@/components/ArrowCard";
 import MeteorShower from "@/components/MeteorShower";
 import StackCard from "@/components/StackCard";
 import TwinklingStars from "@/components/TwinklingStars";
-import Link from "@/components/ViewTransitionLink";
+
 import { SOCIALS } from "@/lib/config";
 
 import { posts } from "@/lib/data/blog";
