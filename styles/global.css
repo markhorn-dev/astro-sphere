@@ -24,6 +24,7 @@ html {
   overflow-y: scroll;
   color-scheme: light;
   background-color: white;
+  scroll-padding-top: 4.5rem;
 }
 
 html.dark {
