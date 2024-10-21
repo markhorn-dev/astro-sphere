@@ -1,51 +1,30 @@
-"use client";
-
-import "prismjs/themes/prism-twilight.css";
-
-import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
-
-import { useMemo } from "react";
-
 import ArticleBottomLayout from "@/components/ArticleBottomLayout";
 import ArticleTopLayout from "@/components/ArticleTopLayout";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import type { PostItem } from "@/data/posts";
-import projects, { type ProjectItem } from "@/data/projects";
+import { find } from "@/lib/find";
 
-type ContentItem = PostItem | ProjectItem;
+interface ProjectViewerProps {
+  params: {
+    slug: string;
+  };
+}
 
-export default function ProjectViewer() {
-  const { slug } = useParams();
+// cannot reusable: https://github.com/vercel/next.js/discussions/50080
+export async function generateMetadata({ params: { slug } }: ProjectViewerProps) {
+  const { title, description } = find({ collection: "projects", slug })?.metadata || {};
+  return { title, description };
+}
 
-  const project: ContentItem | undefined = useMemo(
-    () => projects.find(({ metadata }) => metadata.slug === slug),
-    [projects, slug]
-  );
-
+export default function ProjectViewer({ params: { slug } }: ProjectViewerProps) {
   return (
     <>
       <TopLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-        >
-          <ArticleTopLayout entry={project} />
-        </motion.div>
+        <ArticleTopLayout collection="projects" slug={slug} />
       </TopLayout>
       <BottomLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
-        >
-          <ArticleBottomLayout entry={project} />
-        </motion.div>
+        <ArticleBottomLayout collection="projects" slug={slug} />
       </BottomLayout>
     </>
   );

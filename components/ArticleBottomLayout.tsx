@@ -6,44 +6,27 @@ import { useMemo } from "react";
 
 import Link from "@/components/ViewTransitionLink";
 
-import legals, { type LegalItem } from "@/data/legals";
-import posts, { type PostItem } from "@/data/posts";
-import projects, { type ProjectItem } from "@/data/projects";
-
-type ContentItem = PostItem | ProjectItem | LegalItem;
+import { find, next, prev } from "@/lib/find";
 
 export interface ArticleBottomLayoutProps {
-  entry?: ContentItem;
+  collection: "blog" | "projects" | "legals";
+  slug: string;
 }
 
-export default function ArticleBottomLayout({ entry }: ArticleBottomLayoutProps) {
-  const contents = useMemo(
-    () =>
-      "blog" === entry?.metadata.collection
-        ? posts
-        : "projects" === entry?.metadata.collection
-          ? projects
-          : legals,
-    [entry, posts, projects, legals]
-  );
+export default function ArticleBottomLayout({ collection, slug }: ArticleBottomLayoutProps) {
+  const entry = useMemo(() => find({ collection, slug }), [collection, slug]);
 
-  const prev = useMemo(() => {
-    const index = contents.findIndex(({ metadata }) => metadata.slug === entry?.metadata.slug);
-    return 0 > index ? undefined : contents[index - 1];
-  }, [contents, entry]);
+  const prevEntry = useMemo(() => prev({ collection, slug }), [collection, slug]);
 
-  const next = useMemo(() => {
-    const index = contents.findIndex(({ metadata }) => metadata.slug === entry?.metadata.slug);
-    return contents.length - 1 > index ? contents[index + 1] : undefined;
-  }, [contents, entry]);
+  const nextEntry = useMemo(() => next({ collection, slug }), [collection, slug]);
 
   return (
     <div>
       <article>{entry?.Component && <entry.Component />}</article>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {prev ? (
+        {prevEntry ? (
           <Link
-            href={`/${prev.metadata.collection}/${prev.metadata.slug}`}
+            href={`/${prevEntry.metadata.collection}/${prevEntry.metadata.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend"
           >
             <div className="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
@@ -51,7 +34,7 @@ export default function ArticleBottomLayout({ entry }: ArticleBottomLayoutProps)
                 <div className="text-sm uppercase">Prev</div>
               </div>
               <div className="font-semibold mt-3 text-black dark:text-white">
-                {prev.metadata.title}
+                {prevEntry.metadata.title}
               </div>
             </div>
             <svg
@@ -82,15 +65,15 @@ export default function ArticleBottomLayout({ entry }: ArticleBottomLayoutProps)
           <div className="invisible"></div>
         )}
 
-        {next ? (
+        {nextEntry ? (
           <Link
-            href={`/${next.metadata.collection}/${next.metadata.slug}`}
+            href={`/${nextEntry.metadata.collection}/${nextEntry.metadata.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
           >
             <div className="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
               <div className="text-sm uppercase">Next</div>
               <div className="font-semibold mt-3 text-black dark:text-white">
-                {next.metadata.title}
+                {nextEntry.metadata.title}
               </div>
             </div>
             <svg

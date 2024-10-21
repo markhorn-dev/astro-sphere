@@ -1,51 +1,31 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
-
-import { useMemo } from "react";
-
 import ArticleBottomLayout from "@/components/ArticleBottomLayout";
 import ArticleTopLayout from "@/components/ArticleTopLayout";
 
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
+import { find } from "@/lib/find";
 
-import posts, { type PostItem } from "@/data/posts";
-import type { ProjectItem } from "@/data/projects";
+interface BlogViewerProps {
+  params: {
+    slug: string;
+  };
+}
 
-type ContentItem = PostItem | ProjectItem;
+// cannot reusable: https://github.com/vercel/next.js/discussions/50080
+export async function generateMetadata({ params: { slug } }: BlogViewerProps) {
+  const { title, description } = find({ collection: "blog", slug })?.metadata || {};
+  return { title, description };
+}
 
-export default function BlogViewer() {
-  const { slug } = useParams();
-
-  const post: ContentItem | undefined = useMemo(
-    () => posts.find(({ metadata }) => metadata.slug === slug),
-    [posts, slug]
-  );
-
+export default function BlogViewer({ params: { slug } }: BlogViewerProps) {
   return (
     <>
       <TopLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-        >
-          <ArticleTopLayout entry={post} />
-        </motion.div>
+        <ArticleTopLayout collection="blog" slug={slug} />
       </TopLayout>
 
       <BottomLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
-        >
-          <ArticleBottomLayout entry={post} />
-        </motion.div>
+        <ArticleBottomLayout collection="blog" slug={slug} />
       </BottomLayout>
     </>
   );
