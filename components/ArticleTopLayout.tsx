@@ -1,5 +1,10 @@
 "use client";
 
+import CalendarToday from "@mui/icons-material/CalendarToday";
+import LinkIcon from "@mui/icons-material/Link";
+import MenuBook from "@mui/icons-material/MenuBook";
+import Public from "@mui/icons-material/Public";
+
 import Link from "@/components/ViewTransitionLink";
 
 import { type PostItem } from "@/data/posts";
@@ -54,9 +59,8 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
       </Link>
       <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
         <div className="flex items-center gap-2">
-          <svg className="size-5 stroke-current">
-            <use href="/ui.svg#calendar" />
-          </svg>
+          <CalendarToday className="size-5 stroke-current" />
+
           {entry?.metadata.created &&
             Intl.DateTimeFormat(undefined, {
               month: "short",
@@ -65,9 +69,7 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
             }).format(new Date(entry.metadata.created))}
         </div>
         <div className="flex items-center gap-2">
-          <svg className="size-5 stroke-current">
-            <use href="/ui.svg#book-open" />
-          </svg>
+          <MenuBook className="size-5 stroke-current" />
           {entry?.metadata.content && readingTime(entry.metadata.content)}
         </div>
       </div>
@@ -83,12 +85,7 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
               target="_blank"
               className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
             >
-              <svg className="size-4">
-                <use
-                  href="/ui.svg#globe"
-                  className="fill-current group-hover:fill-black group-hover:dark:fill-white blend"
-                />
-              </svg>
+              <Public className="size-4" />
               <span className="text-current group-hover:text-black group-hover:dark:text-white blend">
                 See Demo
               </span>
@@ -100,12 +97,7 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
               target="_blank"
               className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
             >
-              <svg className="size-4">
-                <use
-                  href="/ui.svg#link"
-                  className="fill-current group-hover:fill-black group-hover:dark:fill-white blend"
-                />
-              </svg>
+              <LinkIcon className="size-4" />
               <span className="text-current group-hover:text-black group-hover:dark:text-white blend">
                 See Repository
               </span>

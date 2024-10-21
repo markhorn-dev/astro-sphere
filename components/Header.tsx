@@ -1,5 +1,12 @@
 "use client";
 
+import Close from "@mui/icons-material/Close";
+import DarkMode from "@mui/icons-material/DarkMode";
+import LightMode from "@mui/icons-material/LightMode";
+import Menu from "@mui/icons-material/Menu";
+import RssFeed from "@mui/icons-material/RssFeed";
+import Search from "@mui/icons-material/Search";
+
 import classnames from "classnames";
 
 import { usePathname } from "next/navigation";
@@ -10,7 +17,7 @@ import { twMerge } from "tailwind-merge";
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
-import { LINKS, SITE } from "@/lib/config";
+import { nav, site } from "@/config";
 
 import styles from "@/styles/header.module.css";
 
@@ -67,30 +74,30 @@ export default function Header({
               <svg className="size-6 fill-current">
                 <use href="/brand.svg#brand"></use>
               </svg>
-              <div>{SITE.TITLE}</div>
+              <div>{site.name}</div>
             </Link>
           </div>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <nav className="hidden md:flex items-center justify-center text-sm gap-1">
-              {LINKS.map((LINK, i) => (
+              {nav.map(({ name, href }, i) => (
                 <Link
                   key={`link-${i}`}
-                  href={LINK.HREF}
+                  href={href}
                   className={twMerge(
                     classnames(
                       "h-8 rounded-full px-3 text-current",
                       "flex items-center justify-center",
                       "transition-colors duration-300 ease-in-out",
                       {
-                        "bg-black dark:bg-white text-white dark:text-black": isMatched(LINK.HREF),
+                        "bg-black dark:bg-white text-white dark:text-black": isMatched(href),
                         "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white":
-                          !isMatched(LINK.HREF),
+                          !isMatched(href),
                       }
                     )
                   )}
                 >
-                  {LINK.TEXT}
+                  {name}
                 </Link>
               ))}
             </nav>
@@ -99,7 +106,7 @@ export default function Header({
           <div className="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
             <Link
               href="/search"
-              aria-label={`Search blog posts and projects on ${SITE.TITLE}`}
+              aria-label={`Search blog posts and projects on ${site.name}`}
               className={twMerge(
                 classnames(
                   "hidden md:flex",
@@ -114,15 +121,13 @@ export default function Header({
                 )
               )}
             >
-              <svg className="size-full">
-                <use href="/ui.svg#search"></use>
-              </svg>
+              <Search className="size-full" />
             </Link>
 
             <Link
-              href="/rss.xml"
+              href="/api/feed/rss2"
               target="_blank"
-              aria-label={`Rss feed for ${SITE.TITLE}`}
+              aria-label={`Rss feed for ${site.name}`}
               className={twMerge(
                 classnames(
                   "hidden md:flex",
@@ -134,9 +139,7 @@ export default function Header({
                 )
               )}
             >
-              <svg className="size-full">
-                <use href="/ui.svg#rss"></use>
-              </svg>
+              <RssFeed className="size-full" />
             </Link>
 
             <button
@@ -154,12 +157,8 @@ export default function Header({
               )}
               onClick={handleToggleTheme}
             >
-              <svg className="size-full block dark:hidden">
-                <use href="/ui.svg#sun"></use>
-              </svg>
-              <svg className="size-full hidden dark:block">
-                <use href="/ui.svg#moon"></use>
-              </svg>
+              <LightMode className="size-full block dark:hidden" />
+              <DarkMode className="size-full hidden dark:block" />
             </button>
 
             <button
@@ -176,24 +175,21 @@ export default function Header({
               )}
               onClick={() => handleToggleDrawer?.()}
             >
-              <svg
+              <Menu
                 id="drawer-open"
                 className={classnames("size-full", {
                   block: !open,
                   hidden: open,
                 })}
-              >
-                <use href="/ui.svg#menu"></use>
-              </svg>
-              <svg
+              />
+
+              <Close
                 id="drawer-close"
                 className={classnames("size-full", {
                   block: open,
                   hidden: !open,
                 })}
-              >
-                <use href="/ui.svg#x"></use>
-              </svg>
+              />
             </button>
           </div>
         </div>

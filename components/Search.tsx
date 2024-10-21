@@ -1,5 +1,7 @@
 "use client";
 
+import SearchIcon from "@mui/icons-material/Search";
+import { motion } from "framer-motion";
 import Fuse from "fuse.js";
 
 import { useMemo, useState } from "react";
@@ -44,9 +46,7 @@ export default function Search({ data }: SearchProps) {
           placeholder="What are you looking for?"
           className="w-full px-2.5 py-1.5 pl-10 rounded outline-none text-black dark:text-white bg-black/5 dark:bg-white/15 border border-black/10 dark:border-white/20 focus:border-black focus:dark:border-white"
         />
-        <svg className="absolute size-6 left-1.5 top-1/2 -translate-y-1/2 stroke-current">
-          <use href={`/ui.svg#search`} />
-        </svg>
+        <SearchIcon className="absolute size-6 left-1.5 top-1/2 -translate-y-1/2 stroke-current" />
       </div>
 
       {query.length >= 2 && results.length >= 1 && (
@@ -56,9 +56,15 @@ export default function Search({ data }: SearchProps) {
           </div>
           <ul className="flex flex-col gap-3">
             {results.map((result, i) => (
-              <li key={`result-${i}`}>
+              <motion.li
+                key={`result-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              >
                 <ArrowCard entry={result} pill={true} />
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>

@@ -1,7 +1,12 @@
 "use client";
 
+import CheckBox from "@mui/icons-material/CheckBox";
+import Square from "@mui/icons-material/Square";
+
 import classnames from "classnames";
+
 import { motion } from "framer-motion";
+
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -64,24 +69,31 @@ export default function Blog({ posts, tags }: BlogProps) {
                     )
                   )}
                 >
-                  <svg
+                  <Square
                     className={twMerge(
                       classnames(
                         "size-5 fill-black/50 dark:fill-white/50",
                         "transition-colors duration-300 ease-in-out",
-                        { "fill-black dark:fill-white": selecteds.has(tag) }
+                        {
+                          hidden: selecteds.has(tag),
+                          "fill-black dark:fill-white block": !selecteds.has(tag),
+                        }
                       )
                     )}
-                  >
-                    <use
-                      href={`/ui.svg#square`}
-                      className={!selecteds.has(tag) ? "block" : "hidden"}
-                    />
-                    <use
-                      href={`/ui.svg#square-check`}
-                      className={selecteds.has(tag) ? "block" : "hidden"}
-                    />
-                  </svg>
+                  />
+                  <CheckBox
+                    className={twMerge(
+                      classnames(
+                        "size-5 fill-black/50 dark:fill-white/50",
+                        "transition-colors duration-300 ease-in-out",
+                        {
+                          hidden: !selecteds.has(tag),
+                          "fill-black dark:fill-white block": selecteds.has(tag),
+                        }
+                      )
+                    )}
+                  />
+
                   {tag}
                 </button>
               </motion.li>

@@ -11,10 +11,10 @@ import StackCard from "@/components/StackCard";
 import TwinklingStars from "@/components/TwinklingStars";
 import Link from "@/components/ViewTransitionLink";
 
+import { social } from "@/config";
 import posts from "@/data/posts";
 import projects from "@/data/projects";
 
-import { SOCIALS } from "@/lib/config";
 import { getTheme } from "@/lib/theme";
 
 const stack = [
@@ -425,19 +425,19 @@ export default function HomePage() {
               <p className="font-semibold text-black dark:text-white">Let's Connect</p>
               <p>Reach out to me via email or on social media.</p>
               <div className="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-                {SOCIALS.map((social, i) => (
+                {social.map(({ name, href, text }, i) => (
                   <Fragment key={`social-${i}`}>
                     <div className="col-span-1 flex items-center gap-1">
-                      <span className="whitespace-nowrap truncate">{social.NAME}</span>
+                      <span className="whitespace-nowrap truncate">{name}</span>
                     </div>
                     <div className="col-span-3 truncate">
                       <Link
-                        href={social.HREF}
+                        href={href}
                         target="_blank"
                         className="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend"
                       >
                         <span className="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                          {social.TEXT}
+                          {text}
                         </span>
                       </Link>
                     </div>

@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 
+import { createElement } from "react";
+
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
 import { author } from "@/config";
-import { SITE, SOCIALS } from "@/lib/config";
+import { site, social } from "@/config";
 
 export default function Footer() {
   return (
@@ -68,7 +70,7 @@ export default function Footer() {
                   <svg className="size-6 fill-current">
                     <use href="/brand.svg#brand" />
                   </svg>
-                  {SITE.TITLE}
+                  {site.name}
                 </Link>
               </div>
               <div className="flex gap-2 justify-center sm:justify-end items-center">
@@ -106,17 +108,19 @@ export default function Footer() {
 
               <div className="order-1 sm:order-2 flex justify-center sm:justify-end">
                 <div className="flex flex-wrap gap-1 items-center justify-center">
-                  {SOCIALS.map((SOCIAL, i) => (
+                  {social.map(({ name, href, icon }, i) => (
                     <Link
                       key={`social-${i}`}
-                      href={SOCIAL.HREF}
+                      href={href}
                       target="_blank"
-                      aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
+                      aria-label={`${site.name} on ${name}`}
                       className="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
                     >
-                      <svg className="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">
-                        <use href={`/social.svg#${SOCIAL.ICON}`} />
-                      </svg>
+                      {icon &&
+                        createElement(icon, {
+                          className:
+                            "size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend",
+                        })}
                     </Link>
                   ))}
                 </div>
