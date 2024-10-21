@@ -1,12 +1,10 @@
 "use client";
 
-import "@/styles/header.css";
-
 import classnames from "classnames";
 
 import { usePathname } from "next/navigation";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Container from "@/components/Container";
@@ -15,8 +13,16 @@ import Link from "@/components/ViewTransitionLink";
 import { LINKS, SITE } from "@/lib/config";
 import getTheme from "@/lib/getTheme";
 
-export default function Header() {
+import styles from "@/styles/header.module.css";
+
+export interface HeaderProps {
+  open?: boolean;
+  onToggleDrawer?: () => void;
+}
+
+export default function Header({ open, onToggleDrawer: handleToggleDrawer }: HeaderProps) {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState<boolean>(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const subpath = pathname.match(/[^/]+/g);
@@ -44,18 +50,14 @@ export default function Header() {
     localStorage.theme = theme;
   };
 
-  const handleClickDrawerToggler = () => {
-    const drawer = document.getElementById("drawer");
-    const drawerButton = document.getElementById("header-drawer-button");
-
-    drawer?.classList.toggle("open");
-    drawerButton?.classList.toggle("open");
-  };
-
   const isMatched = (href: string) => pathname === href || "/" + subpath?.[0] === href;
 
-  useEffect(() => {
-    const handleScroll = () => headerRef.current?.classList.toggle("scrolled", window.scrollY > 0);
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 0;
+      headerRef.current?.classList.toggle("scrolled", scrolled);
+      setScrolled(scrolled);
+    };
 
     document.addEventListener("scroll", handleScroll);
     handleScroll();
@@ -65,7 +67,14 @@ export default function Header() {
   }, [headerRef]);
 
   return (
-    <header ref={headerRef} id="header" className="fixed top-0 w-full h-16 z-50 ">
+    <header
+      ref={headerRef}
+      id="header"
+      className={classnames(styles.header, "fixed top-0 w-full h-16 z-50", {
+        [styles["not-scrolled"]]: !scrolled,
+        [styles["scrolled"]]: scrolled,
+      })}
+    >
       <Container size="md">
         <div className="relative h-full w-full">
           <div className="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-semibold">
@@ -172,7 +181,6 @@ export default function Header() {
             </button>
 
             <button
-              id="header-drawer-button"
               aria-label="Toggle drawer open and closed"
               className={twMerge(
                 classnames(
@@ -184,12 +192,24 @@ export default function Header() {
                   "transition-colors duration-300 ease-in-out"
                 )
               )}
-              onClick={handleClickDrawerToggler}
+              onClick={() => handleToggleDrawer?.()}
             >
-              <svg id="drawer-open" className="size-full">
+              <svg
+                id="drawer-open"
+                className={classnames("size-full", {
+                  block: !open,
+                  hidden: open,
+                })}
+              >
                 <use href="/ui.svg#menu"></use>
               </svg>
-              <svg id="drawer-close" className="size-full">
+              <svg
+                id="drawer-close"
+                className={classnames("size-full", {
+                  block: open,
+                  hidden: !open,
+                })}
+              >
                 <use href="/ui.svg#x"></use>
               </svg>
             </button>

@@ -1,24 +1,32 @@
 "use client";
 
-import "@/styles/drawer.css";
-
 import classnames from "classnames";
 
 import { usePathname } from "next/navigation";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Link from "@/components/ViewTransitionLink";
 
 import { LINKS, SITE } from "@/lib/config";
 
-export default function Drawer() {
+export interface DrawerProps {
+  open?: boolean;
+  onToggleDrawer?: () => void;
+}
+
+export default function Drawer({ open, onToggleDrawer: handleToggleDrawer }: DrawerProps) {
   const pathname = usePathname();
   const subpath = pathname.match(/[^/]+/g);
 
   return (
     <div
-      id="drawer"
-      className="fixed inset-0 h-0 z-40 overflow-hidden flex flex-col items-center justify-center md:hidden bg-neutral-100 dark:bg-neutral-900 transition-[height] duration-300 ease-in-out"
+      className={classnames(
+        "fixed inset-0 h-0 z-40 overflow-hidden flex flex-col items-center justify-center md:hidden bg-neutral-100 dark:bg-neutral-900 transition-[height] duration-300 ease-in-out",
+        {
+          "h-full": open,
+        }
+      )}
     >
       <nav className="flex flex-col items-center space-y-2">
         {LINKS.map((LINK, i) => (
@@ -37,6 +45,7 @@ export default function Drawer() {
                 }
               )
             )}
+            onClick={() => handleToggleDrawer?.()}
           >
             {LINK.TEXT}
           </Link>

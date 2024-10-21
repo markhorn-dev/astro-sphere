@@ -1,7 +1,7 @@
 "use client";
 
 import localFont from "next/font/local";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import Drawer from "@/components/Drawer";
 import Footer from "@/components/Footer";
@@ -24,14 +24,18 @@ const atkinson = localFont({
 });
 
 export default function DefaultLayout({ children }: React.PropsWithChildren) {
+  const [open, setOpen] = useState<boolean>(false);
+
   useLayoutEffect(() => {
     document.documentElement.classList.toggle("dark", getTheme() === "dark");
   }, []);
 
+  const handleToggleDrawer = () => setOpen((prev) => !prev);
+
   return (
     <body className={`${atkinson.className}`}>
-      <Header />
-      <Drawer />
+      <Header open={open} onToggleDrawer={handleToggleDrawer} />
+      <Drawer open={open} onToggleDrawer={handleToggleDrawer} />
       <main>{children}</main>
       <Footer />
     </body>
