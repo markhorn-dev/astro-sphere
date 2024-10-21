@@ -20,7 +20,11 @@ export default function ArrowCard({ entry, pill }: Props) {
         <div className="flex flex-wrap items-center gap-2">
           {pill && (
             <div className="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25">
-              {metadata.collection === "blog" ? "post" : "project"}
+              {"blog" === metadata.collection
+                ? "post"
+                : "projects" === metadata.collection
+                  ? "projects"
+                  : "legals"}
             </div>
           )}
           <div className="text-sm uppercase">
@@ -35,7 +39,7 @@ export default function ArrowCard({ entry, pill }: Props) {
 
         <div className="text-sm line-clamp-2">{metadata.description}</div>
         <ul className="flex flex-wrap mt-2 gap-1">
-          {metadata.tags.map((tag, i) => (
+          {metadata.tags?.map((tag, i) => (
             <li
               key={`tag-${i}`}
               className="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75"

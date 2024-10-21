@@ -6,10 +6,11 @@ import { useMemo, useState } from "react";
 
 import ArrowCard from "@/components/ArrowCard";
 
+import type { LegalItem } from "@/data/legals";
 import type { PostItem } from "@/data/posts";
 import type { ProjectItem } from "@/data/projects";
 
-type ContentItem = PostItem | ProjectItem;
+type ContentItem = PostItem | ProjectItem | LegalItem;
 
 export interface SearchProps {
   data: Array<ContentItem>;

@@ -7,6 +7,7 @@ import Search from "@/components/Search";
 
 import TopLayout from "@/components/TopLayout";
 
+import legals from "@/data/legals";
 import posts from "@/data/posts";
 import projects from "@/data/projects";
 import { SEARCH } from "@/lib/config";
@@ -32,7 +33,7 @@ export default function SearchPage() {
           viewport={{ once: true, amount: 0.32 }}
           transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
         >
-          <Search data={[...posts, ...projects]} />
+          <Search data={[...posts, ...projects, ...legals]} />
         </motion.div>
       </BottomLayout>
     </>
