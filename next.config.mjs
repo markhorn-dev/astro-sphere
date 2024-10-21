@@ -4,7 +4,9 @@ import remarkHeadingId from "remark-heading-id";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import remarkPrism from "remark-prism";
 
+const separator = "\n---\n\n";
 function extendsMetadataContent() {
   return (ast, file) => {
     const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type);
@@ -27,6 +29,9 @@ function extendsMetadataContent() {
     } = properties.find(({ key: { value } }) => "title" === value || "company");
 
     const trimed = file.value.trim();
+    const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length);
+    const withoutCode = content.replace(/```[^]+?```/g, "");
+
     properties.push({
       type: "Property",
       method: false,
@@ -34,7 +39,20 @@ function extendsMetadataContent() {
       computed: false,
       kind: "init",
       key: { type: "Literal", value: "content" },
-      value: { type: "Literal", value: trimed.substring(trimed.indexOf("\n---\n\n", 1)) },
+      value: { type: "Literal", value: content },
+    });
+    properties.push({
+      type: "Property",
+      method: false,
+      shorthand: false,
+      computed: false,
+      kind: "init",
+      key: { type: "Literal", value: "headings" },
+      value: {
+        type: "ArrayExpression",
+        elements:
+          withoutCode.match(/^#[^\n]+/gm)?.map((value) => ({ type: "Literal", value })) ?? [],
+      },
     });
 
     const { value: { value: slug = "" } = {} } =
@@ -67,6 +85,7 @@ const withMDX = createMDX({
       [remarkHeadingId, { defaults: true, uniqueDefaults: false }],
       remarkFrontmatter,
       [remarkMdxFrontmatter, { name: "metadata" }],
+      remarkPrism,
       extendsMetadataContent,
     ],
   },

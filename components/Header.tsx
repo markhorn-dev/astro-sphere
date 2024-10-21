@@ -121,7 +121,7 @@ export default function Header({
                 )
               )}
             >
-              <Search className="size-full" />
+              <Search className="block size-full" />
             </Link>
 
             <Link
@@ -139,7 +139,7 @@ export default function Header({
                 )
               )}
             >
-              <RssFeed className="size-full" />
+              <RssFeed className="block size-full" />
             </Link>
 
             <button

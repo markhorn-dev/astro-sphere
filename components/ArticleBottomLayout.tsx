@@ -1,5 +1,7 @@
 "use client";
 
+import "prismjs/themes/prism-twilight.css";
+
 import { useMemo } from "react";
 
 import Link from "@/components/ViewTransitionLink";
