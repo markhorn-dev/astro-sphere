@@ -3,7 +3,6 @@
 import classnames from "classnames";
 
 import { usePathname } from "next/navigation";
-import { forwardRef, useImperativeHandle, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Link from "@/components/ViewTransitionLink";
