@@ -1,25 +1,23 @@
 "use client";
 
 import SearchIcon from "@mui/icons-material/Search";
+
 import { motion } from "framer-motion";
+
 import Fuse from "fuse.js";
 
 import { useMemo, useState } from "react";
 
 import ArrowCard from "@/components/ArrowCard";
 
-import type { LegalItem } from "@/data/legals";
-import type { PostItem } from "@/data/posts";
-import type { ProjectItem } from "@/data/projects";
+import legals from "@/data/legals";
+import posts from "@/data/posts";
+import projects from "@/data/projects";
 
-type ContentItem = PostItem | ProjectItem | LegalItem;
-
-export interface SearchProps {
-  data: Array<ContentItem>;
-}
-
-export default function Search({ data }: SearchProps) {
+export default function Search() {
   const [query, setQuery] = useState<string>("");
+
+  const data = [...posts, ...projects, ...legals];
 
   const fuse = new Fuse(data, {
     keys: ["metadata.slug", "metadata.title", "metadata.description", "metadata.tags"],

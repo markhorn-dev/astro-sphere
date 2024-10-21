@@ -1,40 +1,21 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 import BottomLayout from "@/components/BottomLayout";
 import Search from "@/components/Search";
 
 import TopLayout from "@/components/TopLayout";
 
-import legals from "@/data/legals";
-import posts from "@/data/posts";
-import projects from "@/data/projects";
-import { SEARCH } from "@/lib/config";
+import { site } from "@/config";
+
+export const metadata = {
+  title: `${site.name} - Find Something.`,
+  description: `Search Contents in ${site.name}.`,
+};
 
 export default function SearchPage() {
   return (
     <>
-      <TopLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-          className="page-heading"
-        >
-          {SEARCH.TITLE}
-        </motion.div>
-      </TopLayout>
+      <TopLayout>Search</TopLayout>
       <BottomLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
-        >
-          <Search data={[...posts, ...projects, ...legals]} />
-        </motion.div>
+        <Search />
       </BottomLayout>
     </>
   );

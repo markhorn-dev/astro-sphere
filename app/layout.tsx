@@ -1,10 +1,10 @@
 import "@/styles/global.css";
 
-import { SITE } from "@/lib/config";
+import { site } from "@/config";
 
 export const metadata = {
-  title: SITE.TITLE,
-  description: SITE.DESCRIPTION,
+  title: site.name,
+  description: site.description,
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <html lang="en">{children}</html>;

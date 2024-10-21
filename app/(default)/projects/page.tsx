@@ -3,7 +3,6 @@ import Projects from "@/components/Projects";
 import TopLayout from "@/components/TopLayout";
 
 import { author, site } from "@/config";
-import { PROJECTS } from "@/lib/config";
 
 export const metadata = {
   title: `${site.name} - ${author.name}'s Project`,
@@ -13,7 +12,7 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <TopLayout className="page-heading">{PROJECTS.TITLE}</TopLayout>
+      <TopLayout className="page-heading">Projects</TopLayout>
 
       <BottomLayout>
         <Projects />
