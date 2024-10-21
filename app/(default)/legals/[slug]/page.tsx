@@ -1,5 +1,7 @@
 "use client";
 
+import "prismjs/themes/prism-twilight.css";
+
 import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 

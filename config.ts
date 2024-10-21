@@ -43,8 +43,8 @@ export const social = [
   {
     name: "Email",
     icon: Email,
-    text: "markhorn.dev@gmail.com",
-    href: "mailto:markhorn.dev@gmail.com",
+    text: author.email,
+    href: `mailto:${author.email}`,
   },
   {
     name: "Github",
