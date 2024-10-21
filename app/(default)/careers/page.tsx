@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import { works } from "@/data/works";
+import { careers } from "@/data/careers";
 import { WORK } from "@/lib/config";
 
-function formatWorkDate(input: Date | string) {
+function formatCareerDate(input: Date | string) {
   if (typeof input === "string") return input;
 
   const month = input.toLocaleDateString("en-US", {
@@ -19,7 +19,7 @@ function formatWorkDate(input: Date | string) {
   return `${month} ${year}`;
 }
 
-export default function WorkPage() {
+export default function CareerPage() {
   return (
     <>
       <TopLayout>
@@ -35,9 +35,9 @@ export default function WorkPage() {
       </TopLayout>
       <BottomLayout>
         <ul>
-          {works.map(({ Component, metadata }, i) => (
+          {careers.map(({ Component, metadata }, i) => (
             <motion.li
-              key={`work-${i}`}
+              key={`career-${i}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.32 }}
@@ -45,7 +45,7 @@ export default function WorkPage() {
               className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
             >
               <div className="text-sm uppercase mb-4">
-                {formatWorkDate(metadata.started)} - {formatWorkDate(metadata.ended)}
+                {formatCareerDate(metadata.started)} - {formatCareerDate(metadata.ended)}
               </div>
               <div className="text-black dark:text-white font-semibold">{metadata.company}</div>
               <div className="text-sm font-semibold">{metadata.role}</div>

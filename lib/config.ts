@@ -7,10 +7,10 @@ export const SITE: Site = {
   AUTHOR: "Mark Horn",
 };
 
-// Work Page
+// Career Page
 export const WORK: Page = {
-  TITLE: "Work",
-  DESCRIPTION: "Places I have worked.",
+  TITLE: "Career",
+  DESCRIPTION: "Places I have careered.",
 };
 
 // Blog Page
@@ -22,7 +22,7 @@ export const BLOG: Page = {
 // Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
-  DESCRIPTION: "Recent projects I have worked on.",
+  DESCRIPTION: "Recent projects I have careered on.",
 };
 
 // Search Page
@@ -38,8 +38,8 @@ export const LINKS: Links = [
     HREF: "/",
   },
   {
-    TEXT: "Work",
-    HREF: "/work",
+    TEXT: "Careers",
+    HREF: "/careers",
   },
   {
     TEXT: "Blog",

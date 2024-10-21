@@ -248,10 +248,10 @@ export default function HomePage() {
                   Read my blog
                 </Link>
                 <Link
-                  href="/work"
+                  href="/careers"
                   className="py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
                 >
-                  View my work
+                  View my careers
                 </Link>
               </div>
             </div>
@@ -320,7 +320,7 @@ export default function HomePage() {
               </p>
               <p>Now</p>
               <p>
-                I currently work as a software engineer at StreamlineFS, where I do product
+                I currently career as a software engineer at StreamlineFS, where I do product
                 planning, design and development.
               </p>
             </article>
