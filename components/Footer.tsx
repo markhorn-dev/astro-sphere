@@ -1,13 +1,21 @@
-import Link from "next/link";
+"use client";
+
+import { motion } from "framer-motion";
 
 import Container from "@/components/Container";
+import Link from "@/components/ViewTransitionLink";
 
 import { SITE, SOCIALS } from "@/lib/config";
 
 export default function Footer() {
   return (
     <footer className="relative bg-white dark:bg-black">
-      <div className="animate">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.32 }}
+        transition={{ duration: 0.56, ease: "easeInOut" }}
+      >
         <section className="py-5">
           <Container size="md">
             <div className="flex items-center justify-center sm:justify-end">
@@ -115,7 +123,7 @@ export default function Footer() {
             </div>
           </Container>
         </section>
-      </div>
+      </motion.div>
     </footer>
   );
 }

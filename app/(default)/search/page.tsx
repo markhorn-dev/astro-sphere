@@ -1,25 +1,39 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import BottomLayout from "@/components/BottomLayout";
 import Search from "@/components/Search";
 
 import TopLayout from "@/components/TopLayout";
 
+import { posts } from "@/data/blog";
+import { projects } from "@/data/projects";
 import { SEARCH } from "@/lib/config";
-
-import { posts } from "@/lib/data/blog";
-import { projects } from "@/lib/data/projects";
 
 export default function SearchPage() {
   return (
     <>
       <TopLayout>
-        <div className="animate page-heading">{SEARCH.TITLE}</div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{ duration: 0.56, ease: "easeInOut" }}
+          className="page-heading"
+        >
+          {SEARCH.TITLE}
+        </motion.div>
       </TopLayout>
       <BottomLayout>
-        <div className="animate">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
+        >
           <Search data={[...posts, ...projects]} />
-        </div>
+        </motion.div>
       </BottomLayout>
     </>
   );

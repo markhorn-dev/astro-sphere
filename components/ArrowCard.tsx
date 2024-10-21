@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from "@/components/ViewTransitionLink";
 
-import type { PostItem } from "@/lib/data/blog";
-import type { ProjectItem } from "@/lib/data/projects";
+import type { PostItem } from "@/data/blog";
+import type { ProjectItem } from "@/data/projects";
 
 type Props = {
   entry: PostItem | ProjectItem;

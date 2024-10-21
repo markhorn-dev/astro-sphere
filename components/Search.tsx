@@ -6,8 +6,8 @@ import { useMemo, useState } from "react";
 
 import ArrowCard from "@/components/ArrowCard";
 
-import type { PostItem } from "@/lib/data/blog";
-import type { ProjectItem } from "@/lib/data/projects";
+import type { PostItem } from "@/data/blog";
+import type { ProjectItem } from "@/data/projects";
 
 type ContentItem = PostItem | ProjectItem;
 

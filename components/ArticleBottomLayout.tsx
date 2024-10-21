@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 
-import { type PostItem, posts } from "@/lib/data/blog";
-import { type ProjectItem, projects } from "@/lib/data/projects";
+import Link from "@/components/ViewTransitionLink";
+
+import { type PostItem, posts } from "@/data/blog";
+import { type ProjectItem, projects } from "@/data/projects";
 
 type ContentItem = PostItem | ProjectItem;
 

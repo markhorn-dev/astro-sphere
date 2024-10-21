@@ -1,11 +1,12 @@
 "use client";
 
 import classnames from "classnames";
+import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
-import { type PostItem } from "@/lib/data/blog";
+import { type PostItem } from "@/data/blog";
 
 export interface BlogProps {
   tags: Array<string>;
@@ -42,7 +43,13 @@ export default function Blog({ posts, tags }: BlogProps) {
           </div>
           <ul className="flex flex-wrap sm:flex-col gap-1.5">
             {tags.map((tag, i) => (
-              <li key={`tag-${i}`}>
+              <motion.li
+                key={`tag-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.32 }}
+                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              >
                 <button
                   onClick={() => handleClickTagToggle(tag)}
                   className={twMerge(
@@ -77,7 +84,7 @@ export default function Blog({ posts, tags }: BlogProps) {
                   </svg>
                   {tag}
                 </button>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -89,9 +96,15 @@ export default function Blog({ posts, tags }: BlogProps) {
           </div>
           <ul className="flex flex-col gap-3">
             {filteredPosts.map((post, i) => (
-              <li key={`post-${i}`}>
+              <motion.li
+                key={`post-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.32 }}
+                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              >
                 <ArrowCard entry={post} />
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>

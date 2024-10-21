@@ -1,18 +1,19 @@
 "use client";
 
-import Link from "next/link";
+import { motion } from "framer-motion";
+
 import { usePathname } from "next/navigation";
-import { Fragment, useCallback, useEffect, useRef } from "react";
+import { Fragment, useCallback, useLayoutEffect, useRef } from "react";
 
 import ArrowCard from "@/components/ArrowCard";
 import MeteorShower from "@/components/MeteorShower";
 import StackCard from "@/components/StackCard";
 import TwinklingStars from "@/components/TwinklingStars";
+import Link from "@/components/ViewTransitionLink";
 
+import { posts } from "@/data/blog";
+import { projects } from "@/data/projects";
 import { SOCIALS } from "@/lib/config";
-
-import { posts } from "@/lib/data/blog";
-import { projects } from "@/lib/data/projects";
 import getTheme from "@/lib/getTheme";
 
 const stack = [
@@ -150,14 +151,14 @@ export default function HomePage() {
     [stars1Ref, stars2Ref, stars3Ref]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const theme = getTheme();
 
     particles(theme);
     stars(theme);
   }, [particles, stars]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new MutationObserver(() => {
       const theme = getTheme();
 
@@ -199,7 +200,13 @@ export default function HomePage() {
       </div>
 
       <section className="relative h-screen w-full">
-        <div id="planetcont" className="animate absolute inset-0 top-1/4 overflow-hidden">
+        <motion.div
+          id="planetcont"
+          className="absolute inset-0 top-1/4 overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.56, ease: "easeInOut" }}
+        >
           <div
             id="crescent"
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%"
@@ -214,20 +221,25 @@ export default function HomePage() {
               />
             </div>
           </div>
-        </div>
-        <div className="animate absolute h-full w-full flex items-center justify-center">
+        </motion.div>
+        <motion.div
+          className="absolute h-full w-full flex items-center justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
+        >
           <div className="relative w-full h-full flex items-center justify-center">
             <div className="p-5 text-center">
-              <p className="animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75">
+              <p className="text-lg md:text-xl lg:text-2xl font-semibold opacity-75">
                 Hello, I am ...
               </p>
-              <p className="animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white">
+              <p className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white">
                 Next.js Astro Sphere
               </p>
-              <p className="animated text-sm md:text-base lg:text-lg opacity-75">
+              <p className="text-sm md:text-base lg:text-lg opacity-75">
                 Currently designing products for humans.
               </p>
-              <div id="ctaButtons" className="animated flex flex-wrap gap-4 justify-center mt-5">
+              <div id="ctaButtons" className="flex flex-wrap gap-4 justify-center mt-5">
                 <Link
                   href="/blog"
                   className="py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend"
@@ -243,12 +255,17 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <div className="relative bg-white dark:bg-black">
         <div className="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
-          <section className="animate">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.56, ease: "easeInOut" }}
+          >
             <article>
               <p>
                 I am a{" "}
@@ -306,9 +323,14 @@ export default function HomePage() {
                 planning, design and development.
               </p>
             </article>
-          </section>
+          </motion.section>
 
-          <section className="animate">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.56, ease: "easeInOut" }}
+          >
             <div className="space-y-4">
               <div className="flex justify-between">
                 <p className="font-semibold text-black dark:text-white">Recent posts</p>
@@ -329,9 +351,14 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="animate">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.56, ease: "easeInOut" }}
+          >
             <div className="space-y-4">
               <p className="font-semibold text-black dark:text-white">Website build with</p>
               <div className="flex flex-wrap items-center gap-2 mt-5">
@@ -357,9 +384,14 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="animate">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.56, ease: "easeInOut" }}
+          >
             <div className="space-y-4">
               <div className="flex justify-between">
                 <p className="font-semibold text-black dark:text-white">Recent projects</p>
@@ -380,9 +412,14 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="animate">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.56, ease: "easeInOut" }}
+          >
             <div>
               <p className="font-semibold text-black dark:text-white">Let's Connect</p>
               <p>Reach out to me via email or on social media.</p>
@@ -407,7 +444,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </section>
+          </motion.section>
         </div>
       </div>
     </>

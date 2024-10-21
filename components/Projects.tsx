@@ -1,12 +1,12 @@
 "use client";
 
 import classnames from "classnames";
-
+import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
-import type { ProjectItem } from "@/lib/data/projects";
+import type { ProjectItem } from "@/data/projects";
 
 export interface ProjectsProps {
   tags: string[];
@@ -43,7 +43,13 @@ export default function Projects({ projects, tags }: ProjectsProps) {
           </div>
           <ul className="flex flex-wrap sm:flex-col gap-1.5">
             {tags.map((tag, i) => (
-              <li key={`tag-${i}`}>
+              <motion.li
+                key={`tag-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.32 }}
+                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              >
                 <button
                   onClick={() => handleClickTagToggle(tag)}
                   className={twMerge(
@@ -78,7 +84,7 @@ export default function Projects({ projects, tags }: ProjectsProps) {
                   </svg>
                   {tag}
                 </button>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -90,9 +96,15 @@ export default function Projects({ projects, tags }: ProjectsProps) {
           </div>
           <ul className="flex flex-col gap-3">
             {filteredProjects.map((project, i) => (
-              <li key={`project-${i}`}>
+              <motion.li
+                key={`project-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.32 }}
+                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              >
                 <ArrowCard entry={project} />
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>

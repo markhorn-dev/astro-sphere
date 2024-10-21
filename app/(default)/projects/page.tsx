@@ -1,24 +1,38 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import BottomLayout from "@/components/BottomLayout";
 import Projects from "@/components/Projects";
 import TopLayout from "@/components/TopLayout";
 
+import { projects, tags } from "@/data/projects";
 import { PROJECTS } from "@/lib/config";
-
-import { projects, tags } from "@/lib/data/projects";
 
 export default function ProjectsPage() {
   return (
     <>
       <TopLayout>
-        <div className="animate page-heading">{PROJECTS.TITLE}</div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{ duration: 0.56, ease: "easeInOut" }}
+          className="page-heading"
+        >
+          {PROJECTS.TITLE}
+        </motion.div>
       </TopLayout>
 
       <BottomLayout>
-        <div className="animate">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{ duration: 0.56, ease: "easeInOut" }}
+        >
           <Projects tags={tags} projects={projects} />
-        </div>
+        </motion.div>
       </BottomLayout>
     </>
   );
