@@ -10,7 +10,7 @@ import ArticleTopLayout from "@/components/ArticleTopLayout";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import type { PostItem } from "@/data/blog";
+import type { PostItem } from "@/data/posts";
 import { type ProjectItem, projects } from "@/data/projects";
 
 type ContentItem = PostItem | ProjectItem;
@@ -29,7 +29,7 @@ export default function ProjectViewer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.32 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.56, ease: "easeInOut" }}
         >
           <ArticleTopLayout entry={project} />
@@ -39,7 +39,7 @@ export default function ProjectViewer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.32 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
         >
           <ArticleBottomLayout entry={project} />

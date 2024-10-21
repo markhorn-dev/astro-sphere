@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import Link from "@/components/ViewTransitionLink";
 
-import { type PostItem, posts } from "@/data/blog";
+import { type PostItem, posts } from "@/data/posts";
 import { type ProjectItem, projects } from "@/data/projects";
 
 type ContentItem = PostItem | ProjectItem;

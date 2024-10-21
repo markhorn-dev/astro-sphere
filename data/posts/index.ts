@@ -6,6 +6,7 @@ import Post03, {
 import Post04, { metadata as metadata04 } from "./04-astro-sphere-writing-markdown/index.mdx";
 import Post05, { metadata as metadata05 } from "./05-astro-sphere-writing-mdx/index.mdx";
 import Post06, { metadata as metadata06 } from "./06-astro-sphere-social-links/index.mdx";
+import Post07, { metadata as metadata07 } from "./07-mdx-syntax/index.mdx";
 
 export const posts = [
   { Component: Post01, metadata: metadata01 },
@@ -14,6 +15,7 @@ export const posts = [
   { Component: Post04, metadata: metadata04 },
   { Component: Post05, metadata: metadata05 },
   { Component: Post06, metadata: metadata06 },
+  { Component: Post07, metadata: metadata07 },
 ]
   .filter(({ metadata: { draft } }) => !draft)
   .toSorted(

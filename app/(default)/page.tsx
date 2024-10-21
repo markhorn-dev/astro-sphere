@@ -11,10 +11,10 @@ import StackCard from "@/components/StackCard";
 import TwinklingStars from "@/components/TwinklingStars";
 import Link from "@/components/ViewTransitionLink";
 
-import { posts } from "@/data/blog";
+import { posts } from "@/data/posts";
 import { projects } from "@/data/projects";
 import { SOCIALS } from "@/lib/config";
-import getTheme from "@/lib/getTheme";
+import { getTheme } from "@/lib/theme";
 
 const stack = [
   {

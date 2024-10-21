@@ -1,6 +1,6 @@
 import Link from "@/components/ViewTransitionLink";
 
-import type { PostItem } from "@/data/blog";
+import type { PostItem } from "@/data/posts";
 import type { ProjectItem } from "@/data/projects";
 
 type Props = {

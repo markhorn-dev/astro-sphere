@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
-import { type PostItem } from "@/data/blog";
+import { type PostItem } from "@/data/posts";
 
 export interface BlogProps {
   tags: Array<string>;

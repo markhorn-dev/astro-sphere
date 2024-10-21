@@ -1,4 +1,4 @@
-header.header {
+.header {
   @apply border-b;
   @apply transition-all duration-300 ease-in-out;
 }
@@ -8,7 +8,9 @@ header.header {
 }
 
 .scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
-  @apply backdrop-blur-sm saturate-200;
+  @apply bg-white/75 border-black/10 backdrop-blur-sm saturate-200;
+}
+
+.scrolled-dark {
+  @apply bg-black/50 border-white/25 backdrop-blur-sm saturate-200;
 }

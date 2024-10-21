@@ -11,60 +11,41 @@ import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
 import { LINKS, SITE } from "@/lib/config";
-import getTheme from "@/lib/getTheme";
 
 import styles from "@/styles/header.module.css";
 
 export interface HeaderProps {
+  dark?: boolean;
   open?: boolean;
   onToggleDrawer?: () => void;
+  onToggleTheme?: () => void;
 }
 
-export default function Header({ open, onToggleDrawer: handleToggleDrawer }: HeaderProps) {
+export default function Header({
+  dark,
+  open,
+  onToggleDrawer: handleToggleDrawer,
+  onToggleTheme: handleToggleTheme,
+}: HeaderProps) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState<boolean>(false);
+
   const headerRef = useRef<HTMLElement>(null);
 
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
   const subpath = pathname.match(/[^/]+/g);
-
-  const handleClickChangeTheme = () => {
-    const theme = getTheme() === "dark" ? "light" : "dark";
-
-    const css = document.createElement("style");
-    css.appendChild(
-      document.createTextNode(
-        `* {
-             -webkit-transition: none !important;
-             -moz-transition: none !important;
-             -o-transition: none !important;
-             -ms-transition: none !important;
-             transition: none !important;
-          }`
-      )
-    );
-
-    document.head.appendChild(css);
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    document.head.removeChild(css);
-
-    localStorage.theme = theme;
-  };
 
   const isMatched = (href: string) => pathname === href || "/" + subpath?.[0] === href;
 
   useLayoutEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 0;
-      headerRef.current?.classList.toggle("scrolled", scrolled);
-      setScrolled(scrolled);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 0);
 
     document.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, [headerRef]);
+  }, [headerRef, setScrolled]);
 
   return (
     <header
@@ -72,7 +53,8 @@ export default function Header({ open, onToggleDrawer: handleToggleDrawer }: Hea
       id="header"
       className={classnames(styles.header, "fixed top-0 w-full h-16 z-50", {
         [styles["not-scrolled"]]: !scrolled,
-        [styles["scrolled"]]: scrolled,
+        [styles["scrolled"]]: scrolled && !dark,
+        [styles["scrolled-dark"]]: scrolled && dark,
       })}
     >
       <Container size="md">
@@ -170,7 +152,7 @@ export default function Header({ open, onToggleDrawer: handleToggleDrawer }: Hea
                   "transition-colors duration-300 ease-in-out"
                 )
               )}
-              onClick={handleClickChangeTheme}
+              onClick={handleToggleTheme}
             >
               <svg className="size-full block dark:hidden">
                 <use href="/ui.svg#sun"></use>
