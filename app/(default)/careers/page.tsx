@@ -26,7 +26,7 @@ export default function CareerPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.32 }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.56, ease: "easeInOut" }}
           className="page-heading"
         >
@@ -40,7 +40,7 @@ export default function CareerPage() {
               key={`career-${i}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.32 }}
+              viewport={{ once: true, amount: "some" }}
               transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
               className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
             >

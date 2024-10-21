@@ -264,7 +264,7 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.56, ease: "easeInOut" }}
           >
             <article>
@@ -329,7 +329,7 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.56, ease: "easeInOut" }}
           >
             <div className="space-y-4">
@@ -357,7 +357,7 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.56, ease: "easeInOut" }}
           >
             <div className="space-y-4">
@@ -373,7 +373,7 @@ export default function HomePage() {
                 ))}
               </div>
               <div>
-                Performing reactivity and statefulness, special guest
+                Performing reactivity and statefulness, special guest{" "}
                 <Link
                   href="https://www.solidjs.com/"
                   target="_blank"
@@ -390,7 +390,7 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.56, ease: "easeInOut" }}
           >
             <div className="space-y-4">
@@ -418,7 +418,7 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.56, ease: "easeInOut" }}
           >
             <div>

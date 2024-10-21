@@ -50,7 +50,7 @@ export default function Projects({ projects, tags }: ProjectsProps) {
                 key={`tag-${i}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.32 }}
+                viewport={{ once: true, amount: "some" }}
                 transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
               >
                 <button
@@ -109,7 +109,7 @@ export default function Projects({ projects, tags }: ProjectsProps) {
                 key={`project-${i}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.32 }}
+                viewport={{ once: true, amount: "some" }}
                 transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
               >
                 <ArrowCard entry={project} />

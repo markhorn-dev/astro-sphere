@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.32 }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.56, ease: "easeInOut" }}
           className="page-heading"
         >
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.32 }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.56, ease: "easeInOut" }}
         >
           <Projects tags={tags} projects={projects} />

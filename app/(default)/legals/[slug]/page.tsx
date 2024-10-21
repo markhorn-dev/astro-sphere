@@ -27,7 +27,7 @@ export default function LegalViewer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.56, ease: "easeInOut" }}
         >
           <ArticleTopLayout entry={legal} />
@@ -38,7 +38,7 @@ export default function LegalViewer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
         >
           <ArticleBottomLayout entry={legal} />
