@@ -11,12 +11,14 @@ import { twMerge } from "tailwind-merge";
 import ArrowCard from "@/components/ArrowCard";
 import type { ProjectItem } from "@/data/projects";
 
+import projects, { tags } from "@/data/projects";
+
 export interface ProjectsProps {
   tags: string[];
   projects: Array<ProjectItem>;
 }
 
-export default function Projects({ projects, tags }: ProjectsProps) {
+export default function Projects() {
   const [selecteds, setSelecteds] = useState(new Set<string>());
 
   const filteredProjects = useMemo(

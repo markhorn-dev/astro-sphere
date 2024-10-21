@@ -8,7 +8,7 @@ import FaviconImage from "@/public/favicon.ico";
 
 export const site = {
   name: "luasis",
-  descipriotn: "luasis is a personal blog and portfolio site.",
+  description: "luasis is a personal blog and portfolio site.",
   logo: FaviconImage,
   baseurl: "http://localhost:3000",
 };
@@ -63,5 +63,28 @@ export const social = [
     icon: X,
     text: "luasenvy",
     href: "https://x.com/luasenvy",
+  },
+];
+
+export const stack = [
+  {
+    text: "Astro",
+    icon: "astro",
+    href: "https://astro.build",
+  },
+  {
+    text: "Javascript",
+    icon: "javascript",
+    href: "https://www.javascript.com",
+  },
+  {
+    text: "Typescript",
+    icon: "typescript",
+    href: "https://www.typescriptlang.org",
+  },
+  {
+    text: "Tailwind",
+    icon: "tailwind",
+    href: "https://tailwindcss.com",
   },
 ];

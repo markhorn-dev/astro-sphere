@@ -11,14 +11,9 @@ import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
-import { type PostItem } from "@/data/posts";
+import posts, { tags } from "@/data/posts";
 
-export interface BlogProps {
-  tags: Array<string>;
-  posts: Array<PostItem>;
-}
-
-export default function Blog({ posts, tags }: BlogProps) {
+export default function Blog() {
   const [selecteds, setSelecteds] = useState(new Set<string>());
 
   const filteredPosts = useMemo(

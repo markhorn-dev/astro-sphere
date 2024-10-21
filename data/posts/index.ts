@@ -35,7 +35,7 @@ export const tags = Array.from(new Set(posts.flatMap(({ metadata }) => metadata.
 
 const feed = new Feed({
   title: site.name,
-  description: site.descipriotn,
+  description: site.description,
   id: site.baseurl,
   link: site.baseurl,
   language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes

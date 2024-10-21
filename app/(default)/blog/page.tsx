@@ -1,38 +1,21 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 import Blog from "@/components/Blog";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import posts, { tags } from "@/data/posts";
-import { BLOG } from "@/lib/config";
+import { author, site } from "@/config";
+
+export const metadata = {
+  title: `${site.name} - ${author.name}'s Blog`,
+  description: `${author.name}'s Blog Posts.`,
+};
 
 export default function BlogPage() {
   return (
     <>
-      <TopLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-          className="page-heading"
-        >
-          {BLOG.TITLE}
-        </motion.div>
-      </TopLayout>
+      <TopLayout className="page-heading">Blog</TopLayout>
 
       <BottomLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-        >
-          <Blog tags={tags} posts={posts} />
-        </motion.div>
+        <Blog />
       </BottomLayout>
     </>
   );
