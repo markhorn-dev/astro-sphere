@@ -1,5 +1,5 @@
-import MeteorShower from "@/components/MeteorShower";
-import TwinklingStars from "@/components/TwinklingStars";
+import MeteorShower from "@/components/welcome/MeteorShower";
+import TwinklingStars from "@/components/welcome/TwinklingStars";
 
 export default function Galaxy() {
   return (

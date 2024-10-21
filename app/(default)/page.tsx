@@ -1,14 +1,14 @@
-import ConnectSocial from "@/components/ConnectSocial";
-import Galaxy from "@/components/Galaxy";
-import Particles from "@/components/Particles";
-import Planet from "@/components/Planet";
-import RecentPosts from "@/components/RecentPosts";
-import RecentProjects from "@/components/RecentProjects";
-import SkillStack from "@/components/SkillStack";
-import Stars from "@/components/Stars";
+import ConnectSocial from "@/components/welcome/ConnectSocial";
+import Galaxy from "@/components/welcome/Galaxy";
+import Particles from "@/components/welcome/Particles";
+import Planet from "@/components/welcome/Planet";
+import RecentPosts from "@/components/welcome/RecentPosts";
+import RecentProjects from "@/components/welcome/RecentProjects";
+import SkillStack from "@/components/welcome/SkillStack";
+import Stars from "@/components/welcome/Stars";
 
-import WelcomeHero from "@/components/WelcomeHero";
-import WelcomeTypography from "@/components/WelcomeTypography";
+import WelcomeHero from "@/components/welcome/WelcomeHero";
+import WelcomeTypography from "@/components/welcome/WelcomeTypography";
 import { site } from "@/config";
 
 export const metadata = {
