@@ -24,7 +24,7 @@ function extendsMetadataContent() {
 
     const {
       value: { value: title },
-    } = properties.find(({ key }) => "title" === key.value || "company");
+    } = properties.find(({ key: { value } }) => "title" === value || "company");
 
     const trimed = file.value.trim();
     properties.push({
@@ -37,6 +37,8 @@ function extendsMetadataContent() {
       value: { type: "Literal", value: trimed.substring(trimed.indexOf("\n---\n\n", 1)) },
     });
 
+    const { value: { value: slug = "" } = {} } =
+      properties.find(({ key: { value } }) => "slug" === value) ?? {};
     properties.push({
       type: "Property",
       method: false,
@@ -46,7 +48,7 @@ function extendsMetadataContent() {
       key: { type: "Literal", value: "slug" },
       value: {
         type: "Literal",
-        value: encodeURIComponent(title.replace(/[\s]+/g, "-").toLowerCase()),
+        value: slug || encodeURIComponent(title.replace(/[\s]+/g, "-").toLowerCase()),
       },
     });
   };

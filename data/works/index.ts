@@ -11,7 +11,7 @@ export const works = [
 ]
   .filter(({ metadata: { draft } }) => !draft)
   .toSorted(
-    ({ metadata: { dateStart: a } }, { metadata: { dateStart: b } }) =>
+    ({ metadata: { started: a } }, { metadata: { started: b } }) =>
       new Date(b).getTime() - new Date(a).getTime()
   );
 

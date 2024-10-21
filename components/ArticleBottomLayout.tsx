@@ -4,10 +4,11 @@ import { useMemo } from "react";
 
 import Link from "@/components/ViewTransitionLink";
 
-import { type PostItem, posts } from "@/data/posts";
-import { type ProjectItem, projects } from "@/data/projects";
+import legals, { type LegalItem } from "@/data/legals";
+import posts, { type PostItem } from "@/data/posts";
+import projects, { type ProjectItem } from "@/data/projects";
 
-type ContentItem = PostItem | ProjectItem;
+type ContentItem = PostItem | ProjectItem | LegalItem;
 
 export interface ArticleBottomLayoutProps {
   entry?: ContentItem;
@@ -15,8 +16,13 @@ export interface ArticleBottomLayoutProps {
 
 export default function ArticleBottomLayout({ entry }: ArticleBottomLayoutProps) {
   const contents = useMemo(
-    () => ("blog" === entry?.metadata.collection ? posts : projects),
-    [entry, posts, projects]
+    () =>
+      "blog" === entry?.metadata.collection
+        ? posts
+        : "projects" === entry?.metadata.collection
+          ? projects
+          : legals,
+    [entry, posts, projects, legals]
   );
 
   const prev = useMemo(() => {

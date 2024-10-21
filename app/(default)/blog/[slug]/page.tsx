@@ -11,7 +11,7 @@ import ArticleTopLayout from "@/components/ArticleTopLayout";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import { type PostItem, posts } from "@/data/posts";
+import posts, { type PostItem } from "@/data/posts";
 import type { ProjectItem } from "@/data/projects";
 
 type ContentItem = PostItem | ProjectItem;

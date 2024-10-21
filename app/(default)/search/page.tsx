@@ -7,8 +7,8 @@ import Search from "@/components/Search";
 
 import TopLayout from "@/components/TopLayout";
 
-import { posts } from "@/data/posts";
-import { projects } from "@/data/projects";
+import posts from "@/data/posts";
+import projects from "@/data/projects";
 import { SEARCH } from "@/lib/config";
 
 export default function SearchPage() {

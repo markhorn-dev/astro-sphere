@@ -6,7 +6,7 @@ import BottomLayout from "@/components/BottomLayout";
 import Projects from "@/components/Projects";
 import TopLayout from "@/components/TopLayout";
 
-import { projects, tags } from "@/data/projects";
+import projects, { tags } from "@/data/projects";
 import { PROJECTS } from "@/lib/config";
 
 export default function ProjectsPage() {

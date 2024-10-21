@@ -2,7 +2,7 @@ declare module "*.mdx" {
   import type { Element, MDXProps } from "mdx/types";
 
   interface Frontmatter {
-    collection: "projects" | "blog";
+    collection: "projects" | "blog" | "legals";
 
     categories: Array<string>;
     tags: Array<string>;
@@ -10,19 +10,19 @@ declare module "*.mdx" {
     title: string;
     subtitle: string;
     content: string;
-    summary: string;
+    description: string;
 
     image: string;
     author: string;
-    date: string;
 
-    dateStart: string;
-    dateEnd: string;
+    started: string;
+    ended: string;
     role: string;
     company: string;
     demo: string;
     repo: string;
 
+    created: string;
     featured: boolean;
     draft: boolean;
   }

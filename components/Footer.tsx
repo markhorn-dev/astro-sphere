@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
+import { author } from "@/config";
 import { SITE, SOCIALS } from "@/lib/config";
 
 export default function Footer() {
@@ -87,20 +88,20 @@ export default function Footer() {
               <div className="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start">
                 <div className="legal">
                   <Link
-                    href="/legal/terms"
+                    href="/legals/terms"
                     className="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
                   >
                     Terms
                   </Link>{" "}
                   |{" "}
                   <Link
-                    href="/legal/privacy"
+                    href="/legals/privacy"
                     className="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
                   >
                     Privacy
                   </Link>
                 </div>
-                <div className="text-sm mt-2">&copy; 2024 | All rights reserved</div>
+                <div className="text-sm mt-2">&copy; 2024 {author.name} | All rights reserved</div>
               </div>
 
               <div className="order-1 sm:order-2 flex justify-center sm:justify-end">

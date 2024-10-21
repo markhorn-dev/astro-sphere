@@ -19,7 +19,7 @@ export default function Search({ data }: SearchProps) {
   const [query, setQuery] = useState<string>("");
 
   const fuse = new Fuse(data, {
-    keys: ["metadata.slug", "metadata.title", "metadata.summary", "metadata.tags"],
+    keys: ["metadata.slug", "metadata.title", "metadata.description", "metadata.tags"],
     includeMatches: true,
     minMatchCharLength: 2,
     threshold: 0.4,

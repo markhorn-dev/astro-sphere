@@ -6,7 +6,7 @@ import Blog from "@/components/Blog";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import { posts, tags } from "@/data/posts";
+import posts, { tags } from "@/data/posts";
 import { BLOG } from "@/lib/config";
 
 export default function BlogPage() {

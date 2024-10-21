@@ -45,7 +45,7 @@ export default function WorkPage() {
               className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
             >
               <div className="text-sm uppercase mb-4">
-                {formatWorkDate(metadata.dateStart)} - {formatWorkDate(metadata.dateEnd)}
+                {formatWorkDate(metadata.started)} - {formatWorkDate(metadata.ended)}
               </div>
               <div className="text-black dark:text-white font-semibold">{metadata.company}</div>
               <div className="text-sm font-semibold">{metadata.role}</div>

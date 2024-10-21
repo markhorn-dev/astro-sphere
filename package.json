@@ -39,6 +39,7 @@
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "feed": "^4.2.2",
     "framer-motion": "^11.11.9",
     "fuse.js": "^7.0.0",
     "husky": "^9.1.6",

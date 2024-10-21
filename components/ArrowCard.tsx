@@ -28,12 +28,12 @@ export default function ArrowCard({ entry, pill }: Props) {
               month: "short",
               day: "2-digit",
               year: "numeric",
-            }).format(new Date(metadata.date))}
+            }).format(new Date(metadata.created))}
           </div>
         </div>
         <div className="font-semibold mt-3 text-black dark:text-white">{metadata.title}</div>
 
-        <div className="text-sm line-clamp-2">{metadata.summary}</div>
+        <div className="text-sm line-clamp-2">{metadata.description}</div>
         <ul className="flex flex-wrap mt-2 gap-1">
           {metadata.tags.map((tag, i) => (
             <li

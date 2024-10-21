@@ -57,12 +57,12 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
           <svg className="size-5 stroke-current">
             <use href="/ui.svg#calendar" />
           </svg>
-          {entry?.metadata.date &&
+          {entry?.metadata.created &&
             Intl.DateTimeFormat(undefined, {
               month: "short",
               day: "2-digit",
               year: "numeric",
-            }).format(new Date(entry.metadata.date))}
+            }).format(new Date(entry.metadata.created))}
         </div>
         <div className="flex items-center gap-2">
           <svg className="size-5 stroke-current">
@@ -74,7 +74,7 @@ export default function ArticleTopLayout({ entry }: ArticleTopLayoutProps) {
       <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">
         {entry?.metadata.title}
       </h1>
-      <div className="mt-1">{entry?.metadata.summary}</div>
+      <div className="mt-1">{entry?.metadata.description}</div>
       {(entry?.metadata.demo || entry?.metadata.repo) && (
         <div className="mt-4 flex flex-wrap gap-2">
           {entry?.metadata.demo && (
