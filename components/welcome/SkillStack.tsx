@@ -9,19 +9,32 @@ import { stack } from "@/config";
 
 export default function SkillStack() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: "some" }}
-      transition={{ duration: 0.56, ease: "easeInOut" }}
-    >
+    <section>
       <div className="space-y-4">
         <p className="font-semibold text-black dark:text-white">Website build with</p>
-        <div className="flex flex-wrap items-center gap-2 mt-5">
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+          }}
+          initial="hidden"
+          whileInView="block"
+          viewport={{ once: true, amount: "all" }}
+          className="flex flex-wrap items-center gap-2 mt-5"
+        >
           {stack.map((item, i) => (
-            <StackCard key={`stack-card-${i}`} text={item.text} icon={item.icon} href={item.href} />
+            <motion.span
+              key={`stack-card-${i}`}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+              }}
+            >
+              <StackCard text={item.text} icon={item.icon} href={item.href} />
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
+
         <div>
           Performing reactivity and statefulness, special guest{" "}
           <Link
@@ -35,6 +48,6 @@ export default function SkillStack() {
           </Link>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
