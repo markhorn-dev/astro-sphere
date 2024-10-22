@@ -9,6 +9,7 @@ import Search from "@mui/icons-material/Search";
 
 import classnames from "classnames";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import { useLayoutEffect, useRef, useState } from "react";
@@ -17,7 +18,7 @@ import { twMerge } from "tailwind-merge";
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
-import { nav, site } from "@/config";
+import { logo, nav, site } from "@/config";
 
 import styles from "@/styles/header.module.css";
 
@@ -71,9 +72,24 @@ export default function Header({
               href="/"
               className="flex gap-1 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
             >
-              <svg className="size-6 fill-current">
-                <use href="/brand.svg#brand"></use>
-              </svg>
+              {logo.light && (
+                <Image
+                  width={25}
+                  height={32}
+                  alt="brand"
+                  className="dark:hidden"
+                  src={logo.light}
+                />
+              )}
+              {logo.dark && (
+                <Image
+                  width={25}
+                  height={32}
+                  alt="brand"
+                  className="hidden dark:block"
+                  src={logo.dark}
+                />
+              )}
               <div>{site.name}</div>
             </Link>
           </div>

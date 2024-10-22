@@ -22,7 +22,7 @@ export default function SkillStack() {
           viewport={{ once: true, amount: "all" }}
           className="flex flex-wrap items-center gap-2 mt-5"
         >
-          {stack.map((item, i) => (
+          {stack?.map(({ text, href }, i) => (
             <motion.span
               key={`stack-card-${i}`}
               variants={{
@@ -30,23 +30,10 @@ export default function SkillStack() {
                 block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
               }}
             >
-              <StackCard text={item.text} icon={item.icon} href={item.href} />
+              <StackCard text={text} href={href} />
             </motion.span>
           ))}
         </motion.div>
-
-        <div>
-          Performing reactivity and statefulness, special guest{" "}
-          <Link
-            href="https://www.solidjs.com/"
-            target="_blank"
-            className="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend"
-          >
-            <span className="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-              SolidJS
-            </span>
-          </Link>
-        </div>
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import type { SvgIconComponent } from "@mui/icons-material";
 import Email from "@mui/icons-material/Email";
 import GitHub from "@mui/icons-material/GitHub";
 import LinkedIn from "@mui/icons-material/LinkedIn";
@@ -6,104 +7,87 @@ import X from "@mui/icons-material/X";
 import AvatarImage from "@/public/avatar.webp";
 import FaviconImage from "@/public/favicon.ico";
 
+export const logo = {
+  light: process.env.NEXT_PUBLIC_LOGO_LIGHT,
+  dark: process.env.NEXT_PUBLIC_LOGO_DARK,
+};
+
 export const site = {
-  name: "luasis",
-  description: "luasis is a personal blog and portfolio site.",
-  logo: FaviconImage,
-  baseurl: "http://localhost:3000",
+  name: process.env.NEXT_PUBLIC_SITE_TITLE,
+  description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
+  logo: FaviconImage.src,
+  baseurl: process.env.NEXT_PUBLIC_SITE_BASEURL,
 };
 
 export const welcome = {
-  caption: `Hello, I am ...`,
-  title: `Next.js Astro Sphere`,
-  subtitle: `Currently designing products for humans.`,
-  primaryLink: {
-    name: "Read my blog",
-    href: "/blog",
-  },
-  secondaryLink: {
-    name: "View my careers",
-    href: "/careers",
-  },
-  introduce: `Hello! I’m a software programmer who enjoys creating efficient and user-friendly software. Skilled in both front-end and back-end development, I love turning ideas into practical, useful applications. By working with various technologies, I ensure flexible and precise outcomes.
-
-I focus on designing software that prioritizes performance and security, while also ensuring a smooth user experience. I enjoy collaborating with teams and actively participating in every stage of development, from planning to coding, testing, and deployment, often working in agile environments.
-
-I’m always eager to learn new technologies and take on challenges, staying up-to-date with the latest trends and tools in the fast-evolving development world. My goal is to create solutions that truly help people, leveraging my technical expertise to make a meaningful impact.`,
+  caption: process.env.NEXT_PUBLIC_WELCOME_CAPTION,
+  title: process.env.NEXT_PUBLIC_WELCOME_TITLE,
+  subtitle: process.env.NEXT_PUBLIC_WELCOME_SUBTITLE,
+  primaryLinkText: process.env.NEXT_PUBLIC_WELCOME_PRIMARY_TEXT,
+  secondaryLinkText: process.env.NEXT_PUBLIC_WELCOME_SECONDARY_TEXT,
+  introduce: process.env.NEXT_PUBLIC_WELCOME_INTRODUCE,
 };
 
 export const author = {
-  name: "luasenvy",
-  email: "luas.envy@gmail.com",
-  link: `${site.baseurl}/projects`,
-  avatar: AvatarImage,
+  name: process.env.NEXT_PUBLIC_AUTHOR_NAME,
+  email: process.env.NEXT_PUBLIC_AUTHOR_EMAIL,
+  link: process.env.NEXT_PUBLIC_AUTHOR_LINK,
+  avatar: AvatarImage.src,
 };
 
 export const nav = [
   {
-    name: "Home",
+    name: process.env.NEXT_PUBLIC_NAV_HOME_TEXT,
     href: "/",
   },
   {
-    name: "Careers",
+    name: process.env.NEXT_PUBLIC_NAV_CAREERS_TEXT,
     href: "/careers",
   },
   {
-    name: "Blog",
+    name: process.env.NEXT_PUBLIC_NAV_BLOG_TEXT,
     href: "/blog",
   },
   {
-    name: "Projects",
+    name: process.env.NEXT_PUBLIC_NAV_PROJECTS_TEXT,
     href: "/projects",
   },
 ];
 
-export const social = [
-  {
+interface Social {
+  name: string;
+  icon: SvgIconComponent;
+  text: string;
+  href: string;
+}
+
+export const social: Array<Social> = [];
+
+if (process.env.NEXT_PUBLIC_AUTHOR_EMAIL?.length) {
+  social.push({
     name: "Email",
     icon: Email,
-    text: author.email,
-    href: `mailto:${author.email}`,
-  },
-  {
-    name: "Github",
-    icon: GitHub,
-    text: "luasenvy",
-    href: "https://github.com/luasenvy/nextjs-astro-sphere",
-  },
-  {
-    name: "LinkedIn",
-    icon: LinkedIn,
-    text: "luasenvy",
-    href: "https://www.linkedin.com/in/luasenvy/",
-  },
-  {
-    name: "Twitter",
-    icon: X,
-    text: "luasenvy",
-    href: "https://x.com/luasenvy",
-  },
-];
+    text: process.env.NEXT_PUBLIC_AUTHOR_EMAIL,
+    href: `mailto:${process.env.NEXT_PUBLIC_AUTHOR_EMAIL}`,
+  });
+}
 
-export const stack = [
-  {
-    text: "Astro",
-    icon: "astro",
-    href: "https://astro.build",
-  },
-  {
-    text: "Javascript",
-    icon: "javascript",
-    href: "https://www.javascript.com",
-  },
-  {
-    text: "Typescript",
-    icon: "typescript",
-    href: "https://www.typescriptlang.org",
-  },
-  {
-    text: "Tailwind",
-    icon: "tailwind",
-    href: "https://tailwindcss.com",
-  },
-];
+if (process.env.NEXT_PUBLIC_SOCIAL_GITHUB?.length) {
+  const [text, ...href] = process.env.NEXT_PUBLIC_SOCIAL_GITHUB.split(":");
+  social.push({ name: "Github", icon: GitHub, text, href: href.join(":") });
+}
+
+if (process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN?.length) {
+  const [text, ...href] = process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN.split(":");
+  social.push({ name: "LinkedIn", icon: LinkedIn, text, href: href.join(":") });
+}
+
+if (process.env.NEXT_PUBLIC_SOCIAL_X?.length) {
+  const [text, ...href] = process.env.NEXT_PUBLIC_SOCIAL_X.split(":");
+  social.push({ name: "X", icon: X, text, href: href.join(":") });
+}
+
+export const stack = process.env.NEXT_PUBLIC_STACKS?.split(";").map((stack) => {
+  const [text, ...href] = stack.split(":");
+  return { text, href: href.join(":") };
+});

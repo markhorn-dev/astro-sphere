@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { createElement } from "react";
 
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
-import { author } from "@/config";
+import { author, logo } from "@/config";
 import { site, social } from "@/config";
 
 export default function Footer() {
@@ -59,9 +60,24 @@ export default function Footer() {
                 href="/"
                 className="flex gap-1 w-fit font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
               >
-                <svg className="size-6 fill-current">
-                  <use href="/brand.svg#brand" />
-                </svg>
+                {logo.light && (
+                  <Image
+                    width={25}
+                    height={32}
+                    alt="brand"
+                    className="dark:hidden"
+                    src={logo.light}
+                  />
+                )}
+                {logo.dark && (
+                  <Image
+                    width={25}
+                    height={32}
+                    alt="brand"
+                    className="hidden dark:block"
+                    src={logo.dark}
+                  />
+                )}
                 {site.name}
               </Link>
             </div>

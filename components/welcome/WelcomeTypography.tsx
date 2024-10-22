@@ -16,7 +16,7 @@ export default function WelcomeTypography() {
         whileInView="block"
         viewport={{ once: true, amount: "some" }}
       >
-        {welcome.introduce.split("\n").map((line, i) => (
+        {welcome.introduce?.split("\n").map((line, i) => (
           <motion.p
             key={`intro-${i}`}
             variants={{
