@@ -12,7 +12,8 @@ interface BlogViewerProps {
 }
 
 // cannot reusable: https://github.com/vercel/next.js/discussions/50080
-export async function generateMetadata({ params: { slug } }: BlogViewerProps) {
+export async function generateMetadata({ params }: BlogViewerProps) {
+  const { slug } = await params;
   const { title, description } = find({ collection: "blog", slug })?.metadata || {};
   return { title, description };
 }

@@ -12,7 +12,8 @@ interface ProjectViewerProps {
 }
 
 // cannot reusable: https://github.com/vercel/next.js/discussions/50080
-export async function generateMetadata({ params: { slug } }: ProjectViewerProps) {
+export async function generateMetadata({ params }: ProjectViewerProps) {
+  const { slug } = await params;
   const { title, description } = find({ collection: "projects", slug })?.metadata || {};
   return { title, description };
 }

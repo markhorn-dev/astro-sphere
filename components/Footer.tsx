@@ -51,7 +51,7 @@ export default function Footer() {
         </Container>
       </section>
 
-      <section className=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
+      <section className="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
         <Container size="md">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="flex flex-col items-center sm:items-start">
@@ -76,7 +76,7 @@ export default function Footer() {
         </Container>
       </section>
 
-      <section className=" py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
+      <section className="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
         <Container size="md">
           <div className="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start">
