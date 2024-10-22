@@ -32,6 +32,7 @@ function extendsMetadataContent() {
     const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length);
     const withoutCode = content.replace(/```[^]+?```/g, "");
 
+    console.info(withoutCode, "<<<<<<");
     properties.push({
       type: "Property",
       method: false,
@@ -75,6 +76,7 @@ function extendsMetadataContent() {
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 };
 
 const withMDX = createMDX({
