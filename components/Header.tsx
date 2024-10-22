@@ -177,18 +177,12 @@ export default function Header({
             >
               <Menu
                 id="drawer-open"
-                className={classnames("size-full", {
-                  block: !open,
-                  hidden: open,
-                })}
+                className={classnames("size-full", { block: !open, hidden: open })}
               />
 
               <Close
                 id="drawer-close"
-                className={classnames("size-full", {
-                  block: open,
-                  hidden: !open,
-                })}
+                className={classnames("size-full", { block: open, hidden: !open })}
               />
             </button>
           </div>

@@ -2,13 +2,17 @@ import type { NextRequest } from "next/server";
 
 import { feed } from "@/data/posts";
 
-interface FeedParams {
-  params: {
-    type: "rss" | "rss2" | "atom" | "json";
-  };
-}
-
-export async function GET(req: NextRequest, { params: { type } }: FeedParams) {
+export async function GET(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: Promise<{
+      type: "rss" | "rss2" | "atom" | "json";
+    }>;
+  }
+) {
+  const { type } = await params;
   if (["rss", "rss2"].includes(type)) {
     return new Response(feed.rss2(), {
       headers: new Headers({ "Content-Type": "application/xml" }),

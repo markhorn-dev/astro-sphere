@@ -4,7 +4,6 @@ import CalendarToday from "@mui/icons-material/CalendarToday";
 import LinkIcon from "@mui/icons-material/Link";
 import MenuBook from "@mui/icons-material/MenuBook";
 import Public from "@mui/icons-material/Public";
-import { motion } from "framer-motion";
 
 import { useMemo } from "react";
 

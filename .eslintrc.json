@@ -13,6 +13,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
+    "plugin:@next/next/recommended",
     "prettier"
   ],
   "rules": {

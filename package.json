@@ -26,6 +26,7 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
+    "@next/eslint-plugin-next": "^15.0.0",
     "@next/mdx": "^15.0.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",

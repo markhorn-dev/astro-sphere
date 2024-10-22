@@ -6,9 +6,9 @@ import TopLayout from "@/components/TopLayout";
 import { find } from "@/lib/find";
 
 interface LegalViewerProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // cannot reusable: https://github.com/vercel/next.js/discussions/50080
