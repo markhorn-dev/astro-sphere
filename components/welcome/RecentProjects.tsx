@@ -27,13 +27,27 @@ export default function RecentProjects() {
             </span>
           </Link>
         </div>
-        <ul className="space-y-4">
+        <motion.ul
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            block: { opacity: 1, y: 0, transition: { staggerChildren: 0.16 } },
+          }}
+          initial="hidden"
+          animate="block"
+          className="space-y-4"
+        >
           {projects.slice(0, 3).map((project, i) => (
-            <li key={`project-${i}`}>
+            <motion.li
+              key={`project-${i}`}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+              }}
+            >
               <ArrowCard entry={project} />
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </motion.section>
   );

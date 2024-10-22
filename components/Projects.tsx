@@ -46,14 +46,22 @@ export default function Projects() {
           <div className="text-sm font-semibold uppercase mb-2 text-black dark:text-white">
             Filter
           </div>
-          <ul className="flex flex-wrap sm:flex-col gap-1.5">
+          <motion.ul
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+            }}
+            initial="hidden"
+            animate="block"
+            className="flex flex-wrap sm:flex-col gap-1.5"
+          >
             {tags.map((tag, i) => (
               <motion.li
                 key={`tag-${i}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: "some" }}
-                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+                }}
               >
                 <button
                   onClick={() => handleClickTagToggle(tag)}
@@ -97,7 +105,7 @@ export default function Projects() {
                 </button>
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </div>
       </div>
       <div className="col-span-3 sm:col-span-2">
@@ -105,19 +113,27 @@ export default function Projects() {
           <div className="text-sm uppercase mb-2">
             SHOWING {filteredProjects.length} OF {projects.length} PROJECTS
           </div>
-          <ul className="flex flex-col gap-3">
+          <motion.ul
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+            }}
+            initial="hidden"
+            animate="block"
+            className="flex flex-col gap-3"
+          >
             {filteredProjects.map((project, i) => (
               <motion.li
                 key={`project-${i}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: "some" }}
-                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+                }}
               >
                 <ArrowCard entry={project} />
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </div>
       </div>
     </div>

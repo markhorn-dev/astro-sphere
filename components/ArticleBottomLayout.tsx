@@ -2,6 +2,8 @@
 
 import "prismjs/themes/prism-twilight.css";
 
+import { motion } from "framer-motion";
+
 import { useMemo } from "react";
 
 import Link from "@/components/ViewTransitionLink";
@@ -21,9 +23,22 @@ export default function ArticleBottomLayout({ collection, slug }: ArticleBottomL
   const nextEntry = useMemo(() => next({ collection, slug }), [collection, slug]);
 
   return (
-    <div>
-      <article>{entry?.Component && <entry.Component />}</article>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <section>
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: "some" }}
+        transition={{ duration: 0.56, ease: "easeInOut", delay: 0.08 * 1 }}
+      >
+        {entry?.Component && <entry.Component />}
+      </motion.article>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: "some" }}
+        transition={{ duration: 0.56, ease: "easeInOut", delay: 0.08 * 2 }}
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+      >
         {prevEntry ? (
           <Link
             href={`/${prevEntry.metadata.collection}/${prevEntry.metadata.slug}`}
@@ -103,7 +118,7 @@ export default function ArticleBottomLayout({ collection, slug }: ArticleBottomL
         ) : (
           <div className="invisible"></div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 }

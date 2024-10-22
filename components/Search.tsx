@@ -52,19 +52,27 @@ export default function Search() {
           <div className="text-sm uppercase mb-2">
             Found {results.length} results for {`'${query}'`}
           </div>
-          <ul className="flex flex-col gap-3">
+          <motion.ul
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.16 } },
+            }}
+            initial="hidden"
+            animate="block"
+            className="flex flex-col gap-3"
+          >
             {results.map((result, i) => (
               <motion.li
                 key={`result-${i}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: "some" }}
-                transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+                }}
               >
                 <ArrowCard entry={result} pill={true} />
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </div>
       )}
     </div>

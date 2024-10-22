@@ -1,50 +1,34 @@
-"use client";
-
-import "prismjs/themes/prism-twilight.css";
-
-import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
-
-import { useMemo } from "react";
-
 import ArticleBottomLayout from "@/components/ArticleBottomLayout";
 import ArticleTopLayout from "@/components/ArticleTopLayout";
 
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
+import { find } from "@/lib/find";
 
-import legals, { type LegalItem } from "@/data/legals";
+interface LegalViewerProps {
+  params: {
+    slug: string;
+  };
+}
 
-export default function LegalViewer() {
-  const { slug } = useParams();
+// cannot reusable: https://github.com/vercel/next.js/discussions/50080
+export async function generateMetadata({ params }: LegalViewerProps) {
+  const { slug } = await params;
+  const { title, description } = find({ collection: "legals", slug })?.metadata || {};
+  return { title, description };
+}
 
-  const legal: LegalItem | undefined = useMemo(
-    () => legals.find(({ metadata }) => metadata.slug === slug),
-    [legals, slug]
-  );
+export default async function LegalViewer({ params }: LegalViewerProps) {
+  const { slug } = await params;
 
   return (
     <>
       <TopLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
-        >
-          <ArticleTopLayout entry={legal} />
-        </motion.div>
+        <ArticleTopLayout collection="legals" slug={slug} />
       </TopLayout>
 
       <BottomLayout>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
-        >
-          <ArticleBottomLayout entry={legal} />
-        </motion.div>
+        <ArticleBottomLayout collection="legals" slug={slug} />
       </BottomLayout>
     </>
   );

@@ -41,12 +41,7 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
 
   return (
     entry && (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: "some" }}
-        transition={{ duration: 0.56, ease: "easeInOut" }}
-      >
+      <div>
         <Link
           href={`/${entry.metadata.collection}`}
           className="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
@@ -126,7 +121,7 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
             )}
           </div>
         )}
-      </motion.div>
+      </div>
     )
   );
 }

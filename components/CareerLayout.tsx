@@ -17,14 +17,21 @@ export default function CareerLayout() {
   return (
     <div className="flex-1 py-5">
       <Container size="md">
-        <ul>
+        <motion.ul
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            block: { opacity: 1, y: 0, transition: { staggerChildren: 0.16 } },
+          }}
+          initial="hidden"
+          animate="block"
+        >
           {careers.map(({ Component, metadata }, i) => (
             <motion.li
               key={`career-${i}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: "some" }}
-              transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 * i }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+              }}
               className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
             >
               <div className="text-sm uppercase mb-4">
@@ -35,7 +42,7 @@ export default function CareerLayout() {
               <article className="prose dark:prose-invert">{Component && <Component />}</article>
             </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </Container>
     </div>
   );

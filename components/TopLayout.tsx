@@ -10,10 +10,12 @@ export default function TopLayout({ className, children }: React.HTMLAttributes<
       <Container size="md">
         <motion.div
           className={className}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: "some" }}
-          transition={{ duration: 0.56, ease: "easeInOut" }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
+          }}
+          initial="hidden"
+          animate="block"
         >
           {children}
         </motion.div>
