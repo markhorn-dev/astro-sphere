@@ -49,7 +49,7 @@ export default function Projects() {
           <motion.ul
             variants={{
               hidden: { opacity: 0, y: 20 },
-              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.02 } },
             }}
             initial="hidden"
             animate="block"
@@ -62,17 +62,13 @@ export default function Projects() {
                   hidden: { opacity: 0, y: 20 },
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
+                className="sm:w-full"
               >
                 <button
                   onClick={() => handleClickTagToggle(tag)}
                   className={twMerge(
                     classnames(
-                      "w-full px-2 py-1 rounded",
-                      "whitespace-nowrap overflow-hidden overflow-ellipsis",
-                      "flex gap-2 items-center",
-                      "bg-black/5 dark:bg-white/10",
-                      "hover:bg-black/10 hover:dark:bg-white/15",
-                      "transition-colors duration-300 ease-in-out",
+                      "w-full px-2 py-1 rounded flex items-center gap-2 bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 transition-colors duration-300 ease-in-out",
                       { "text-black dark:text-white": selecteds.has(tag) }
                     )
                   )}
@@ -80,11 +76,10 @@ export default function Projects() {
                   <Square
                     className={twMerge(
                       classnames(
-                        "size-5 fill-black/50 dark:fill-white/50",
-                        "transition-colors duration-300 ease-in-out",
+                        "size-5 stroke-black dark:stroke-none fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
                           hidden: selecteds.has(tag),
-                          "fill-black dark:fill-white block": !selecteds.has(tag),
+                          "fill-white block": !selecteds.has(tag),
                         }
                       )
                     )}
@@ -92,8 +87,7 @@ export default function Projects() {
                   <CheckBox
                     className={twMerge(
                       classnames(
-                        "size-5 fill-black/50 dark:fill-white/50",
-                        "transition-colors duration-300 ease-in-out",
+                        "size-5 fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
                           hidden: !selecteds.has(tag),
                           "fill-black dark:fill-white block": selecteds.has(tag),
@@ -101,7 +95,7 @@ export default function Projects() {
                       )
                     )}
                   />
-                  {tag}
+                  <span className="truncate">{tag}</span>
                 </button>
               </motion.li>
             ))}

@@ -37,14 +37,14 @@ export default function Blog() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div className="col-span-3 sm:col-span-1">
-        <div className="sticky top-24">
+        <div className="sticky top-24 sm:max-h-[60vh] lg:max-h-[70vh] xl:max-h-[80vh] sm:overflow-y-auto px-2">
           <div className="text-sm font-semibold uppercase mb-2 text-black dark:text-white">
             Filter
           </div>
           <motion.ul
             variants={{
               hidden: { opacity: 0, y: 20 },
-              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.02 } },
             }}
             initial="hidden"
             animate="block"
@@ -57,17 +57,14 @@ export default function Blog() {
                   hidden: { opacity: 0, y: 20 },
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
+                className="sm:w-full"
               >
                 <button
                   onClick={() => handleClickTagToggle(tag)}
+                  title={tag}
                   className={twMerge(
                     classnames(
-                      "w-full px-2 py-1 rounded",
-                      "whitespace-nowrap overflow-hidden overflow-ellipsis",
-                      "flex gap-2 items-center",
-                      "bg-black/5 dark:bg-white/10",
-                      "hover:bg-black/10 hover:dark:bg-white/15",
-                      "transition-colors duration-300 ease-in-out",
+                      "w-full px-2 py-1 rounded flex items-center gap-2 bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 transition-colors duration-300 ease-in-out",
                       { "text-black dark:text-white": selecteds.has(tag) }
                     )
                   )}
@@ -75,11 +72,10 @@ export default function Blog() {
                   <Square
                     className={twMerge(
                       classnames(
-                        "size-5 fill-black/50 dark:fill-white/50",
-                        "transition-colors duration-300 ease-in-out",
+                        "size-5 stroke-black dark:stroke-none fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
                           hidden: selecteds.has(tag),
-                          "fill-black dark:fill-white block": !selecteds.has(tag),
+                          "fill-white block": !selecteds.has(tag),
                         }
                       )
                     )}
@@ -87,8 +83,7 @@ export default function Blog() {
                   <CheckBox
                     className={twMerge(
                       classnames(
-                        "size-5 fill-black/50 dark:fill-white/50",
-                        "transition-colors duration-300 ease-in-out",
+                        "size-5 fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
                           hidden: !selecteds.has(tag),
                           "fill-black dark:fill-white block": selecteds.has(tag),
@@ -96,8 +91,7 @@ export default function Blog() {
                       )
                     )}
                   />
-
-                  {tag}
+                  <span className="truncate">{tag}</span>
                 </button>
               </motion.li>
             ))}
