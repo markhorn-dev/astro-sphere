@@ -6,7 +6,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkPrism from "remark-prism";
 
-const separator = "\n---\n\n";
+const separator = "\n---\n";
 function extendsMetadataContent() {
   return (ast, file) => {
     const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type);
@@ -29,7 +29,7 @@ function extendsMetadataContent() {
     } = properties.find(({ key: { value } }) => "title" === value || "company");
 
     const trimed = file.value.trim();
-    const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length);
+    const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length).trim();
     const withoutCode = content.replace(/```[^]+?```/g, "");
 
     properties.push({
