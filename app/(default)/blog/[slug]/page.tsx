@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: BlogViewerProps) {
   return { title, description };
 }
 
-export default function BlogViewer({ params: { slug } }: BlogViewerProps) {
+export default async function BlogViewer({ params }: BlogViewerProps) {
+  const { slug } = await params;
   return (
     <>
       <TopLayout>

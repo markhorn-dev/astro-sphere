@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: ProjectViewerProps) {
   return { title, description };
 }
 
-export default function ProjectViewer({ params: { slug } }: ProjectViewerProps) {
+export default async function ProjectViewer({ params }: ProjectViewerProps) {
+  const { slug } = await params;
   return (
     <>
       <TopLayout>
