@@ -55,7 +55,7 @@ export default function Search() {
           <motion.ul
             variants={{
               hidden: { opacity: 0, y: 20 },
-              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.16 } },
+              block: { opacity: 1, y: 0, transition: { staggerChildren: 0.08 } },
             }}
             initial="hidden"
             animate="block"
