@@ -74,7 +74,7 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
         </Link>
         <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
           <div className="flex items-center gap-2">
-            <CalendarToday className="size-5 stroke-current" />
+            <CalendarToday className="size-4 stroke-current" />
 
             {entry.metadata.created &&
               Intl.DateTimeFormat(undefined, {
@@ -84,7 +84,7 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
               }).format(new Date(entry.metadata.created))}
           </div>
           <div className="flex items-center gap-2">
-            <MenuBook className="size-5 stroke-current" />
+            <MenuBook className="size-4 stroke-current" />
             {entry.metadata.content && readingTime(entry.metadata.content)}
           </div>
         </div>
