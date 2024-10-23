@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 import StackCard from "./StackCard";
 
-import Link from "@/components/ViewTransitionLink";
 import { stack } from "@/config";
 
 export default function SkillStack() {
