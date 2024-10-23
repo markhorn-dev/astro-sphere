@@ -17,9 +17,14 @@ import { nav, site } from "@/config";
 export interface DrawerProps {
   open?: boolean;
   onToggleDrawer?: () => void;
+  onToggleTheme?: () => void;
 }
 
-export default function Drawer({ open, onToggleDrawer: handleToggleDrawer }: DrawerProps) {
+export default function Drawer({
+  open,
+  onToggleDrawer: handleToggleDrawer,
+  onToggleTheme: handleToggleTheme,
+}: DrawerProps) {
   const pathname = usePathname();
   const subpath = pathname.match(/[^/]+/g);
 
@@ -86,6 +91,7 @@ export default function Drawer({ open, onToggleDrawer: handleToggleDrawer }: Dra
           id="drawer-theme-button"
           aria-label={`Toggle light and dark theme`}
           className="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+          onClick={handleToggleTheme}
         >
           <LightMode className="block dark:hidden size-full" />
           <DarkMode className="hidden dark:block size-full" />

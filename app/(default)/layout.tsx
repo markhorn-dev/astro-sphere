@@ -52,7 +52,7 @@ export default function DefaultLayout({ children }: React.PropsWithChildren) {
         dark={isDark}
         onToggleTheme={handleToggleTheme}
       />
-      <Drawer open={open} onToggleDrawer={handleToggleDrawer} />
+      <Drawer open={open} onToggleDrawer={handleToggleDrawer} onToggleTheme={handleToggleTheme} />
       <main>{children}</main>
       <Footer />
     </body>
