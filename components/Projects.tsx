@@ -78,8 +78,8 @@ export default function Projects() {
                       classnames(
                         "size-5 stroke-black dark:stroke-none fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
-                          "!hidden": selecteds.has(tag),
-                          "fill-white !block": !selecteds.has(tag),
+                          hidden: selecteds.has(tag),
+                          "fill-white block": !selecteds.has(tag),
                         }
                       )
                     )}
@@ -89,8 +89,8 @@ export default function Projects() {
                       classnames(
                         "size-5 fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
                         {
-                          "!hidden": !selecteds.has(tag),
-                          "fill-black dark:fill-white !block": selecteds.has(tag),
+                          hidden: !selecteds.has(tag),
+                          "fill-black dark:fill-white block": selecteds.has(tag),
                         }
                       )
                     )}
