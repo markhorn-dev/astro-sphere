@@ -4,9 +4,6 @@ import GitHub from "@mui/icons-material/GitHub";
 import LinkedIn from "@mui/icons-material/LinkedIn";
 import X from "@mui/icons-material/X";
 
-import AvatarImage from "@/public/avatar.webp";
-import FaviconImage from "@/public/favicon.ico";
-
 export const logo = {
   light: process.env.NEXT_PUBLIC_LOGO_LIGHT,
   dark: process.env.NEXT_PUBLIC_LOGO_DARK,
@@ -15,7 +12,6 @@ export const logo = {
 export const site = {
   name: process.env.NEXT_PUBLIC_SITE_TITLE,
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
-  logo: FaviconImage.src,
   baseurl: process.env.NEXT_PUBLIC_SITE_BASEURL,
 };
 
@@ -32,7 +28,7 @@ export const author = {
   name: process.env.NEXT_PUBLIC_AUTHOR_NAME,
   email: process.env.NEXT_PUBLIC_AUTHOR_EMAIL,
   link: process.env.NEXT_PUBLIC_AUTHOR_LINK,
-  avatar: AvatarImage.src,
+  avatar: process.env.NEXT_PUBLIC_AUTHOR_AVATAR,
 };
 
 export const nav = [

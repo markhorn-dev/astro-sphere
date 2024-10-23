@@ -10,7 +10,7 @@ import Post05, { metadata as metadata05 } from "./05-astro-sphere-writing-mdx/in
 import Post06, { metadata as metadata06 } from "./06-astro-sphere-social-links/index.mdx";
 import Post07, { metadata as metadata07 } from "./07-mdx-syntax/index.mdx";
 
-import { author, site } from "@/config";
+import { author, site, logo } from "@/config";
 
 const posts = [
   { Component: Post01, metadata: metadata01 },
@@ -39,7 +39,7 @@ const feed = new Feed({
   id: site.baseurl,
   link: site.baseurl,
   language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-  image: site.logo.src,
+  image: logo.light,
   favicon: `${site.baseurl}/favicon.ico`,
   copyright: `2024 ${author.name} All rights reserved`,
   updated: new Date(),
