@@ -189,7 +189,7 @@ export default function Header({
                   "transition-colors duration-300 ease-in-out"
                 )
               )}
-              onClick={() => handleToggleDrawer?.()}
+              onClick={handleToggleDrawer}
             >
               <Menu
                 id="drawer-open"
