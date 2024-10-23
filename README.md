@@ -1,5 +1,7 @@
 # nextjs-astro-sphere
 
+![Overview](./overview.webp)
+
 [Astro Sphere Theme](https://github.com/markhorn-dev/astro-sphere) for [Next.js](https://nextjs.org/)<sub>(14+ App Router)</sub>
 
 ## Tested Environment
