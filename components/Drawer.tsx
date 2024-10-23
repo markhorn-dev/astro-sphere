@@ -54,7 +54,7 @@ export default function Drawer({
                 }
               )
             )}
-            onClick={() => handleToggleDrawer?.()}
+            onClick={handleToggleDrawer}
           >
             {name}
           </Link>
@@ -74,15 +74,17 @@ export default function Drawer({
               }
             )
           )}
+          onClick={handleToggleDrawer}
         >
           <Search className="block size-full" />
         </Link>
 
         <Link
-          href="/rss.xml"
+          href="/api/feed/rss2"
           target="_blank"
           aria-label={`Rss feed for ${site.name}`}
           className="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+          onClick={handleToggleDrawer}
         >
           <RssFeed className="block size-full" />
         </Link>
