@@ -1,9 +1,11 @@
+import { redirect } from "next/navigation";
+
 import ArticleBottomLayout from "@/components/ArticleBottomLayout";
 import ArticleTopLayout from "@/components/ArticleTopLayout";
+
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
-
-import { find } from "@/lib/find";
+import { getMetadata, getPost } from "@/lib/db";
 
 interface ProjectViewerProps {
   params: Promise<{
@@ -14,19 +16,28 @@ interface ProjectViewerProps {
 // cannot reusable: https://github.com/vercel/next.js/discussions/50080
 export async function generateMetadata({ params }: ProjectViewerProps) {
   const { slug } = await params;
-  const { title, description } = find({ collection: "projects", slug })?.metadata || {};
-  return { title, description };
+
+  const metadata = await getMetadata(slug);
+  if (!metadata) return redirect("/404");
+
+  return { title: metadata.title };
 }
 
 export default async function ProjectViewer({ params }: ProjectViewerProps) {
   const { slug } = await params;
+
+  const { curr, prev, next } = await getPost(slug);
+
+  if (!curr) return redirect("/404");
+
   return (
     <>
       <TopLayout>
-        <ArticleTopLayout collection="projects" slug={slug} />
+        <ArticleTopLayout curr={curr} />
       </TopLayout>
+
       <BottomLayout>
-        <ArticleBottomLayout collection="projects" slug={slug} />
+        <ArticleBottomLayout curr={curr} prev={prev} next={next} />
       </BottomLayout>
     </>
   );

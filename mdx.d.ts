@@ -4,11 +4,9 @@ declare module "*.mdx" {
   interface Frontmatter {
     collection: "projects" | "blog" | "legals";
 
-    categories: Array<string>;
     tags: Array<string>;
     slug: string;
     title: string;
-    subtitle: string;
     content: string;
     description: string;
 

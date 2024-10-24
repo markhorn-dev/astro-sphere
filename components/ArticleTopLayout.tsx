@@ -5,19 +5,11 @@ import LinkIcon from "@mui/icons-material/Link";
 import MenuBook from "@mui/icons-material/MenuBook";
 import Public from "@mui/icons-material/Public";
 
-import { useMemo } from "react";
-
 import Link from "@/components/ViewTransitionLink";
-
-import legals, { type LegalItem } from "@/data/legals";
-import posts, { type PostItem } from "@/data/posts";
-import projects, { type ProjectItem } from "@/data/projects";
-
-type ContentItem = PostItem | ProjectItem | LegalItem;
+import type { PostItem } from "@/lib/db";
 
 export interface ArticleTopLayoutProps {
-  collection: "blog" | "projects" | "legals";
-  slug: string;
+  curr: PostItem;
 }
 
 const readingTime = (html: string) => {
@@ -27,22 +19,12 @@ const readingTime = (html: string) => {
   return `${readingTimeMinutes} min read`;
 };
 
-export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutProps) {
-  const contents = useMemo(
-    () => ("blog" === collection ? posts : "projects" === collection ? projects : legals),
-    [collection, posts, projects, legals]
-  );
-
-  const entry: ContentItem | undefined = useMemo(
-    () => contents.find(({ metadata }) => metadata.slug === slug),
-    [contents, slug]
-  );
-
+export default function ArticleTopLayout({ curr }: ArticleTopLayoutProps) {
   return (
-    entry && (
+    curr && (
       <div>
         <Link
-          href={`/${entry.metadata.collection}`}
+          href={`/blog/${curr.slug}`}
           className="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
         >
           <svg
@@ -69,34 +51,32 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
             />
           </svg>
           <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-            Back to {entry.metadata.collection}
+            Back to {curr.series ? curr.series : "blog"}
           </div>
         </Link>
         <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
           <div className="flex items-center gap-2">
             <CalendarToday className="size-4 stroke-current" />
 
-            {entry.metadata.created &&
+            {curr.created &&
               Intl.DateTimeFormat(undefined, {
                 month: "short",
                 day: "2-digit",
                 year: "numeric",
-              }).format(new Date(entry.metadata.created))}
+              }).format(new Date(curr.created))}
           </div>
           <div className="flex items-center gap-2">
             <MenuBook className="size-4 stroke-current" />
-            {entry.metadata.content && readingTime(entry.metadata.content)}
+            {/* {curr.content && readingTime(curr.content)} */}
           </div>
         </div>
-        <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">
-          {entry.metadata.title}
-        </h1>
-        <div className="mt-1">{entry.metadata.description}</div>
-        {(entry.metadata.demo || entry.metadata.repo) && (
+        <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">{curr.title}</h1>
+        {/* <div className="mt-1">{curr.description}</div> */}
+        {(curr.demo || curr.repo) && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {entry.metadata.demo && (
+            {curr.demo && (
               <Link
-                href={entry.metadata.demo}
+                href={curr.demo}
                 target="_blank"
                 className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
               >
@@ -106,9 +86,9 @@ export default function ArticleTopLayout({ collection, slug }: ArticleTopLayoutP
                 </span>
               </Link>
             )}
-            {entry.metadata.repo && (
+            {curr.repo && (
               <Link
-                href={entry.metadata.repo}
+                href={curr.repo}
                 target="_blank"
                 className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
               >

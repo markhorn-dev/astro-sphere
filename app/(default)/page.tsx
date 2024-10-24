@@ -11,12 +11,16 @@ import WelcomeHero from "@/components/welcome/WelcomeHero";
 import WelcomeTypography from "@/components/welcome/WelcomeTypography";
 import { site } from "@/config";
 
+import db from "@/lib/db";
+
 export const metadata = {
   title: site.name,
   description: site.description,
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const posts = (await db).data.posts.slice(0, 3);
+
   return (
     <>
       <Particles />
@@ -35,7 +39,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
           <WelcomeTypography />
 
-          <RecentPosts />
+          <RecentPosts posts={posts} />
 
           <SkillStack />
 

@@ -4,24 +4,16 @@ import "prismjs/themes/prism-twilight.css";
 
 import { motion } from "framer-motion";
 
-import { useMemo } from "react";
-
 import Link from "@/components/ViewTransitionLink";
-
-import { find, next, prev } from "@/lib/find";
+import type { PostItem } from "@/lib/db";
 
 export interface ArticleBottomLayoutProps {
-  collection: "blog" | "projects" | "legals";
-  slug: string;
+  component: React.ReactNode;
+  prev?: PostItem;
+  next?: PostItem;
 }
 
-export default function ArticleBottomLayout({ collection, slug }: ArticleBottomLayoutProps) {
-  const entry = useMemo(() => find({ collection, slug }), [collection, slug]);
-
-  const prevEntry = useMemo(() => prev({ collection, slug }), [collection, slug]);
-
-  const nextEntry = useMemo(() => next({ collection, slug }), [collection, slug]);
-
+export default function ArticleBottomLayout({ component, prev, next }: ArticleBottomLayoutProps) {
   return (
     <section>
       <motion.article
@@ -30,7 +22,7 @@ export default function ArticleBottomLayout({ collection, slug }: ArticleBottomL
         viewport={{ once: true, amount: "some" }}
         transition={{ duration: 0.56, ease: "easeInOut", delay: 0.08 * 1 }}
       >
-        {entry?.Component && <entry.Component />}
+        {component}
       </motion.article>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -39,18 +31,16 @@ export default function ArticleBottomLayout({ collection, slug }: ArticleBottomL
         transition={{ duration: 0.56, ease: "easeInOut", delay: 0.08 * 2 }}
         className="grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
-        {prevEntry ? (
+        {prev ? (
           <Link
-            href={`/${prevEntry.metadata.collection}/${prevEntry.metadata.slug}`}
+            href={`/${prev.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend"
           >
             <div className="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
               <div className="flex flex-wrap gap-2">
                 <div className="text-sm uppercase">Prev</div>
               </div>
-              <div className="font-semibold mt-3 text-black dark:text-white">
-                {prevEntry.metadata.title}
-              </div>
+              <div className="font-semibold mt-3 text-black dark:text-white">{prev.title}</div>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,16 +70,14 @@ export default function ArticleBottomLayout({ collection, slug }: ArticleBottomL
           <div className="invisible"></div>
         )}
 
-        {nextEntry ? (
+        {next ? (
           <Link
-            href={`/${nextEntry.metadata.collection}/${nextEntry.metadata.slug}`}
+            href={`/${next.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
           >
             <div className="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
               <div className="text-sm uppercase">Next</div>
-              <div className="font-semibold mt-3 text-black dark:text-white">
-                {nextEntry.metadata.title}
-              </div>
+              <div className="font-semibold mt-3 text-black dark:text-white">{next.title}</div>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -69,7 +69,7 @@ export default function Search() {
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard entry={result} pill={true} />
+                <ArrowCard post={result} pill={true} />
               </motion.li>
             ))}
           </motion.ul>

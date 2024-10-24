@@ -1,30 +1,23 @@
 import Link from "@/components/ViewTransitionLink";
 
-import type { PostItem } from "@/data/posts";
-import type { ProjectItem } from "@/data/projects";
+import type { PostItem } from "@/lib/db";
 
-type Props = {
-  entry: PostItem | ProjectItem;
+type ArrowCardProps = {
+  post: PostItem;
   pill?: boolean;
 };
 
-export default function ArrowCard({ entry, pill }: Props) {
-  const { metadata } = entry;
-
+export default function ArrowCard({ post, pill }: ArrowCardProps) {
   return (
     <Link
-      href={`/${metadata.collection}/${metadata.slug}`}
+      href={`/blog/${post.slug}`}
       className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
     >
       <div className="w-full group-hover:text-black group-hover:dark:text-white blend">
         <div className="flex flex-wrap items-center gap-2">
           {pill && (
             <div className="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25">
-              {"blog" === metadata.collection
-                ? "post"
-                : "projects" === metadata.collection
-                  ? "projects"
-                  : "legals"}
+              TODO: post or projects or legals
             </div>
           )}
           <div className="text-sm uppercase">
@@ -32,13 +25,13 @@ export default function ArrowCard({ entry, pill }: Props) {
               month: "short",
               day: "2-digit",
               year: "numeric",
-            }).format(new Date(metadata.created))}
+            }).format(new Date(post.created))}
           </div>
         </div>
-        <div className="font-semibold mt-3 text-black dark:text-white">{metadata.title}</div>
+        <div className="font-semibold mt-3 text-black dark:text-white">{post.title}</div>
 
-        <div className="text-sm line-clamp-2">{metadata.description}</div>
-        <ul className="flex flex-wrap mt-2 gap-1">
+        {/* <div className="text-sm line-clamp-2">{metadata.description}</div> */}
+        {/* <ul className="flex flex-wrap mt-2 gap-1">
           {metadata.tags?.map((tag, i) => (
             <li
               key={`tag-${i}`}
@@ -47,7 +40,7 @@ export default function ArrowCard({ entry, pill }: Props) {
               {tag}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

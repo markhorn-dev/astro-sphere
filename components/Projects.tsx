@@ -124,7 +124,7 @@ export default function Projects() {
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard entry={project} />
+                <ArrowCard post={project} />
               </motion.li>
             ))}
           </motion.ul>

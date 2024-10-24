@@ -5,9 +5,7 @@ import { motion } from "framer-motion";
 import ArrowCard from "@/components/ArrowCard";
 import Link from "@/components/ViewTransitionLink";
 
-import projects from "@/data/projects";
-
-export default function RecentProjects() {
+export default function RecentProjects({ projects }) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -44,7 +42,7 @@ export default function RecentProjects() {
                 block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
               }}
             >
-              <ArrowCard entry={project} />
+              <ArrowCard post={project} />
             </motion.li>
           ))}
         </motion.ul>

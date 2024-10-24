@@ -5,9 +5,7 @@ import { motion } from "framer-motion";
 import ArrowCard from "@/components/ArrowCard";
 import Link from "@/components/ViewTransitionLink";
 
-import posts from "@/data/posts";
-
-export default function RecentPosts() {
+export default function RecentPosts({ posts }) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -44,7 +42,7 @@ export default function RecentPosts() {
                 block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
               }}
             >
-              <ArrowCard entry={post} />
+              <ArrowCard post={post} />
             </motion.li>
           ))}
         </motion.ul>
