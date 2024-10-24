@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 
 import ArrowCard from "@/components/ArrowCard";
 import Link from "@/components/ViewTransitionLink";
+import type { PostItem } from "@/lib/db";
 
-export default function RecentProjects({ projects }) {
+export interface RecentProjectsProps {
+  projects: Array<PostItem>;
+}
+
+export default function RecentProjects({ projects }: RecentProjectsProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -34,7 +39,7 @@ export default function RecentProjects({ projects }) {
           animate="block"
           className="space-y-4"
         >
-          {projects.slice(0, 3).map((project, i) => (
+          {projects.map((project, i) => (
             <motion.li
               key={`project-${i}`}
               variants={{

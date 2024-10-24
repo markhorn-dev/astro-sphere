@@ -1,43 +1,30 @@
-"use client";
+import { Fragment } from "react";
 
-import { motion } from "framer-motion";
+import CareerItem from "./CareerItem";
 
 import Container from "@/components/Container";
+import type { PostArticle } from "@/lib/db";
 
-import { careers } from "@/data/careers";
+import { MDXLoader } from "@/lib/mdx-parser";
 
-function formatDate(input: Date | string) {
-  if ("Now" === input) return input;
-
-  const date = new Date(input);
-  return `${date.getFullYear()} ${date.getMonth() + 1}`;
+export interface CareerLayoutProps {
+  careers: Array<PostArticle>;
 }
 
-export default function CareerLayout() {
+export default function CareerLayout({ careers }: CareerLayoutProps) {
   return (
     <div className="flex-1 py-5">
       <Container size="md">
         <ul>
-          {careers.map(({ Component, metadata }, i) => (
-            <motion.li
-              key={`career-${i}`}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
-              }}
-              initial="hidden"
-              whileInView="block"
-              viewport={{ once: true, amount: 0.4 }}
-              className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
-            >
-              <div className="text-sm uppercase mb-4">
-                {formatDate(metadata.started)} - {formatDate(metadata.ended)}
-              </div>
-              <div className="text-black dark:text-white font-semibold">{metadata.company}</div>
-              <div className="text-sm font-semibold">{metadata.role}</div>
-              <article className="prose dark:prose-invert">{Component && <Component />}</article>
-            </motion.li>
-          ))}
+          {careers.map(
+            ({ body, curr }, i) =>
+              curr && (
+                <Fragment key={`career-${i}`}>
+                  <CareerItem curr={curr} />
+                  <MDXLoader source={body} />
+                </Fragment>
+              )
+          )}
         </ul>
       </Container>
     </div>

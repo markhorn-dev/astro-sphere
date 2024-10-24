@@ -7,7 +7,9 @@ const currentDirname = dirname(import.meta.url).substring("file://".length);
 
 const storage = join(currentDirname, "../posts");
 
-const reserveds = ["_careers", "_projects", "_legals"];
+const careersPath = join(storage, "_careers");
+const projectsPath = join(storage, "_projects");
+const legalsPath = join(storage, "_legals");
 
 export interface PostItem {
   series?: string;
@@ -22,35 +24,46 @@ export interface PostItem {
 
 interface DatabaseSchema {
   posts: Array<PostItem>;
+  projects: Array<PostItem>;
+  careers: Array<PostItem>;
+  legals: Array<PostItem>;
 }
+
+type PostType = "posts" | "projects" | "careers" | "legals";
 
 const filenames = readdirSync(storage, { recursive: true });
 
 const dbfilepath = join(process.env.DB_PATH, "db.json");
 
-const db = JSONFilePreset<DatabaseSchema>(dbfilepath, { posts: [] })
+const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
+  posts: [],
+  projects: [],
+  careers: [],
+  legals: [],
+})
   // initialize
   .then((db) => {
-    const posts = db.data.posts;
     for (const filename of filenames) {
       const strname = String(filename);
 
-      if (!reserveds.some((resolved) => strname.startsWith(resolved))) {
-        const [series, ...pathname] = strname.split("/");
+      const filepath = join(storage, strname);
+      const stat = statSync(filepath);
 
-        const filepath = join(storage, strname);
-        const stat = statSync(filepath);
-        if (stat.isFile() && strname.endsWith(".mdx")) {
-          const slug = strname.replace(/\..+$/, "");
+      if (stat.isDirectory() || !strname.endsWith(".mdx")) continue;
 
-          posts.push({
-            series: pathname.length ? series : undefined,
-            slug,
-            title: slug.substring(slug.lastIndexOf("/") + 1),
-            created: stat.ctime.getTime(),
-            updated: stat.mtime.getTime(),
-          });
-        }
+      const created = stat.ctime.getTime();
+      const updated = stat.mtime.getTime();
+
+      const [series, ...pathname] = strname.split("/");
+
+      if ("_careers" === series) {
+        entryTo(db.data.careers, pathname.join("/"), created, updated);
+      } else if ("_projects" === series) {
+        entryTo(db.data.projects, pathname.join("/"), created, updated);
+      } else if ("_legals" === series) {
+        entryTo(db.data.legals, pathname.join("/"), created, updated);
+      } else {
+        entryTo(db.data.posts, strname, created, updated);
       }
     }
 
@@ -59,16 +72,43 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, { posts: [] })
     return db;
   });
 
+function entryTo(db: Array<PostItem>, strname: string, created: number, updated: number): void {
+  const slug = strname.replace(/\..+$/, "");
+
+  const [series, ...pathname] = strname.split("/");
+
+  if (db.some(({ slug: s }) => s === slug)) return;
+
+  db.push(getItem(series, pathname.join("/"), slug, created, updated));
+}
+
+function getItem(series: string, pathname: string, slug: string, created: number, updated: number) {
+  return {
+    series: pathname.length ? series : undefined,
+    slug,
+    title: slug.substring(slug.lastIndexOf("/") + 1),
+    created,
+    updated,
+  };
+}
+
 export function getMetadata(slug: string): Promise<PostItem | undefined> {
   return db.then(({ data: { posts } }) => posts.find(({ slug: s }) => slug === s));
 }
 
-export function getPostArticle(slug: string) {
-  return db.then(({ data: { posts } }) => {
+export interface PostArticle {
+  body?: string;
+  curr?: PostItem;
+  prev?: PostItem;
+  next?: PostItem;
+}
+
+export function getPostArticle(dbname: PostType, slug: string): Promise<PostArticle> {
+  return db.then(({ data: { [dbname]: posts } }) => {
     const curr = posts.findIndex(({ slug: s }) => s === slug);
 
-    const cursor: { body?: Uint8Array; curr?: PostItem; prev?: PostItem; next?: PostItem } = {
-      body: getContent(posts[curr]?.slug),
+    const cursor: PostArticle = {
+      body: getContent(posts[curr]?.slug, dbname),
       curr: posts[curr],
     };
 
@@ -79,8 +119,14 @@ export function getPostArticle(slug: string) {
   });
 }
 
-export function getContent(pathname: string) {
-  return readFileSync(join(storage, `${pathname}.mdx`), "utf8");
+export function getContent(pathname: string, dbname: string = "") {
+  return readFileSync(join(storage, `${dbname ? `_${dbname}/` : ""}${pathname}.mdx`), "utf8");
+}
+
+export function getSeries(posts: Array<PostItem>) {
+  return Array.from(
+    posts.reduce((acc, { series }) => (series ? acc.add(series) : acc), new Set<string>())
+  );
 }
 
 export default db;

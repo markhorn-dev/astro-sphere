@@ -2,17 +2,22 @@ import CareerLayout from "@/components/CareerLayout";
 import TopLayout from "@/components/TopLayout";
 
 import { author, site } from "@/config";
+import db, { getPostArticle } from "@/lib/db";
 
 export const metadata = {
   title: `${site.name} - ${author.name}'s Career`,
   description: `${author.name}'s Career History.`,
 };
 
-export default function CareerPage() {
+export default async function CareerPage() {
+  const careers = await Promise.all(
+    (await db).data.careers.map((career) => getPostArticle("careers", career.slug))
+  );
+
   return (
     <>
       <TopLayout>Career</TopLayout>
-      <CareerLayout />
+      <CareerLayout careers={careers} />
     </>
   );
 }

@@ -7,23 +7,34 @@ import classnames from "classnames";
 
 import { motion } from "framer-motion";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
+import type { PostItem } from "@/lib/db";
 
-export default function Blog({ posts, series }) {
+export interface BlogProps {
+  posts: Array<PostItem>;
+  series: Array<string>;
+}
+
+export default function Blog({ posts, series }: BlogProps) {
   const [selecteds, setSelecteds] = useState(new Set<string>());
 
-  const handleClickTagToggle = (tag: string) => {
+  const handleClickSeriesToggle = (series: string) => {
     setSelecteds((prev) => {
       const prevTags = Array.from(prev);
 
       return new Set(
-        prevTags.includes(tag) ? prevTags.filter((p) => p !== tag) : prevTags.concat(tag)
+        prevTags.includes(series) ? prevTags.filter((p) => p !== series) : prevTags.concat(series)
       );
     });
   };
+
+  const filteredPosts = useMemo(
+    () => (selecteds.size === 0 ? posts : posts.filter((post) => selecteds.has(post.series))),
+    [posts, selecteds]
+  );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -43,7 +54,7 @@ export default function Blog({ posts, series }) {
           >
             {series.map((name, i) => (
               <motion.li
-                key={`tag-${i}`}
+                key={`series-${i}`}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
@@ -51,7 +62,7 @@ export default function Blog({ posts, series }) {
                 className="sm:w-full"
               >
                 <button
-                  onClick={() => handleClickTagToggle(name)}
+                  onClick={() => handleClickSeriesToggle(name)}
                   title={name}
                   className={twMerge(
                     classnames(
@@ -103,7 +114,7 @@ export default function Blog({ posts, series }) {
             animate="block"
             className="flex flex-col gap-3"
           >
-            {posts.map((post, i) => (
+            {filteredPosts.map((post, i) => (
               <motion.li
                 key={`post-${i}`}
                 variants={{

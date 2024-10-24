@@ -4,7 +4,7 @@ import TopLayout from "@/components/TopLayout";
 
 import { author, site } from "@/config";
 
-import db from "@/lib/db";
+import db, { getSeries } from "@/lib/db";
 
 export const metadata = {
   title: `${site.name} - ${author.name}'s Blog`,
@@ -20,17 +20,14 @@ export default async function BlogPage({ searchParams }: BlogPageParams) {
 
   const posts = (await db).data.posts.slice(Number(from), Number(size));
 
-  const series = posts.reduce(
-    (acc, { series }) => (series ? acc.add(series) : acc),
-    new Set<string>()
-  );
+  const series = getSeries(posts);
 
   return (
     <>
       <TopLayout className="page-heading">Blog</TopLayout>
 
       <BottomLayout>
-        <Blog posts={posts} series={Array.from(series)} />
+        <Blog posts={posts} series={series} />
       </BottomLayout>
     </>
   );

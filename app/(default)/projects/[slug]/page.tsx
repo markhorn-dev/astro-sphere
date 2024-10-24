@@ -5,7 +5,8 @@ import ArticleTopLayout from "@/components/ArticleTopLayout";
 
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
-import { getMetadata, getPost } from "@/lib/db";
+import { getMetadata, getPostArticle } from "@/lib/db";
+import { MDXLoader } from "@/lib/mdx-parser";
 
 interface ProjectViewerProps {
   params: Promise<{
@@ -26,9 +27,9 @@ export async function generateMetadata({ params }: ProjectViewerProps) {
 export default async function ProjectViewer({ params }: ProjectViewerProps) {
   const { slug } = await params;
 
-  const { curr, prev, next } = await getPost(slug);
+  const { body, curr, prev, next } = await getPostArticle("projects", slug);
 
-  if (!curr) return redirect("/404");
+  if (!curr || !body) return redirect("/404");
 
   return (
     <>
@@ -37,7 +38,7 @@ export default async function ProjectViewer({ params }: ProjectViewerProps) {
       </TopLayout>
 
       <BottomLayout>
-        <ArticleBottomLayout curr={curr} prev={prev} next={next} />
+        <ArticleBottomLayout component={<MDXLoader source={body} />} prev={prev} next={next} />
       </BottomLayout>
     </>
   );

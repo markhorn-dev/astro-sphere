@@ -20,6 +20,7 @@ export const metadata = {
 
 export default async function HomePage() {
   const posts = (await db).data.posts.slice(0, 3);
+  const projects = (await db).data.projects.slice(0, 3);
 
   return (
     <>
@@ -43,7 +44,7 @@ export default async function HomePage() {
 
           <SkillStack />
 
-          <RecentProjects />
+          <RecentProjects projects={projects} />
 
           <ConnectSocial />
         </div>

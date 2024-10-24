@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 
 import ArrowCard from "@/components/ArrowCard";
 import Link from "@/components/ViewTransitionLink";
+import type { PostItem } from "@/lib/db";
 
-export default function RecentPosts({ posts }) {
+export interface RecentPostsProps {
+  posts: Array<PostItem>;
+}
+
+export default function RecentPosts({ posts }: RecentPostsProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}

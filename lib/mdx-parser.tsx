@@ -1,11 +1,19 @@
 import type { Root } from "mdast";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import remarkHeadingId from "remark-heading-id";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+// import remarkPrism from "remark-prism";
+
 import type { VFile } from "vfile";
 
 const separator = "\n---\n";
 
 export function extendsMetadataContent() {
   return (ast: Root, file: VFile) => {
-    const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type);
+    const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type) as any;
     if (!metadata) return;
 
     const [
@@ -66,4 +74,26 @@ export function extendsMetadataContent() {
       },
     });
   };
+}
+
+export function MDXLoader({ source }: { source?: string }) {
+  return source ? (
+    <MDXRemote
+      source={source}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [
+            remarkGfm,
+            [remarkHeadingId, { defaults: true, uniqueDefaults: false }],
+            remarkFrontmatter,
+            [remarkMdxFrontmatter, { name: "metadata" }],
+            // remarkPrism,
+            extendsMetadataContent,
+          ],
+        },
+      }}
+    />
+  ) : (
+    <p>Waiting for document loading...</p>
+  );
 }
