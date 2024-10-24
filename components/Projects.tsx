@@ -5,7 +5,7 @@ import Square from "@mui/icons-material/Square";
 
 import classnames from "classnames";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
@@ -28,6 +28,14 @@ export default function Projects({ projects, series }: ProjectsProps) {
       );
     });
   };
+
+  const filteredProjects = useMemo(
+    () =>
+      selecteds.size === 0
+        ? projects
+        : projects.filter((project) => (!project.series ? false : selecteds.has(project.series))),
+    [projects, selecteds]
+  );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -95,7 +103,7 @@ export default function Projects({ projects, series }: ProjectsProps) {
       <div className="col-span-3 sm:col-span-2">
         <div className="flex flex-col">
           <div className="text-sm uppercase mb-2">
-            SHOWING {projects.length} OF {projects.length} PROJECTS
+            SHOWING {filteredProjects.length} OF {projects.length} PROJECTS
           </div>
           <motion.ul
             variants={{
@@ -106,7 +114,7 @@ export default function Projects({ projects, series }: ProjectsProps) {
             animate="block"
             className="flex flex-col gap-3"
           >
-            {projects.map((project, i) => (
+            {filteredProjects.map((project, i) => (
               <motion.li
                 key={`project-${i}`}
                 variants={{
@@ -114,7 +122,7 @@ export default function Projects({ projects, series }: ProjectsProps) {
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard post={project} />
+                <ArrowCard post={project} type="projects" />
               </motion.li>
             ))}
           </motion.ul>

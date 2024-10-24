@@ -23,7 +23,7 @@ export default function CareerItem({ curr }: PostArticle) {
       initial="hidden"
       whileInView="block"
       viewport={{ once: true, amount: 0.4 }}
-      className="border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
+      className="py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
     >
       <div className="text-sm uppercase mb-4">
         {curr && formatDate(curr.created)} - {curr && formatDate(curr.updated)}

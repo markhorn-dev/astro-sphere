@@ -47,7 +47,7 @@ export default function RecentPosts({ posts }: RecentPostsProps) {
                 block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
               }}
             >
-              <ArrowCard post={post} />
+              <ArrowCard post={post} type="posts" />
             </motion.li>
           ))}
         </motion.ul>

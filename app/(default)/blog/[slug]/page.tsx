@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: BlogViewerProps) {
 export default async function BlogViewer({ params }: BlogViewerProps) {
   const { slug } = await params;
 
-  const { body, curr, prev, next } = await getPostArticle("posts", slug);
+  const { body, curr, prev, next } = await getPostArticle(slug);
 
   if (!curr || !body) return redirect("/404");
 

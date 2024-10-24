@@ -7,9 +7,7 @@ const currentDirname = dirname(import.meta.url).substring("file://".length);
 
 const storage = join(currentDirname, "../posts");
 
-const careersPath = join(storage, "_careers");
-const projectsPath = join(storage, "_projects");
-const legalsPath = join(storage, "_legals");
+export type PostType = "posts" | "projects" | "careers" | "legals";
 
 export interface PostItem {
   series?: string;
@@ -28,8 +26,6 @@ interface DatabaseSchema {
   careers: Array<PostItem>;
   legals: Array<PostItem>;
 }
-
-type PostType = "posts" | "projects" | "careers" | "legals";
 
 const filenames = readdirSync(storage, { recursive: true });
 
@@ -56,15 +52,10 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
 
       const [series, ...pathname] = strname.split("/");
 
-      if ("_careers" === series) {
-        entryTo(db.data.careers, pathname.join("/"), created, updated);
-      } else if ("_projects" === series) {
-        entryTo(db.data.projects, pathname.join("/"), created, updated);
-      } else if ("_legals" === series) {
-        entryTo(db.data.legals, pathname.join("/"), created, updated);
-      } else {
-        entryTo(db.data.posts, strname, created, updated);
-      }
+      const table = db.data[series as keyof DatabaseSchema];
+
+      if (table) entryTo(table, pathname.join("/"), created, updated);
+      else entryTo(db.data.posts, strname, created, updated);
     }
 
     db.write();
@@ -103,8 +94,8 @@ export interface PostArticle {
   next?: PostItem;
 }
 
-export function getPostArticle(dbname: PostType, slug: string): Promise<PostArticle> {
-  return db.then(({ data: { [dbname]: posts } }) => {
+export function getPostArticle(slug: string, dbname?: PostType): Promise<PostArticle> {
+  return db.then(({ data: { [dbname ?? "posts"]: posts } }) => {
     const curr = posts.findIndex(({ slug: s }) => s === slug);
 
     const cursor: PostArticle = {
@@ -120,7 +111,7 @@ export function getPostArticle(dbname: PostType, slug: string): Promise<PostArti
 }
 
 export function getContent(pathname: string, dbname: string = "") {
-  return readFileSync(join(storage, `${dbname ? `_${dbname}/` : ""}${pathname}.mdx`), "utf8");
+  return readFileSync(join(storage, dbname, `${pathname}.mdx`), "utf8");
 }
 
 export function getSeries(posts: Array<PostItem>) {

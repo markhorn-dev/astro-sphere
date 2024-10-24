@@ -1,13 +1,13 @@
 import Link from "@/components/ViewTransitionLink";
 
-import type { PostItem } from "@/lib/db";
+import type { PostItem, PostType } from "@/lib/db";
 
 type ArrowCardProps = {
   post: PostItem;
-  pill?: boolean;
+  type: PostType;
 };
 
-export default function ArrowCard({ post, pill }: ArrowCardProps) {
+export default function ArrowCard({ post, type }: ArrowCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -15,11 +15,11 @@ export default function ArrowCard({ post, pill }: ArrowCardProps) {
     >
       <div className="w-full group-hover:text-black group-hover:dark:text-white blend">
         <div className="flex flex-wrap items-center gap-2">
-          {pill && (
+          {
             <div className="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25">
-              TODO: post or projects or legals
+              {type.replace(/^\w/, (c) => c.toUpperCase())}
             </div>
-          )}
+          }
           <div className="text-sm uppercase">
             {Intl.DateTimeFormat(undefined, {
               month: "short",

@@ -32,7 +32,10 @@ export default function Blog({ posts, series }: BlogProps) {
   };
 
   const filteredPosts = useMemo(
-    () => (selecteds.size === 0 ? posts : posts.filter((post) => selecteds.has(post.series))),
+    () =>
+      selecteds.size === 0
+        ? posts
+        : posts.filter((post) => (!post.series ? false : selecteds.has(post.series))),
     [posts, selecteds]
   );
 
@@ -103,7 +106,7 @@ export default function Blog({ posts, series }: BlogProps) {
       <div className="col-span-3 sm:col-span-2">
         <div className="flex flex-col">
           <div className="text-sm uppercase mb-2">
-            SHOWING {posts.length} OF {posts.length} POSTS
+            SHOWING {filteredPosts.length} OF {posts.length} POSTS
           </div>
           <motion.ul
             variants={{
@@ -122,7 +125,7 @@ export default function Blog({ posts, series }: BlogProps) {
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard post={post} />
+                <ArrowCard post={post} type="posts" />
               </motion.li>
             ))}
           </motion.ul>

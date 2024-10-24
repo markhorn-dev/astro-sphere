@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: ProjectViewerProps) {
 export default async function ProjectViewer({ params }: ProjectViewerProps) {
   const { slug } = await params;
 
-  const { body, curr, prev, next } = await getPostArticle("projects", slug);
+  const { body, curr, prev, next } = await getPostArticle(slug, "projects");
 
   if (!curr || !body) return redirect("/404");
 

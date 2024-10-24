@@ -21,7 +21,9 @@ export default function CareerLayout({ careers }: CareerLayoutProps) {
               curr && (
                 <Fragment key={`career-${i}`}>
                   <CareerItem curr={curr} />
-                  <MDXLoader source={body} />
+                  <article className="prose dark:prose-invert">
+                    <MDXLoader source={body} />
+                  </article>
                 </Fragment>
               )
           )}
