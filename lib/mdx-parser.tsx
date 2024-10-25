@@ -1,11 +1,13 @@
+import "highlight.js/styles/github-dark.css";
+
 import type { Root } from "mdast";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
+import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkHeadingId from "remark-heading-id";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-// import remarkPrism from "remark-prism";
 
 import type { VFile } from "vfile";
 
@@ -13,7 +15,7 @@ const separator = "\n---\n";
 
 export function extendsMetadataContent() {
   return (ast: Root, file: VFile) => {
-    const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type) as any;
+    const metadata = ast.children.find(({ type }) => "mdxjsEsm" === type);
     if (!metadata) return;
 
     const [
@@ -26,11 +28,12 @@ export function extendsMetadataContent() {
           ],
         },
       },
+      // @ts-expect-error: estree is not defined in mdast-util-mdx-expression
     ] = metadata.data?.estree.body;
 
     const {
       value: { value: title },
-    } = properties.find(({ key: { value } }) => "title" === value || "company");
+    } = properties.find(({ key: { value } = { value: "" } }) => "title" === value || "company");
 
     const trimed = (file.value as string)?.trim();
     const content = trimed.substring(trimed.indexOf(separator, 1) + separator.length).trim();
@@ -60,7 +63,7 @@ export function extendsMetadataContent() {
     });
 
     const { value: { value: slug = "" } = {} } =
-      properties.find(({ key: { value } }) => "slug" === value) ?? {};
+      properties.find(({ key: { value } = { value: "" } }) => "slug" === value) ?? {};
     properties.push({
       type: "Property",
       method: false,
@@ -87,9 +90,9 @@ export function MDXLoader({ source }: { source?: string }) {
             [remarkHeadingId, { defaults: true, uniqueDefaults: false }],
             remarkFrontmatter,
             [remarkMdxFrontmatter, { name: "metadata" }],
-            // remarkPrism,
             extendsMetadataContent,
           ],
+          rehypePlugins: [rehypeHighlight],
         },
       }}
     />
