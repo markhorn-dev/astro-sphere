@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # husky
+.db.json
 .husky
 .env.development*
 .env.production*
