@@ -4,28 +4,39 @@ import CalendarToday from "@mui/icons-material/CalendarToday";
 import LinkIcon from "@mui/icons-material/Link";
 import MenuBook from "@mui/icons-material/MenuBook";
 import Public from "@mui/icons-material/Public";
+import classnames from "classnames";
 
-import Link from "@/components/ViewTransitionLink";
-import type { PostItem } from "@/lib/db";
+import { useRouter } from "next/navigation";
+
+import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
+import type { PostItem, PostType } from "@/lib/db";
 
 export interface ArticleTopLayoutProps {
   curr: PostItem;
+  type: PostType;
 }
 
-const readingTime = (html: string) => {
-  const textOnly = html.replace(/<[^>]+>/g, "");
-  const wordCount = textOnly.split(/\s+/).length;
-  const readingTimeMinutes = (wordCount / 200 + 1).toFixed();
-  return `${readingTimeMinutes} min read`;
-};
+// const getReadingTime = (html: string) => {
+//   const textOnly = html.replace(/<[^>]+>/g, "");
+//   const wordCount = textOnly.split(/\s+/).length;
+//   const readingTimeMinutes = (wordCount / 200 + 1).toFixed();
+//   return `${readingTimeMinutes} min read`;
+// };
 
-export default function ArticleTopLayout({ curr }: ArticleTopLayoutProps) {
+export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) {
+  const router = useRouter();
+
   return (
     curr && (
       <div>
-        <Link
-          href={`/blog/${curr.slug}`}
-          className="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
+        <button
+          className={classnames(
+            "group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out",
+            {
+              hidden: type === "legals",
+            }
+          )}
+          onClick={() => withTransitionTo(router, `/${type}`)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,9 +62,9 @@ export default function ArticleTopLayout({ curr }: ArticleTopLayoutProps) {
             />
           </svg>
           <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-            Back to {curr.series ? curr.series : "blog"}
+            Back to {type}
           </div>
-        </Link>
+        </button>
         <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
           <div className="flex items-center gap-2">
             <CalendarToday className="size-4 stroke-current" />
@@ -67,7 +78,7 @@ export default function ArticleTopLayout({ curr }: ArticleTopLayoutProps) {
           </div>
           <div className="flex items-center gap-2">
             <MenuBook className="size-4 stroke-current" />
-            {/* {curr.content && readingTime(curr.content)} */}
+            {/* {readingTime} */}
           </div>
         </div>
         <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">{curr.title}</h1>

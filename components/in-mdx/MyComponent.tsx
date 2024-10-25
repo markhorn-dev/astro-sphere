@@ -4,7 +4,7 @@ export interface ComponentProps extends HTMLAttributes<HTMLButtonElement> {
   name: string;
 }
 
-export default function Component({ name, children }: ComponentProps) {
+export default function MyComponent({ name, children }: ComponentProps) {
   return (
     <div className="border p-4 dark:bg-white dark:text-black">
       <div>

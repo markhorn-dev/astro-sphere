@@ -5,15 +5,21 @@ import "prismjs/themes/prism-twilight.css";
 import { motion } from "framer-motion";
 
 import Link from "@/components/ViewTransitionLink";
-import type { PostItem } from "@/lib/db";
+import type { PostItem, PostType } from "@/lib/db";
 
 export interface ArticleBottomLayoutProps {
+  type: PostType;
   component: React.ReactNode;
   prev?: PostItem;
   next?: PostItem;
 }
 
-export default function ArticleBottomLayout({ component, prev, next }: ArticleBottomLayoutProps) {
+export default function ArticleBottomLayout({
+  component,
+  prev,
+  next,
+  type,
+}: ArticleBottomLayoutProps) {
   return (
     <section>
       <motion.article
@@ -33,7 +39,7 @@ export default function ArticleBottomLayout({ component, prev, next }: ArticleBo
       >
         {prev ? (
           <Link
-            href={`/${prev.slug}`}
+            href={`/${type}/${prev.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend"
           >
             <div className="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
@@ -72,7 +78,7 @@ export default function ArticleBottomLayout({ component, prev, next }: ArticleBo
 
         {next ? (
           <Link
-            href={`/${next.slug}`}
+            href={`/${type}/${next.slug}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
           >
             <div className="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">

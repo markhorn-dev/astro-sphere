@@ -83,8 +83,13 @@ function getItem(series: string, pathname: string, slug: string, created: number
   };
 }
 
-export function getMetadata(slug: string): Promise<PostItem | undefined> {
-  return db.then(({ data: { posts } }) => posts.find(({ slug: s }) => slug === s));
+export function getMetadata(
+  slug: string,
+  dbname?: keyof DatabaseSchema
+): Promise<PostItem | undefined> {
+  return db.then(({ data: { [dbname ?? "posts"]: posts } }) =>
+    posts.find(({ slug: s }) => slug === s)
+  );
 }
 
 export interface PostArticle {

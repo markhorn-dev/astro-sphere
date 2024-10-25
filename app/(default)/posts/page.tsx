@@ -1,9 +1,8 @@
-import Blog from "@/components/Blog";
 import BottomLayout from "@/components/BottomLayout";
+import PostList from "@/components/PostList";
 import TopLayout from "@/components/TopLayout";
 
-import { author, pagination, site } from "@/config";
-
+import { author, site } from "@/config";
 import db, { getSeries } from "@/lib/db";
 
 export const metadata = {
@@ -12,24 +11,22 @@ export const metadata = {
 };
 
 interface BlogPageParams {
-  searchParams: Promise<{ from?: string; size?: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageParams) {
-  const { from = 0, size = pagination.pageSize } = await searchParams;
+  const page = Number((await searchParams).page ?? "1");
 
   const posts = (await db).data.posts;
 
   const series = getSeries(posts);
-
-  const pagedPosts = posts.slice(Number(from), Number(size));
 
   return (
     <>
       <TopLayout className="page-heading">Blog</TopLayout>
 
       <BottomLayout>
-        <Blog posts={pagedPosts} series={series} />
+        <PostList posts={posts} series={series} page={page} type="posts" />
       </BottomLayout>
     </>
   );

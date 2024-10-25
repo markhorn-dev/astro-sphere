@@ -11,6 +11,9 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 import type { VFile } from "vfile";
 
+import Counter from "@/components/in-mdx/Counter";
+import MyComponent from "@/components/in-mdx/MyComponent";
+
 const separator = "\n---\n";
 
 export function extendsMetadataContent() {
@@ -83,6 +86,7 @@ export function MDXLoader({ source }: { source?: string }) {
   return source ? (
     <MDXRemote
       source={source}
+      components={{ Counter, MyComponent }}
       options={{
         mdxOptions: {
           remarkPlugins: [

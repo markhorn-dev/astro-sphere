@@ -4,23 +4,47 @@ import CheckBox from "@mui/icons-material/CheckBox";
 import Square from "@mui/icons-material/Square";
 
 import classnames from "classnames";
-
 import { motion } from "framer-motion";
-
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import ArrowCard from "@/components/ArrowCard";
-import Link from "@/components/ViewTransitionLink";
-import type { PostItem } from "@/lib/db";
+import Pagination from "./Pagination";
 
-export interface BlogProps {
+import ArrowCard from "@/components/ArrowCard";
+import { pagination } from "@/config";
+import type { PostItem, PostType } from "@/lib/db";
+
+export interface PostListProps {
   posts: Array<PostItem>;
   series: Array<string>;
+  page: number;
+  type: PostType;
 }
 
-export default function Blog({ posts, series }: BlogProps) {
+export default function PostList({ posts: allPosts, series, page, type }: PostListProps) {
   const [selecteds, setSelecteds] = useState(new Set<string>());
+
+  const {
+    from,
+    to,
+    posts: seriesedPosts,
+  } = useMemo(() => {
+    const seriesedPosts =
+      selecteds.size === 0
+        ? allPosts
+        : allPosts.filter((post) => (!post.series ? false : selecteds.has(post.series)));
+
+    const from = (page - 1) * pagination.pageSize;
+    const to = pagination.pageSize * page;
+
+    return {
+      from,
+      to: seriesedPosts.length > to ? to : seriesedPosts.length,
+      posts: seriesedPosts,
+    };
+  }, [allPosts, pagination, page, selecteds]);
+
+  const posts = useMemo(() => seriesedPosts.slice(from, to), [seriesedPosts, from, to]);
 
   const handleClickSeriesToggle = (series: string) => {
     setSelecteds((prev) => {
@@ -31,14 +55,6 @@ export default function Blog({ posts, series }: BlogProps) {
       );
     });
   };
-
-  const filteredPosts = useMemo(
-    () =>
-      selecteds.size === 0
-        ? posts
-        : posts.filter((post) => (!post.series ? false : selecteds.has(post.series))),
-    [posts, selecteds]
-  );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -107,7 +123,7 @@ export default function Blog({ posts, series }: BlogProps) {
       <div className="col-span-3 sm:col-span-2">
         <div className="flex flex-col">
           <div className="text-sm uppercase mb-2">
-            SHOWING {filteredPosts.length} OF {posts.length} POSTS
+            SHOWING {from + 1} TO {to} OF {seriesedPosts.length} POSTS
           </div>
           <motion.ul
             variants={{
@@ -118,7 +134,7 @@ export default function Blog({ posts, series }: BlogProps) {
             animate="block"
             className="flex flex-col gap-3"
           >
-            {filteredPosts.map((post, i) => (
+            {posts.map((post, i) => (
               <motion.li
                 key={`post-${i}`}
                 variants={{
@@ -126,38 +142,13 @@ export default function Blog({ posts, series }: BlogProps) {
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard post={post} type="posts" />
+                <ArrowCard post={post} type={type} />
               </motion.li>
             ))}
           </motion.ul>
 
           {/* Pagination... */}
-          {/* <nav className="mt-4 flex items-center gap-2">
-            <Link
-              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-              href="#"
-            >
-              1
-            </Link>
-            <Link
-              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-              href="#"
-            >
-              2
-            </Link>
-            <Link
-              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-              href="#"
-            >
-              3
-            </Link>
-            <Link
-              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-              href="#"
-            >
-              4
-            </Link>
-          </nav> */}
+          <Pagination total={seriesedPosts.length} page={page} />
         </div>
       </div>
     </div>

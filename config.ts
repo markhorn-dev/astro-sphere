@@ -42,7 +42,7 @@ export const nav = [
   },
   {
     name: process.env.NEXT_PUBLIC_NAV_BLOG_TEXT,
-    href: "/blog",
+    href: "/posts",
   },
   {
     name: process.env.NEXT_PUBLIC_NAV_PROJECTS_TEXT,

@@ -3,7 +3,7 @@ title: "Astro Sphere: Writing MDX"
 description: "Lorem ipsum dolor sit amet"
 created: "Mar 12 2024"
 draft: false
-collection: "blog"
+collection: "posts"
 tags:
   - Tutorial
   - Astro
@@ -20,14 +20,14 @@ If you have existing content authored in MDX, this integration will hopefully ma
 
 ```
 // Imported from relative path (same dir as markdown file)
-import MyComponent from "./Component"
+import MyComponent from "@/components/in-mdx/Component"
 
 <MyComponent name="You">
   Welcome to MDX
 </MyComponent>
 ```
 
-import MyComponent from "./Component"
+import MyComponent from "@/components/in-mdx/Component"
 
 <MyComponent name="You">
   Welcome to MDX
@@ -39,7 +39,7 @@ import MyComponent from "./Component"
 
 ```
 // Imported from components directory (src/components)
-import MyComponent from "@/components/Counter"
+import MyComponent from "@/components/in-mdx/Counter"
 
 // Don't forget the astro client:load directive
 <Counter /> 

@@ -1,5 +1,5 @@
 import BottomLayout from "@/components/BottomLayout";
-import Projects from "@/components/Projects";
+import PostList from "@/components/PostList";
 import TopLayout from "@/components/TopLayout";
 
 import { author, site } from "@/config";
@@ -10,7 +10,13 @@ export const metadata = {
   description: `${author.name}'s Project List.`,
 };
 
-export default async function ProjectsPage() {
+interface ProjectPageParams {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function ProjectsPage({ searchParams }: ProjectPageParams) {
+  const page = Number((await searchParams).page ?? "1");
+
   const projects = (await db).data.projects;
 
   const series = getSeries(projects);
@@ -20,7 +26,7 @@ export default async function ProjectsPage() {
       <TopLayout className="page-heading">Projects</TopLayout>
 
       <BottomLayout>
-        <Projects projects={projects} series={series} />
+        <PostList posts={projects} series={series} page={page} type="projects" />
       </BottomLayout>
     </>
   );
