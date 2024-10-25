@@ -87,3 +87,7 @@ export const stack = process.env.NEXT_PUBLIC_STACKS?.split(";").map((stack) => {
   const [text, ...href] = stack.split(":");
   return { text, href: href.join(":") };
 });
+
+export const pagination = {
+  pageSize: Number(process.env.NEXT_PUBLIC_PGN_SIZE ?? "10"),
+};

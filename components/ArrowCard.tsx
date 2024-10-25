@@ -17,7 +17,7 @@ export default function ArrowCard({ post, type }: ArrowCardProps) {
         <div className="flex flex-wrap items-center gap-2">
           {
             <div className="text-sm capitalize px-2 py-0.5 rounded-full border border-black/15 dark:border-white/25">
-              {type.replace(/^\w/, (c) => c.toUpperCase())}
+              {type.replace(/^\w/, (c: string) => c.toUpperCase())}
             </div>
           }
           <div className="text-sm uppercase">

@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import ArrowCard from "@/components/ArrowCard";
+import Link from "@/components/ViewTransitionLink";
 import type { PostItem } from "@/lib/db";
 
 export interface BlogProps {
@@ -129,6 +130,34 @@ export default function Blog({ posts, series }: BlogProps) {
               </motion.li>
             ))}
           </motion.ul>
+
+          {/* Pagination... */}
+          {/* <nav className="mt-4 flex items-center gap-2">
+            <Link
+              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+              href="#"
+            >
+              1
+            </Link>
+            <Link
+              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+              href="#"
+            >
+              2
+            </Link>
+            <Link
+              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+              href="#"
+            >
+              3
+            </Link>
+            <Link
+              className="size-7 rounded-full flex text-center items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+              href="#"
+            >
+              4
+            </Link>
+          </nav> */}
         </div>
       </div>
     </div>

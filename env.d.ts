@@ -59,5 +59,8 @@ declare namespace NodeJS {
     NEXT_PUBLIC_LOGO_LIGHT: string;
     // Base64 Image Format or URL
     NEXT_PUBLIC_LOGO_DARK: string;
+
+    // Pagination Configurations
+    NEXT_PUBLIC_PGN_SIZE: string;
   }
 }

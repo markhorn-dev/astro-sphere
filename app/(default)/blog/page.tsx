@@ -2,7 +2,7 @@ import Blog from "@/components/Blog";
 import BottomLayout from "@/components/BottomLayout";
 import TopLayout from "@/components/TopLayout";
 
-import { author, site } from "@/config";
+import { author, pagination, site } from "@/config";
 
 import db, { getSeries } from "@/lib/db";
 
@@ -16,18 +16,20 @@ interface BlogPageParams {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageParams) {
-  const { from = 0, size = 10 } = await searchParams;
+  const { from = 0, size = pagination.pageSize } = await searchParams;
 
-  const posts = (await db).data.posts.slice(Number(from), Number(size));
+  const posts = (await db).data.posts;
 
   const series = getSeries(posts);
+
+  const pagedPosts = posts.slice(Number(from), Number(size));
 
   return (
     <>
       <TopLayout className="page-heading">Blog</TopLayout>
 
       <BottomLayout>
-        <Blog posts={posts} series={series} />
+        <Blog posts={pagedPosts} series={series} />
       </BottomLayout>
     </>
   );
