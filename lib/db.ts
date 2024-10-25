@@ -39,6 +39,12 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
 })
   // initialize
   .then((db) => {
+    // clear all data
+    db.data.posts = [];
+    db.data.projects = [];
+    db.data.careers = [];
+    db.data.legals = [];
+
     for (const filename of filenames) {
       const strname = String(filename);
 
