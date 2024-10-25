@@ -29,7 +29,7 @@ interface DatabaseSchema {
 
 const filenames = readdirSync(storage, { recursive: true });
 
-const dbfilepath = join(process.env.DB_PATH, "db.json");
+const dbfilepath = join(process.env.DB_PATH, ".db.json");
 
 const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
   posts: [],
