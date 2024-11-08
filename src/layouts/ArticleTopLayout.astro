@@ -8,7 +8,7 @@ type Props = {
 
 const { entry } = Astro.props
 const { collection, data, body } = entry
-const { title, summary, date } = data
+const { title, summary, date, featured } = data
 
 const demoUrl = collection === "projects" ? data.demoUrl : null
 const repoUrl = collection === "projects" ? data.repoUrl : null
@@ -21,7 +21,7 @@ const repoUrl = collection === "projects" ? data.repoUrl : null
       <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
     </svg>
     <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-      Back to {collection}
+      Back to {collection},
     </div>
   </a>
   <div class="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
@@ -37,6 +37,14 @@ const repoUrl = collection === "projects" ? data.repoUrl : null
       </svg>
       {readingTime(body)}
     </div>
+    <!-- {featured &&
+    <div class="flex items-center gap-2">
+      <svg class="size-5 stroke-current">
+        <use href="/ui.svg#star"/>
+      </svg>
+      Featured
+    </div>
+    } -->
   </div>
   <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
     {title}
