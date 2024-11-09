@@ -1,12 +1,12 @@
 ---
-title: "Astro Sphere: Getting Started"
-summary: "You've downloaded and installed the project. Let's hit the ground running."
-date: "Mar 16 2024"
-draft: false
+title: 'Astro Sphere: Getting Started'
+summary: You've downloaded and installed the project. Let's hit the ground running.
+date: 2024-03-27T18:30:00.000Z
+draft: true
 tags:
-- Tutorial
-- Astro
-- Astro Sphere
+  - Tutorial
+  - Astro
+  - Astro Sphere
 ---
 
 Astro Sphere is designed to be configurable. This article will cover the basics on
@@ -82,9 +82,9 @@ export const SOCIALS: Socials = [
 ]
 ```
 
-| Field | Type | Required | Description |
-| :---- | :--- | :------- | :---------- |
-| NAME  | string | yes | Accessible name |
-| ICON  | string | yes | Refers to the symbol id in `public/social.svg` |
-| TEXT  | string | yes | Shorthand profile name |
-| HREF  | string | yes | The link to the social media profile |
+| Field | Type   | Required | Description                                    |
+| :---- | :----- | :------- | :--------------------------------------------- |
+| NAME  | string | yes      | Accessible name                                |
+| ICON  | string | yes      | Refers to the symbol id in `public/social.svg` |
+| TEXT  | string | yes      | Shorthand profile name                         |
+| HREF  | string | yes      | The link to the social media profile           |

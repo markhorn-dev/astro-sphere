@@ -3,10 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npx tinacms dev -c \"astro dev\"",
     "dev:network": "astro dev --host",
-    "start": "astro dev",
-    "build": "astro check && astro build",
+    "start": "npx tinacms dev -c \"astro dev\"",
+    "build": "tinacms build && astro check && astro build",
     "preview": "astro preview",
     "preview:network": "astro dev --host",
     "astro": "astro",
@@ -28,6 +28,11 @@
     "solid-js": "^1.8.15",
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "^3.4.1",
+    "tinacms": "^2.4.0",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.6.11",
+    "@types/node": "^22.9.0"
   }
 }

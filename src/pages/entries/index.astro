@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import Blog from "@components/Blog"
+import { BLOG, ENTRY } from "@consts"
+import Entry from "@components/Entry"
+
+const entries = (await getCollection("entries"))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+const tags = [...new Set(entries.flatMap(entry => entry.data.tags))]
+  .sort((a, b) => a.localeCompare(b))
+---
+
+<PageLayout title={ENTRY.TITLE} description={ENTRY.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate page-heading">
+      {ENTRY.TITLE}
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <Entry client:load tags={tags} data={entries} />
+    </div>
+  </BottomLayout>
+</PageLayout>
+
+

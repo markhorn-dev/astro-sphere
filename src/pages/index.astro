@@ -12,6 +12,23 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0,3)
 
+const featuredPosts = (await getCollection("blog"))
+  .filter(post => post.data.featured)
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const entries = (await getCollection("entries"))
+  .filter(entry => !entry.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
+const featuredEntries = (await getCollection("entries"))
+  .filter(entry => entry.data.featured)
+  .filter(entry => !entry.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0,3)
+
 const projects = (await getCollection("projects"))
   .filter(project => !project.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -89,7 +106,7 @@ const stack = [
             Documenting 5 interesting stories a day.
           </p>
           <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
-            <a href='/blog' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
+            <a href='/entries' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
               Read my journal
             </a>
             <!-- <a href='/work' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
@@ -116,8 +133,8 @@ const stack = [
         </article>
       </section> -->
 
-      <!-- Blog Preview Section -->
-      <section class="animate">
+      <!-- Recent Blog Posts Section -->
+      <!-- <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
             <p class="font-semibold text-black dark:text-white">
@@ -137,7 +154,76 @@ const stack = [
             ))}
           </ul>
         </div>
-      </section>
+      </section> -->
+
+      <!-- Featured Blog Posts Section -->
+      <!-- <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-semibold text-black dark:text-white">
+              Featured
+            </p>
+            <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                All posts
+              </span>
+            </a>
+          </div>
+          <ul class="space-y-4">
+            {featuredPosts.map((post) => (
+              <li>
+                <ArrowCard entry={post} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section> -->
+
+            <!-- Recent Blog Posts Section -->
+            <section class="animate">
+              <div class="space-y-4">
+                <div class="flex justify-between">
+                  <p class="font-semibold text-black dark:text-white">
+                    Recent Entries
+                  </p>
+                  <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+                    <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                      All Entries
+                    </span>
+                  </a>
+                </div>
+                <ul class="space-y-4">
+                  {entries.map((entry) => (
+                    <li>
+                      <ArrowCard entry={entry} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+      
+            <!-- Featured Blog Posts Section -->
+            <section class="animate">
+              <div class="space-y-4">
+                <div class="flex justify-between">
+                  <p class="font-semibold text-black dark:text-white">
+                    Featured Entries
+                  </p>
+                  <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
+                    <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                      All Entries
+                    </span>
+                  </a>
+                </div>
+                <ul class="space-y-4">
+                  {featuredEntries.map((entry) => (
+                    <li>
+                      <ArrowCard entry={entry} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
 
       <!-- Tech Stack Section -->
       <!-- <section class="animate">
@@ -166,7 +252,7 @@ const stack = [
       </section> -->
 
       <!-- Project Preview Section -->
-      <section class="animate">
+      <!-- <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
             <p class="font-semibold text-black dark:text-white">
@@ -186,7 +272,7 @@ const stack = [
             ))}
           </ul>
         </div>
-      </section>
+      </section> -->
 
       <!-- Contact Section -->
       <section class="animate">
