@@ -148,3 +148,10 @@ article img {
 #meteors .shower.ul {
   @apply rotate-315;
 }
+.copy-btn {
+  @apply  absolute top-2 right-2 w-[30px];
+}
+
+.copy-svg {
+  @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
+}
