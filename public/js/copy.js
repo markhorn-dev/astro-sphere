@@ -15,18 +15,23 @@ codeBlocks.forEach((code) => {
   btn.classList.add('copy-btn');
   btn.addEventListener('click', (e) => copyCode(e));
 
+  //container to fix copy button
+  const container = document.createElement('div');
+  container.classList.add('copy-cnt');
+  container.appendChild(btn);
+
   //add to code block
   code.classList.add('relative');
-  code.appendChild(btn);
+  code.appendChild(container);
 });
 
 /**
-* @param {MouseEvent} e
+* @param {MouseEvent} event
 */
-function copyCode(e) {
-  let codeBlock = getChildByTagName(e.currentTarget.parentElement, 'CODE')
+function copyCode(event) {
+  let codeBlock = getChildByTagName(event.currentTarget.parentElement.parentElement, 'CODE')
   navigator.clipboard.writeText(codeBlock.innerText)
-  const use = getChildByTagName(getChildByTagName(e.currentTarget, 'svg'), 'use');
+  const use = getChildByTagName(getChildByTagName(event.currentTarget, 'svg'), 'use');
   use.setAttribute('href', '/copy.svg#filled')
   setTimeout(() => {
     if (use) {
