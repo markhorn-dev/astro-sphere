@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --copy-btn-margin:10px;
+}
+
 @layer base {
   @font-face {
     font-family: "Atkinson";
@@ -147,4 +151,18 @@ article img {
 
 #meteors .shower.ul {
   @apply rotate-315;
+}
+
+.copy-cnt{
+  @apply absolute w-full;
+  top:var(--copy-btn-margin);
+}
+.copy-btn {
+  @apply  w-[30px] fixed;
+  left:calc(100% - var(--copy-btn-margin));
+  transform: translateX(-100%);
+}
+
+.copy-svg {
+  @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
 }

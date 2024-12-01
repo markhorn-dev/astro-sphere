@@ -24,6 +24,7 @@ It is primarily Astro, Tailwind and Typescript, with a very small amount of Soli
 - ✅ Markdown support
 - ✅ MDX Support (components in your markdown)
 - ✅ Searchable content (posts and projects)
+- ✅ Code Blocks - copy to clipboard
 
 ## 💯 Lighthouse score
 ![Astro Sphere Lighthouse Score](_lighthouse.png)
@@ -61,7 +62,6 @@ Replace npm with your package manager of choice. `npm`, `pnpm`, `yarn`, `bun`, e
 ## 🗺️ Roadmap
 
 A few features I plan to implement
-- ⬜ Code Blocks - copy to clipboard
 - ⬜ Article Pages - Table of Contents
 - ⬜ Article Pages - Share on social media
 
