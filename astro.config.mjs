@@ -6,6 +6,14 @@ import solidJs from "@astrojs/solid-js"
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-sphere-demo.vercel.app",
+  site: "https://balajimalathi.com",
+  vite: {
+    server: {
+      allowedHosts: true,
+    },
+  },
+  devToolbar: {
+    enabled: false
+  },
   integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
 })

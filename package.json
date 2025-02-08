@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
-    "start": "astro dev",
+    "start": "astro dev --port 9000",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "preview:network": "astro dev --host",
