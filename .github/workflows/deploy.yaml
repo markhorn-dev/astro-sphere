@@ -31,10 +31,13 @@ jobs:
           username: ${{ secrets.HETZNER_USER }}
           key: ${{ secrets.HETZNER_SSH_KEY }}
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
             pm2 stop balajimalathi
             cd /home/portfolio
             git pull origin main
             npm install
             npm run build
-            pm2 reload balajimalathi
-            pm2 save
+            /root/.nvm/versions/node/v20.12.2/bin/pm2 reload balajimalathi || /root/.nvm/versions/node/v20.12.2/bin/pm2 start npm --name "balajimalathi" -- start
+            /root/.nvm/versions/node/v20.12.2/bin/pm2 save
