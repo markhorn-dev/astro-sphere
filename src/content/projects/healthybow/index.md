@@ -11,6 +11,7 @@ tags:
 - Codeignitor
 - Bootstrap
 ---
+![app](./app.png)
 
 HealthyBow is a feature-rich Android application designed to help individuals monitor and maintain their health. The app provides personalized daily exercise routines, meal plans, health tracking, appointment booking, and a social timeline for users to share their wellness journey. With integrated body analysis, medical checkups, and expert-curated plans from nutritionists and physicians, HealthyBow serves as a one-stop solution for users aiming to stay healthy and fit.
 

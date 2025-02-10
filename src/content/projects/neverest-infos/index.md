@@ -1,7 +1,7 @@
 ---
 title: "Neverst Infos"
 summary: "Quotation Management for Computer Hardware"
-date: "Nov 06 2019"
+date: "Nov 06 2018"
 draft: false
 tags:
 - Php

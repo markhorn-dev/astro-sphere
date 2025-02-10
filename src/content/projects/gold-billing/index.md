@@ -1,7 +1,7 @@
 ---
 title: "Jewellery ERP"
 summary: "Digital Jewellery Shop Management System"
-date: "Mar 15 2022"
+date: "Dec 15 2017"
 draft: false
 tags:
 - C#
