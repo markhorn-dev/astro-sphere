@@ -53,28 +53,28 @@ export const LINKS: Links = [
 
 // Socials
 export const SOCIALS: Socials = [
-  {
-    NAME: "Email",
-    ICON: "email",
-    TEXT: "hello@guiteixeira.dev",
-    HREF: "mailto:hello@guiteixeira.dev",
-  },
-  {
-    NAME: "Github",
-    ICON: "github",
-    TEXT: "ggteixeira",
-    HREF: "https://github.com/ggteixeira",
-  },
-  {
-    NAME: "LinkedIn",
-    ICON: "linkedin",
-    TEXT: "guiatf",
-    HREF: "https://www.linkedin.com/in/guiatf/",
-  },
-  {
-    NAME: "Bluesky",
-    ICON: "bluesky",
-    TEXT: "guiteixeira.dev",
-    HREF: "https://bsky.app/profile/guiteixeira.dev",
-  },
+  // {
+  //   NAME: "Email",
+  //   ICON: "email",
+  //   TEXT: "hello@guiteixeira.dev",
+  //   HREF: "mailto:hello@guiteixeira.dev",
+  // },
+  // {
+  //   NAME: "Github",
+  //   ICON: "github",
+  //   TEXT: "ggteixeira",
+  //   HREF: "https://github.com/ggteixeira",
+  // },
+  // {
+  //   NAME: "LinkedIn",
+  //   ICON: "linkedin",
+  //   TEXT: "guiatf",
+  //   HREF: "https://www.linkedin.com/in/guiatf/",
+  // },
+  // {
+  //   NAME: "Bluesky",
+  //   ICON: "bluesky",
+  //   TEXT: "guiteixeira.dev",
+  //   HREF: "https://bsky.app/profile/guiteixeira.dev",
+  // },
 ];
