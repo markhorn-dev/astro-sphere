@@ -1,6 +1,7 @@
 ---
 import { SITE, SOCIALS } from "@consts"
 import Container from "@components/Container.astro"
+import CopyrightDate from '@components/CopyrightDate.tsx'
 ---
 
 <footer class="relative bg-white dark:bg-black">
@@ -55,9 +56,8 @@ import Container from "@components/Container.astro"
                 Privacy
               </a>
             </div>
-            <div class="text-sm mt-2">
-              &copy; 2024 | All rights reserved
-            </div>
+
+            <CopyrightDate />
           </div>
   
           <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
