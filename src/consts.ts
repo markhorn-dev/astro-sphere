@@ -33,22 +33,22 @@ export const SEARCH: Page = {
 
 // Links
 export const LINKS: Links = [
-  {
-    TEXT: "Home",
-    HREF: "/",
-  },
-  {
-    TEXT: "Work",
-    HREF: "/work",
-  },
-  {
-    TEXT: "Blog",
-    HREF: "/blog",
-  },
-  {
-    TEXT: "Projects",
-    HREF: "/projects",
-  },
+  // {
+  //   TEXT: "Home",
+  //   HREF: "/",
+  // },
+  // {
+  //   TEXT: "Work",
+  //   HREF: "/work",
+  // },
+  // {
+  //   TEXT: "Blog",
+  //   HREF: "/blog",
+  // },
+  // {
+  //   TEXT: "Projects",
+  //   HREF: "/projects",
+  // },
 ];
 
 // Socials
