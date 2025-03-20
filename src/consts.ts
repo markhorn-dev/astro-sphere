@@ -39,48 +39,52 @@ export const SEARCH: Page = {
 
 // Links
 export const LINKS: Links = [
-  // {
-  //   TEXT: "Home",
-  //   HREF: "/",
-  // },
-  // {
-  //   TEXT: "Work",
-  //   HREF: "/work",
-  // },
-  // {
-  //   TEXT: "Blog",
-  //   HREF: "/blog",
-  // },
-  // {
-  //   TEXT: "Projects",
-  //   HREF: "/projects",
-  // },
+  {
+    TEXT: "Home",
+    HREF: "/",
+  },
+  {
+    TEXT: "Work",
+    HREF: "/work",
+  },
+  {
+    TEXT: "Blog",
+    HREF: "/blog",
+  },
+  {
+    TEXT: "Projects",
+    HREF: "/projects",
+  },
+  {
+    TEXT: "About",
+    HREF: "/about"
+  }
 ];
 
 // Socials
 export const SOCIALS: Socials = [
-  // {
-  //   NAME: "Email",
-  //   ICON: "email",
-  //   TEXT: "hello@guiteixeira.dev",
-  //   HREF: "mailto:hello@guiteixeira.dev",
-  // },
-  // {
-  //   NAME: "Github",
-  //   ICON: "github",
-  //   TEXT: "ggteixeira",
-  //   HREF: "https://github.com/ggteixeira",
-  // },
-  // {
-  //   NAME: "LinkedIn",
-  //   ICON: "linkedin",
-  //   TEXT: "guiatf",
-  //   HREF: "https://www.linkedin.com/in/guiatf/",
-  // },
-  // {
-  //   NAME: "Bluesky",
-  //   ICON: "bluesky",
-  //   TEXT: "guiteixeira.dev",
-  //   HREF: "https://bsky.app/profile/guiteixeira.dev",
-  // },
+  {
+    NAME: "Email",
+    ICON: "email",
+    TEXT: "hello@guiteixeira.dev",
+    HREF: "mailto:hello@guiteixeira.dev",
+  },
+  {
+    NAME: "Github",
+    ICON: "github",
+    TEXT: "ggteixeira",
+    HREF: "https://github.com/ggteixeira",
+  },
+  {
+    NAME: "LinkedIn",
+    ICON: "linkedin",
+    TEXT: "guiatf",
+    HREF: "https://www.linkedin.com/in/guiatf/",
+  },
+  {
+    NAME: "Bluesky",
+    ICON: "bluesky",
+    TEXT: "guiteixeira.dev",
+    HREF: "https://bsky.app/profile/guiteixeira.dev",
+  },
 ];
