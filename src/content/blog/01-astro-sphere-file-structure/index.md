@@ -2,7 +2,7 @@
 title: "Astro Sphere: File Structure"
 summary: "You'll find these directories and files in the project. What do they do?"
 date: "Mar 17 2024"
-draft: false
+draft: true
 tags:
 - Tutorial
 - Astro
