@@ -3,7 +3,7 @@ import type { Site, Page, Links, Socials } from "@types";
 // Global
 export const SITE: Site = {
   TITLE: "Guilherme Teixeira",
-  DESCRIPTION: "Welcome my website.",
+  DESCRIPTION: "Welcome to my website.",
   AUTHOR: "Guilherme Teixeira",
 };
 
@@ -12,6 +12,12 @@ export const WORK: Page = {
   TITLE: "Work",
   DESCRIPTION: "Places I have worked.",
 };
+
+// About Page
+export const ABOUT: Page = {
+  TITLE: "About",
+  DESCRIPTION: "About me"
+}
 
 // Blog Page
 export const BLOG: Page = {
