@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
-import StackCard from "@components/StackCard.astro"
+// import StackCard from "@components/StackCard.astro"
 import { SITE, SOCIALS } from "@consts"
 import TwinklingStars from "@components/TwinklingStars.astro"
 import MeteorShower from "@components/MeteorShower.astro"
@@ -13,33 +13,33 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0,3)
 
-const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0,3)
+// const projects = (await getCollection("projects"))
+//   .filter(project => !project.data.draft)
+//   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+//   .slice(0,3)
 
-const stack = [
-  { 
-    text: "Astro", 
-    icon: "astro", 
-    href: "https://astro.build" 
-  },
-  { 
-    text: "JavaScript", 
-    icon: "javascript", 
-    href: "https://www.javascript.com" 
-  },
-  { 
-    text: "TypeScript", 
-    icon: "typescript", 
-    href: "https://www.typescriptlang.org" 
-  },
-  { 
-    text: "Tailwind", 
-    icon: "tailwind", 
-    href: "https://tailwindcss.com" 
-  },
-]
+// const stack = [
+//   { 
+//     text: "Astro", 
+//     icon: "astro", 
+//     href: "https://astro.build" 
+//   },
+//   { 
+//     text: "JavaScript", 
+//     icon: "javascript", 
+//     href: "https://www.javascript.com" 
+//   },
+//   { 
+//     text: "TypeScript", 
+//     icon: "typescript", 
+//     href: "https://www.typescriptlang.org" 
+//   },
+//   { 
+//     text: "Tailwind", 
+//     icon: "tailwind", 
+//     href: "https://tailwindcss.com" 
+//   },
+// ]
 ---
 
 <PageLayout title="Home" description={SITE.DESCRIPTION}>
