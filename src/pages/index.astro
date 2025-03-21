@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import ArrowCard from "@components/ArrowCard"
 // import StackCard from "@components/StackCard.astro"
 import { SITE, SOCIALS } from "@consts"
 import TwinklingStars from "@components/TwinklingStars.astro"
 import MeteorShower from "@components/MeteorShower.astro"
 import About from "@components/About.tsx"
+import ArrowCard from "@components/ArrowCard"
 
 const posts = (await getCollection("blog"))
   .filter(post => !post.data.draft)

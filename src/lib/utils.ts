@@ -6,11 +6,22 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: Date) {
-  return Intl.DateTimeFormat("en-US", {
+  return Intl.DateTimeFormat("pt-BR", {
     month: "short",
     day: "2-digit",
     year: "numeric"
   }).format(date)
+}
+
+export function formatGitHubDate(date: Date) {
+  const d = new Date(date)
+
+  return Intl.DateTimeFormat("pt-BR", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric"
+  }).format(d)
+
 }
 
 export function readingTime(html: string) {
