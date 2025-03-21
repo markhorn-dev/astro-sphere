@@ -3,8 +3,8 @@ title: "O que a série You pode te ensinar sobre segurança digital"
 summary: "Um guia contextual sobre segurança digital pessoal"
 draft: false
 date: "20 dec 2020"
-tags: 
-- segurança digital 
+tags:
+  - sec
 ---
 
 #### (Atenção: Este texto pode conter _spoilers_ da primeira temporada de “You”)
@@ -60,7 +60,7 @@ Mais informações sobre a importância da criptografia e como habilitá-la (cas
 
 #### Facebook
 
-O Facebook provavelmente é a rede social que centraliza num só lugar a maior quantidade de informações sobre você. Felizmente, a própria rede social possui um a ferramenta chamada Verificação de Privacidade. Entre outros tópicos, você pode controlar o nível de informações pessoais às quais visitantes do seu perfil têm acesso, sejam eles seus amigos, amigos de amigos ou desconhecidos. Saiba quais informações você deixa públicas e impeça que terceiros descubram, através de detecção de padrões e triangulação, o horário em que chega ou sai dos seus lugares frequentes. Ainda mais importante que isso é evitar que descubram **através de**  **você** esse tipo de informação sobre os seus entes queridos ou amigos próximos. Seja um vetor de proteção, não de vulnerabilidade e **jamais** confie na aparente boa intenção das pessoas.
+O Facebook provavelmente é a rede social que centraliza num só lugar a maior quantidade de informações sobre você. Felizmente, a própria rede social possui um a ferramenta chamada Verificação de Privacidade. Entre outros tópicos, você pode controlar o nível de informações pessoais às quais visitantes do seu perfil têm acesso, sejam eles seus amigos, amigos de amigos ou desconhecidos. Saiba quais informações você deixa públicas e impeça que terceiros descubram, através de detecção de padrões e triangulação, o horário em que chega ou sai dos seus lugares frequentes. Ainda mais importante que isso é evitar que descubram **através de** **você** esse tipo de informação sobre os seus entes queridos ou amigos próximos. Seja um vetor de proteção, não de vulnerabilidade e **jamais** confie na aparente boa intenção das pessoas.
 
 De tempos em tempos faça um **checkup de privacidade** na sua conta do Facebook. Analise a lista de _devices_ com os quais você fez login na plataforma. Essa opção está na seção [Segurança e Login](https://www.facebook.com/settings?tab=security) das configurações. Aproveite para entender quais informações o Facebook coleta sobre você e o que faz com essas informações.
 
@@ -119,7 +119,7 @@ Sendo a tela de bloqueio a porta de entrada dos seus _devices_, é desnecessári
 
 Se seu smartphone não tem autenticação por biometria, crie um padrão de desbloqueio cujo desenho não remeta a nada óbvio — e decore-o. Fazendo isso, você irá dificultar que pessoas reproduzam o seu desenho. Mesma coisa para o computador: elabore uma senha que seja impossível de ser reproduzida ou adivinhada mesmo se um terceiro estiver te vendo desbloquear a tela.
 
-Em suma, descarte quaisquer senhas baseadas em informações que apontem para você ou a coisas que você gosta, em especial informações facilmente encontráveis no Google. A ideia é que, por exemplo, fãs de Star Wars evitem senhas como “_m4y\_th3\_f0rc3_” e por aí vai.
+Em suma, descarte quaisquer senhas baseadas em informações que apontem para você ou a coisas que você gosta, em especial informações facilmente encontráveis no Google. A ideia é que, por exemplo, fãs de Star Wars evitem senhas como “_m4y_th3_f0rc3_” e por aí vai.
 
 É possível adicionar ainda mais proteção no pós-desbloqueio. Imagine que alguém acessou o seu smartphone sem necessariamente precisar saber sua senha, ou seja, o aparelho foi desbloqueado por você e caiu em mãos erradas antes da tela apagar. Há alguns apps que — através de uma simples configuração — pedem novamente a senha de desbloqueio para serem abertos, tais como o WhatsApp, apps de galeria de fotos e apps de banco.
 
@@ -129,7 +129,7 @@ Para os que não possuem essa opção de forma nativa, é possível ativar a fun
 
 Mais especificamente sobre senhas, a melhor dica que eu tenho é: utilize um gerenciador de senhas que faça por você o trabalho de gerar e guardar senhas seguras e aleatórias. Com apenas uma senha-mestra, você terá acesso a todas as outras através do gerenciador. Apenas certifique-se de que essa senha-mestra seja impossível de adivinhar utilizando dicas como este da [Kaspersky](https://www.kaspersky.com/resource-center/threats/how-to-create-a-strong-password) (em inglês), esta dica do [canal BPV](https://www.youtube.com/watch?v=uq8-nzdyjtw) e este site chamado [How Secure Is My Password](https://www.security.org/how-secure-is-my-password/), que estima quanto tempo a sua senha levaria para ser quebrada.
 
-O resumo das dicas é que os algoritmos usados para quebrar senhas já não são mais enganados por substituições de letras por números, tais como “L_4dy\_g4g4_”. Opte por sequências de palavras não relacionadas, com letras maiúsculas e minúsculas e caracteres especiais em ordem espontânea.
+O resumo das dicas é que os algoritmos usados para quebrar senhas já não são mais enganados por substituições de letras por números, tais como “L*4dy_g4g4*”. Opte por sequências de palavras não relacionadas, com letras maiúsculas e minúsculas e caracteres especiais em ordem espontânea.
 
 ### Outros pontos
 
@@ -161,7 +161,7 @@ Espero também que, ao tomar consciência do controle que você é capaz de ter 
 
 Canal no YouTube do hacker ético Gabriel Pato: [https://www.youtube.com/gabrielpato](https://www.youtube.com/gabrielpato)
 
-Entendendo Conceitos Básicos de Criptografia 1/2 (Fábio Akita): [https://www.youtube.com/watch?v=CcU5Kc\_FN\_4](https://www.youtube.com/watch?v=CcU5Kc_FN_4)
+Entendendo Conceitos Básicos de Criptografia 1/2 (Fábio Akita): [https://www.youtube.com/watch?v=CcU5Kc_FN_4](https://www.youtube.com/watch?v=CcU5Kc_FN_4)
 
 Entendendo Conceitos Básicos de Criptografia 2/2 (Fábio Akita): [https://www.youtube.com/watch?v=HCHqtpipwu4](https://www.youtube.com/watch?v=HCHqtpipwu4)
 
@@ -275,4 +275,4 @@ Find My (iOS, iPadOS, macOS): [https://www.apple.com/br/icloud/find-my/](https:/
 
 Encontrar Dispositivo (Android): [https://myaccount.google.com/find-your-phone](https://myaccount.google.com/find-your-phone)
 
-* * *
+---
