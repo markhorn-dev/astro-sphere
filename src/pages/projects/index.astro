@@ -13,18 +13,6 @@ const projects = (await getCollection("projects"))
 const tags = [
   ...new Set(projects.flatMap((project) => project.data.tags)),
 ].sort((a, b) => a.localeCompare(b));
-
-const response = await fetch(
-  `https://api.github.com/users/ggteixeira/repos?sort=updated&direction=desc`,
-);
-
-const data = await response.json();
-
-// data.map(
-//   ({ name, description, language, html_url, stargazers_count, fork }) => {
-//     console.log(name);
-//   },
-// );
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
@@ -35,7 +23,7 @@ const data = await response.json();
   </TopLayout>
   <BottomLayout>
     <div class="animate">
-      <Projects client:load tags={tags} data={data} />
+      <Projects client:load tags={tags} data={projects} />
     </div>
   </BottomLayout>
 </PageLayout>
