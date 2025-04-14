@@ -11,6 +11,7 @@ const { collection } = entry
 const { Content } = await entry.render()
 
 // Get the next and prev entries (modulo to wrap index)
+// FIX: This items array is not sorted by date, so the next/prev links are not correct
 const items = (await getCollection(collection))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -28,7 +29,7 @@ const next = items[(index + 1) % items.length]
       <div class="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
         <div class="flex flex-wrap gap-2">
           <div class="text-sm uppercase">
-            Prev
+            Anterior
           </div>
         </div>
         <div class="font-semibold mt-3 text-black dark:text-white">
@@ -43,7 +44,7 @@ const next = items[(index + 1) % items.length]
     <a href={`/${next.collection}/${next.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
       <div class="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
         <div class="text-sm uppercase">
-          Next
+          Próximo
         </div>
         <div class="font-semibold mt-3 text-black dark:text-white">
           {next.data.title}
@@ -54,5 +55,10 @@ const next = items[(index + 1) % items.length]
         <polyline points="12 5 19 12 12 19" class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out" />
       </svg>
     </a>
+  </div>
+
+  <!-- TODO: Implementar seção de comentários -->
+  <div class="mt-12 text-center text-gray-600 dark:text-gray-400">
+    <p class="text-lg italic">🚧 Seção de comentários em construção 🚧</p>
   </div>
 </div>

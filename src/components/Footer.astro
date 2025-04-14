@@ -8,13 +8,13 @@ import Container from "@components/Container.astro"
     <section class="py-5">
       <Container size="md">
         <div class="flex items-center justify-center sm:justify-end">
-          <button id="back-to-top" aria-label="Back to top of page" class="group flex w-fit p-1.5 gap-1.5 text-sm items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+          <button id="back-to-top" aria-label="Voltar ao topo da página" class="group flex w-fit p-1.5 gap-1.5 text-sm items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-90">
               <line x1="19" y1="12" x2="5" y2="12" class="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
               <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
             </svg>
             <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
-              Back to top
+              Voltar ao topo
             </div>
           </button>
         </div>
@@ -26,9 +26,9 @@ import Container from "@components/Container.astro"
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="flex flex-col items-center sm:items-start">
             <a href="/" class="flex gap-1 w-fit font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-              <svg class="size-6 fill-current">
+              <!-- <svg class="size-6 fill-current">
                 <use href="/brand.svg#brand"/>
-              </svg>
+              </svg> -->
               {SITE.TITLE}
             </a>
           </div>
@@ -37,7 +37,8 @@ import Container from "@components/Container.astro"
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            All systems normal
+            <!-- TODO: Add the spotify listened song here -->
+            Todos os sistemas normais
           </div>
         </div>
       </Container>
@@ -49,14 +50,14 @@ import Container from "@components/Container.astro"
           <div class="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start">
             <div class="legal">
               <a href="/legal/terms" class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-                Terms
+                Termos
               </a> |
               <a href="/legal/privacy" class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
-                Privacy
+                Privacidade
               </a>
             </div>
             <div class="text-sm mt-2">
-              &copy; 2024 | All rights reserved
+              &copy; 2024 | Todos os direitos reservados
             </div>
           </div>
   
