@@ -51,14 +51,8 @@ function buildToc(headings, title = 'Overview') {
 }
 ---
 
-<nav class="toc">
+<nav class="toc pt-24 sticky top-0 pl-4">
   <ul>
     {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
   </ul>
 </nav>
-
-<style>
-    .toc {
-        position: sticky
-    }
-</style>

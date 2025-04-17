@@ -10,26 +10,20 @@ const headings = content.rendered.metadata.headings
 const { title, summary } = content.data
 ---
 
-
-<div class="animate sticky">
-  <TableOfContents headings={headings} />
+<div class="flex mx-auto max-w-5xl">
+  <div class="overflow-y-auto">
+    <TopLayout>
+      <div class="animate">
+        <ArticleTopLayout entry={content}/>
+      </div>
+    </TopLayout>
+    <BottomLayout>
+      <div class="animate">
+        <ArticleBottomLayout entry={content} />
+      </div>
+    </BottomLayout>
+  </div>
+  <div class="animate pt-[7rem]">
+    <TableOfContents headings={headings} />
+  </div>
 </div>
-<article>
-  <TopLayout>
-    <div class="animate">
-      <ArticleTopLayout entry={content}/>
-    </div>
-  </TopLayout>
-  <BottomLayout>
-    <div class="animate">
-      <ArticleBottomLayout entry={content} />
-    </div>
-  </BottomLayout>
-</article>
-
-<style>
-.sticky {
-  top: 0;
-  position: sticky;
-}
-</style>
