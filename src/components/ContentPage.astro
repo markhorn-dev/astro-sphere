@@ -1,0 +1,35 @@
+---
+import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
+import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import TableOfContents from "./TableOfContents.astro"
+
+const { content } = Astro.props;
+const headings = content.rendered.metadata.headings
+const { title, summary } = content.data
+---
+
+
+<div class="animate sticky">
+  <TableOfContents headings={headings} />
+</div>
+<article>
+  <TopLayout>
+    <div class="animate">
+      <ArticleTopLayout entry={content}/>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <ArticleBottomLayout entry={content} />
+    </div>
+  </BottomLayout>
+</article>
+
+<style>
+.sticky {
+  top: 0;
+  position: sticky;
+}
+</style>
