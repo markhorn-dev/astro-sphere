@@ -1,11 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
-import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
-import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
-import ContentPage from "../../components/ContentPage.astro"
+import ArticleLayout from "@layouts/ArticleLayout.astro"
 
 // Create the static blog pages
 export async function getStaticPaths() {
@@ -23,5 +19,5 @@ const { title, summary } = post.data
 ---
 
 <PageLayout title={title} description={summary}>
-  <ContentPage content={post}/>
+  <ArticleLayout content={post}/>
 </PageLayout>
