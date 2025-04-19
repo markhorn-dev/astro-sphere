@@ -14,9 +14,7 @@ configuring the site and make it personal.
 
 ### First let's change the url
 
-```js
-//astro.config.mjs
-
+```js file=astro.config.js title=Here is how you change the url lines_start=8
 export default defineConfig({
   site: "https://astro-sphere.vercel.app", // your domain here
   integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],

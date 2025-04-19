@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --copy-btn-margin:10px;
-}
 
 @layer base {
   @font-face {
@@ -154,15 +151,41 @@ article img {
 }
 
 .copy-cnt{
-  @apply absolute w-full;
-  top:var(--copy-btn-margin);
+  position: sticky;
+  top: 0;
+  left: 100%;
+  height: 0;
+  width: 0;
+  pointer-events: none;
 }
+
 .copy-btn {
-  @apply  w-[30px] fixed;
-  left:calc(100% - var(--copy-btn-margin));
-  transform: translateX(-100%);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  pointer-events: auto;
+}
+
+.copy-btn:active .copy-svg-inactive {
+  opacity: 0;
+}
+
+.copy-btn:active .copy-svg-active {
+  opacity: 0.9;
 }
 
 .copy-svg {
-  @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @apply w-full aspect-square text-white
+}
+
+.copy-svg-inactive {
+  @apply opacity-70 hover:opacity-90;
+}
+
+.copy-svg-active {
+  opacity: 0;
 }
