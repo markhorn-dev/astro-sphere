@@ -8,4 +8,13 @@ import solidJs from "@astrojs/solid-js"
 export default defineConfig({
   site: "https://astro-sphere-demo.vercel.app",
   integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
-})
+  markdown: {
+    shikiConfig: {
+      transformers: [{
+        pre(hast) {
+          hast.properties['data-meta'] = this.options.meta?.__raw;
+        }
+      }]
+    }
+  }
+});

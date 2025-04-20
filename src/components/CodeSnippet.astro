@@ -1,9 +1,83 @@
 ---
-const props = Astro.props;
+const meta: Record<string, string> = {};
+const { "data-meta": dataMeta, ...props } = Astro.props;
+
+if (dataMeta) {
+  const regex = /(\w+)=("[^"]*"|\S+)/g;
+  let match;
+  while ((match = regex.exec(dataMeta)) !== null) {
+    const key = match[1];
+    let value = match[2];
+
+    // Remove surrounding quotes if present
+    if (value.startsWith('"') && value.endsWith('"')) {
+      value = value.slice(1, -1);
+    }
+
+    meta[key] = value;
+  }
+}
+
+const file_name = meta.file;
+const title = meta.title;
+const link = meta.link;
 ---
 
 <figure>
-  <figcaption>This is a caption</figcaption>
-  <p>{JSON.stringify(props)}</p>
-  <pre {...props}><slot /></pre>
+  <pre
+    {...props}>
+<div class="toolbar">
+<button class="copy-button">
+<svg class="copy-svg copy-svg-active">
+<use href="/copy.svg#filled" />
+</svg>
+<svg class="copy-svg copy-svg-inactive">
+<use href="/copy.svg#empty" />
+</svg>
+</button>
+</div>
+<slot />
+</pre>
 </figure>
+
+<style>
+  .toolbar {
+    position: sticky;
+    top: 0;
+    left: 100%;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    pointer-events: auto;
+  }
+
+  .copy-button:active .copy-svg-inactive {
+    opacity: 0;
+  }
+
+  .copy-button:active .copy-svg-active {
+    opacity: 0.9;
+  }
+
+  .copy-svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @apply w-full aspect-square text-white;
+  }
+
+  .copy-svg-inactive {
+    @apply opacity-70 hover:opacity-90;
+  }
+
+  .copy-svg-active {
+    opacity: 0;
+  }
+</style>
