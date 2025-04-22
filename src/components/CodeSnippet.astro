@@ -5,7 +5,11 @@
 const { $id } = Astro.locals;
 
 const meta: Record<string, string> = {};
-const { "data-meta": meta_string, "data-code": code, ...props } = Astro.props;
+const {
+  "data-meta": meta_string,
+  "data-code": code_b64,
+  ...props
+} = Astro.props;
 
 if (meta_string) {
   const regex = /(\w+)=("[^"]*"|\S+)/g;
@@ -28,6 +32,10 @@ const title = meta.title;
 const link = meta.link;
 
 const copy_button_id = $id("copy-button");
+
+// Somewhere along the line, the properties are getting encoded in a way which
+// does not preserve whitespace. See astro.config.mjs
+const code_text = atob(code_b64);
 ---
 
 <figure>
@@ -83,7 +91,7 @@ const copy_button_id = $id("copy-button");
   }
 </style>
 
-<script define:vars={{ copy_button_id, code }}>
+<script define:vars={{ copy_button_id, code_text }}>
   const button = document.getElementById(copy_button_id);
 
   let is_active = false;
@@ -98,8 +106,7 @@ const copy_button_id = $id("copy-button");
   });
   button.addEventListener("mouseup", () => {
     if (is_active) {
-      console.log(code);
-      navigator.clipboard.writeText(code);
+      navigator.clipboard.writeText(code_text);
     }
 
     button.classList.remove("active");

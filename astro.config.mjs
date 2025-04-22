@@ -13,7 +13,9 @@ export default defineConfig({
       transformers: [{
         pre(hast) {
           hast.properties['data-meta'] = this.options.meta?.__raw;
-          hast.properties['data-code'] = this.source;
+          // Somewhere along the line, the properties are getting encoded in a
+          // way which does not preserve whitespace. See CodeSnippet.astro
+          hast.properties['data-code'] = btoa(this.source);
         }
       }]
     }
