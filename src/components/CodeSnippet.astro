@@ -7,7 +7,7 @@ const { $id } = Astro.locals;
 const meta: Record<string, string> = {};
 const {
   "data-meta": meta_string,
-  "data-code": code_b64,
+  "data-code": code_encoded,
   ...props
 } = Astro.props;
 
@@ -35,7 +35,7 @@ const copy_button_id = $id("copy-button");
 
 // Somewhere along the line, the properties are getting encoded in a way which
 // does not preserve whitespace. See astro.config.mjs
-const code_text = atob(code_b64);
+const code_text = JSON.parse(code_encoded);
 ---
 
 <figure>

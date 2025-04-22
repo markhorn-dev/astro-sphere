@@ -15,7 +15,7 @@ export default defineConfig({
           hast.properties['data-meta'] = this.options.meta?.__raw;
           // Somewhere along the line, the properties are getting encoded in a
           // way which does not preserve whitespace. See CodeSnippet.astro
-          hast.properties['data-code'] = btoa(this.source);
+          hast.properties['data-code'] = JSON.stringify(this.source);
         }
       }]
     }
