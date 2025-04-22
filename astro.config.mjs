@@ -13,6 +13,7 @@ export default defineConfig({
       transformers: [{
         pre(hast) {
           hast.properties['data-meta'] = this.options.meta?.__raw;
+          hast.properties['data-code'] = this.source;
         }
       }]
     }

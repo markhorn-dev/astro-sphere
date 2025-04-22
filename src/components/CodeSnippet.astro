@@ -1,11 +1,16 @@
 ---
-const meta: Record<string, string> = {};
-const { "data-meta": dataMeta, ...props } = Astro.props;
+// TODO: Fix the fact that the code we are provided by shiki is missing all
+// the necessary whitespace formatting which it is displayed with.
 
-if (dataMeta) {
+const { $id } = Astro.locals;
+
+const meta: Record<string, string> = {};
+const { "data-meta": meta_string, "data-code": code, ...props } = Astro.props;
+
+if (meta_string) {
   const regex = /(\w+)=("[^"]*"|\S+)/g;
   let match;
-  while ((match = regex.exec(dataMeta)) !== null) {
+  while ((match = regex.exec(meta_string)) !== null) {
     const key = match[1];
     let value = match[2];
 
@@ -21,23 +26,13 @@ if (dataMeta) {
 const file_name = meta.file;
 const title = meta.title;
 const link = meta.link;
+
+const copy_button_id = $id("copy-button");
 ---
 
 <figure>
   <pre
-    {...props}>
-<div class="toolbar">
-<button class="copy-button">
-<svg class="copy-svg copy-svg-active">
-<use href="/copy.svg#filled" />
-</svg>
-<svg class="copy-svg copy-svg-inactive">
-<use href="/copy.svg#empty" />
-</svg>
-</button>
-</div>
-<slot />
-</pre>
+    {...props}><div class="toolbar"><button class="copy-button" id={copy_button_id}><svg class="copy-svg copy-svg-active"><use href="/copy.svg#filled" /></svg><svg class="copy-svg copy-svg-inactive"><use href="/copy.svg#empty" /></svg></button></div><slot /></pre>
 </figure>
 
 <style>
@@ -58,11 +53,13 @@ const link = meta.link;
     pointer-events: auto;
   }
 
-  .copy-button:active .copy-svg-inactive {
+  .copy-button,
+  .active .copy-svg-inactive {
     opacity: 0;
   }
 
-  .copy-button:active .copy-svg-active {
+  .copy-button,
+  .active .copy-svg-active {
     opacity: 0.9;
   }
 
@@ -80,4 +77,32 @@ const link = meta.link;
   .copy-svg-active {
     opacity: 0;
   }
+
+  .red {
+    width: 30px;
+  }
 </style>
+
+<script define:vars={{ copy_button_id, code }}>
+  const button = document.getElementById(copy_button_id);
+
+  let is_active = false;
+
+  button.addEventListener("mousedown", () => {
+    button.classList.add("active");
+    is_active = true;
+  });
+  button.addEventListener("mouseleave", () => {
+    button.classList.remove("active");
+    is_active = false;
+  });
+  button.addEventListener("mouseup", () => {
+    if (is_active) {
+      console.log(code);
+      navigator.clipboard.writeText(code);
+    }
+
+    button.classList.remove("active");
+    is_active = false;
+  });
+</script>
