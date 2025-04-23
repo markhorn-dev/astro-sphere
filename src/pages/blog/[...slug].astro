@@ -1,23 +1,23 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content"
-import PageLayout from "@layouts/PageLayout.astro"
-import ArticleLayout from "@layouts/ArticleLayout.astro"
+import { type CollectionEntry, getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import ArticleLayout from "@layouts/ArticleLayout.astro";
 
 // Create the static blog pages
 export async function getStaticPaths() {
-	const posts = await getCollection("blog")
+	const posts = await getCollection("blog");
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.slug, id: post.id },
 		props: post,
-	}))
+	}));
 }
 
 // Get the requested post
-type Props = CollectionEntry<"blog">
-const post = Astro.props
-const { title, summary } = post.data
+type Props = CollectionEntry<"blog">;
+const post = Astro.props;
+const { title, summary } = post.data;
 ---
 
 <PageLayout title={title} description={summary}>
-  <ArticleLayout content={post}/>
+	<ArticleLayout entry={post} />
 </PageLayout>

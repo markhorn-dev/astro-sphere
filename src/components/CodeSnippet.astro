@@ -1,0 +1,115 @@
+---
+// TODO: Fix the fact that the code we are provided by shiki is missing all
+// the necessary whitespace formatting which it is displayed with.
+
+const { $id } = Astro.locals;
+
+const meta: Record<string, string> = {};
+const {
+  "data-meta": meta_string,
+  "data-code": code_encoded,
+  ...props
+} = Astro.props;
+
+if (meta_string) {
+  const regex = /(\w+)=("[^"]*"|\S+)/g;
+  let match;
+  while ((match = regex.exec(meta_string)) !== null) {
+    const key = match[1];
+    let value = match[2];
+
+    // Remove surrounding quotes if present
+    if (value.startsWith('"') && value.endsWith('"')) {
+      value = value.slice(1, -1);
+    }
+
+    meta[key] = value;
+  }
+}
+
+const file_name = meta.file;
+const title = meta.title;
+const link = meta.link;
+
+const copy_button_id = $id("copy-button");
+
+// Somewhere along the line, the properties are getting encoded in a way which
+// does not preserve whitespace. See astro.config.mjs
+const code_text = JSON.parse(code_encoded);
+---
+
+<figure>
+  <pre
+    {...props}><div class="toolbar"><button class="copy-button" id={copy_button_id}><svg class="copy-svg copy-svg-active"><use href="/copy.svg#filled" /></svg><svg class="copy-svg copy-svg-inactive"><use href="/copy.svg#empty" /></svg></button></div><slot /></pre>
+</figure>
+
+<style>
+  .toolbar {
+    position: sticky;
+    top: 0;
+    left: 100%;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    pointer-events: auto;
+  }
+
+  .copy-button,
+  .active .copy-svg-inactive {
+    opacity: 0;
+  }
+
+  .copy-button,
+  .active .copy-svg-active {
+    opacity: 0.9;
+  }
+
+  .copy-svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @apply w-full aspect-square text-white;
+  }
+
+  .copy-svg-inactive {
+    @apply opacity-70 hover:opacity-90;
+  }
+
+  .copy-svg-active {
+    opacity: 0;
+  }
+
+  .red {
+    width: 30px;
+  }
+</style>
+
+<script define:vars={{ copy_button_id, code_text }}>
+  const button = document.getElementById(copy_button_id);
+
+  let is_active = false;
+
+  button.addEventListener("mousedown", () => {
+    button.classList.add("active");
+    is_active = true;
+  });
+  button.addEventListener("mouseleave", () => {
+    button.classList.remove("active");
+    is_active = false;
+  });
+  button.addEventListener("mouseup", () => {
+    if (is_active) {
+      navigator.clipboard.writeText(code_text);
+    }
+
+    button.classList.remove("active");
+    is_active = false;
+  });
+</script>
