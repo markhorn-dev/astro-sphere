@@ -18,7 +18,7 @@ type Props = {
 };
 
 const { headings } = Astro.props;
-const toc = collect_headings(headings, 3, 4);
+const toc = collect_headings(headings, 3, 4); // TODO: maybe want to allow these as props?
 
 function collect_headings(
   heading_slugs: HeadingSlug[],
