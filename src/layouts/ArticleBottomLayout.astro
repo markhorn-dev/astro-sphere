@@ -24,7 +24,14 @@ const next = items[(index + 1) % items.length];
 ---
 
 <div class="animate flex mx-auto gap-12 items-start">
-  <article id="main-article" class="max-w-full w-full lg:max-w-2xl">
+  <article
+    id="main-article"
+    class:list={[
+      "max-w-full",
+      "w-full",
+      headings.length > 0 ? "lg:max-w-2xl" : "",
+    ]}
+  >
     <Content
       components={{
         pre: CodeSnippet,
