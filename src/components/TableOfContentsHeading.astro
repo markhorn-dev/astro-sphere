@@ -1,15 +1,28 @@
 ---
-// TableOfContentsHeading.astro
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+  children: Heading[];
+};
+
+type Props = {
+  heading: Heading;
+};
+
 const { heading } = Astro.props;
 ---
 
-<li class="grid gap-3">
-  <a class="items-center inline-flex" href={"#" + heading.slug}>
+<li class="grid">
+  <a
+    class="items-center inline-flex hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white py-2 px-4"
+    href={"#" + heading.slug}
+  >
     {heading.text}
   </a>
   {
     heading.children.length > 0 && (
-      <ul class="pl-8 grid gap-3">
+      <ul class="pl-8 grid">
         {heading.children.map((child) => (
           <Astro.self heading={child} />
         ))}

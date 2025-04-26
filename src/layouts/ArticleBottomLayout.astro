@@ -14,9 +14,6 @@ const { entry } = Astro.props;
 const { collection } = entry;
 const { Content, headings } = await entry.render();
 
-// Only apply the max width when we need to draw a TableOfContents
-const article_max_width = headings.length > 0 ? "max-w-2xl" : "";
-
 // Get the next and prev entries (modulo to wrap index)
 const items = (await getCollection(collection))
   .filter((post) => !post.data.draft)
@@ -27,7 +24,7 @@ const next = items[(index + 1) % items.length];
 ---
 
 <div class="animate flex mx-auto gap-12 items-start">
-  <article id="main-article" class:list={[article_max_width, "w-full"]}>
+  <article id="main-article" class="max-w-full w-full lg:max-w-2xl">
     <Content
       components={{
         pre: CodeSnippet,
