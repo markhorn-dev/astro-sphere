@@ -8,7 +8,6 @@ type HeadingSlug = {
 };
 
 type Heading = {
-  depth: number;
   slug: string;
   text: string;
   children: Heading[];
@@ -19,59 +18,61 @@ type Props = {
 };
 
 const { headings } = Astro.props;
-console.log(headings);
-const toc = buildToc(headings);
+const toc = collect_headings(headings, 3, 4);
 
-function diveChildren(item: Heading, depth: number) {
-  if (depth === 1) {
-    return item.children;
-  } else {
-    // e.g., 2
-    return diveChildren(item.children[item.children.length - 1], depth - 1);
-  }
-}
+function collect_headings(
+  heading_slugs: HeadingSlug[],
+  max_nesting: number,
+  max_depth: number,
+): Heading[] {
+  heading_slugs = heading_slugs.filter(({ depth }) => depth <= max_depth);
+  const headings: Heading[] = [];
+  const stack: { node: Heading; depth: number; nesting: number }[] = [];
 
-function buildToc(headings: HeadingSlug[]) {
-  headings = headings.filter(({ depth }) => depth > 1 && depth < 5);
-  const toc: Heading[] = [];
+  for (const heading_slug of heading_slugs) {
+    const heading: Heading = {
+      slug: heading_slug.slug,
+      text: heading_slug.text,
+      children: [],
+    };
 
-  for (const heading of headings) {
-    if (toc.length === 0) {
-      toc.push({
-        ...heading,
-        children: [],
-      });
-    } else {
-      const lastItemInToc = toc[toc.length - 1];
-      if (heading.depth < lastItemInToc.depth) {
-        throw new Error(`Orphan heading found: ${heading.text}.`);
-      }
-      if (heading.depth === lastItemInToc.depth) {
-        // same depth
-        toc.push({
-          ...heading,
-          children: [],
-        });
-      } else {
-        // higher depth
-        // push into children, or children' children alike
-        const gap = heading.depth - lastItemInToc.depth;
-        const target = diveChildren(lastItemInToc, gap);
-        target.push({
-          ...heading,
-          children: [],
-        });
-      }
+    // Remove nodes from stack that are deeper or same level
+    while (
+      stack.length > 0 &&
+      heading_slug.depth <= stack[stack.length - 1].depth
+    ) {
+      stack.pop();
     }
+
+    const current_nesting = stack.length;
+
+    if (current_nesting >= max_nesting) {
+      // Skip this heading completely
+      continue;
+    }
+
+    if (stack.length === 0) {
+      headings.push(heading);
+    } else {
+      const parent = stack[stack.length - 1].node;
+      parent.children.push(heading);
+    }
+
+    stack.push({
+      node: heading,
+      depth: heading_slug.depth,
+      nesting: current_nesting + 1,
+    });
   }
-  return toc;
+
+  return headings;
 }
 ---
 
 <nav
   class="toc sticky top-24 pl-4 pb-12 max-width:25% w-full lg:block md:hidden"
 >
-  <ul class="grid pl-3">
+  <ul class="grid">
     {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
   </ul>
   <svg
