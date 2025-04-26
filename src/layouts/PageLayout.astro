@@ -4,15 +4,13 @@ import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Drawer from "@components/Drawer.astro";
-const { title, description, headings } = Astro.props;
-
-console.log(headings);
+const { title, description } = Astro.props;
 
 import { SITE } from "@consts";
 ---
 
 <!doctype html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
   <head>
     <BaseHead title={`${title} | ${SITE.TITLE}`} description={description} />
   </head>

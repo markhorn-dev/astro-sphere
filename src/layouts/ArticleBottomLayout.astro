@@ -1,9 +1,39 @@
 ---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import TableOfContents from "@components/TableOfContents.astro";
+import PreviousNextButtons from "@components/PreviousNextButtons.astro";
+import CodeSnippet from "@components/CodeSnippet.astro";
+
+type Props = {
+  entry: CollectionEntry<"blog"> | CollectionEntry<"projects">;
+};
+
 // Get the requested entry
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { collection } = entry;
+const { Content, headings } = await entry.render();
+
+// Only apply the max width when we need to draw a TableOfContents
+const article_max_width = headings.length > 0 ? "max-w-2xl" : "";
+
+// Get the next and prev entries (modulo to wrap index)
+const items = (await getCollection(collection))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const index = items.findIndex((x) => x.slug === entry.slug);
+const prev = items[(index - 1 + items.length) % items.length];
+const next = items[(index + 1) % items.length];
 ---
 
-<article>
-  <Content />
-</article>
+<div class="animate flex mx-auto gap-12 items-start">
+  <article id="main-article" class:list={[article_max_width, "w-full"]}>
+    <Content
+      components={{
+        pre: CodeSnippet,
+      }}
+    />
+  </article>
+  {headings.length > 0 && <TableOfContents headings={headings} />}
+</div>
+<PreviousNextButtons prev={prev} next={next} />

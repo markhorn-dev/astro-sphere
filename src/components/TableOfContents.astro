@@ -13,12 +13,8 @@ function diveChildren(item, depth) {
     }
 }
 
-function buildToc(headings, title = "Overview") {
-    const overview = { depth: 2, slug: "overview", text: title };
-    headings = [
-        overview,
-        ...headings.filter(({ depth }) => depth > 1 && depth < 4),
-    ];
+function buildToc(headings) {
+    headings = headings.filter(({ depth }) => depth > 1 && depth < 4);
     const toc = [];
 
     for (const heading of headings) {
@@ -54,8 +50,126 @@ function buildToc(headings, title = "Overview") {
 }
 ---
 
-<nav class="toc pt-24 sticky top-0 pl-4">
-    <ul>
+<nav class="toc sticky top-24 pl-4 pb-12 max-width:25% w-full lg:block">
+    <ul class="grid gap-3 pl-3">
         {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
     </ul>
+    <svg
+        class="h-full absolute inset-0 pointer-events-none w-full"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            class="text-primary duration-300 stroke-current toc-marker transition-all"
+            fill="none"
+            stroke-dasharray="1 0 0 1000"
+            stroke-dashoffset="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+        >
+        </path>
+    </svg>
 </nav>
+
+<script>
+    // Create some WeakMaps to store the distances to the top and
+    // bottom of each link
+    const linkStarts = new WeakMap();
+    const linkEnds = new WeakMap();
+
+    function drawPath() {
+        const path = document.querySelector("path.toc-marker");
+        const links = Array.from(document.querySelectorAll("nav.toc a"));
+        if (!links.length) return;
+
+        let pathData = [];
+        let left = 0;
+        links.forEach((link, i) => {
+            const x = link.offsetLeft;
+            const y = link.offsetTop;
+            const height = link.offsetHeight;
+            if (i === 0) {
+                // The top of the first link starts at 0px along the path.
+                linkStarts.set(link, 0);
+                pathData.push("M", x, y, "L", x, y + height);
+            } else {
+                if (left !== x) pathData.push("L", left, y);
+                pathData.push("L", x, y);
+
+                // Apply the current path data to the path element
+                path.setAttribute("d", pathData.join(" "));
+
+                // Get the total length of the path now that it extends
+                // to the top of this link, and store it in our linkStarts
+                // WeakMap.
+                linkStarts.set(link, path.getTotalLength());
+                pathData.push("L", x, y + height);
+            }
+            left = x;
+
+            // Apply the current path data to the path element again
+            path.setAttribute("d", pathData.join(" "));
+
+            // Get the length of the path that now extends to the
+            // bottom of this link, and store it in our linkEnds WeakMap.
+            linkEnds.set(link, path.getTotalLength());
+        });
+        // We no longer need to call `path.setAttribute('d')` at the end
+        // since we are doing it in the loop.
+    }
+
+    drawPath();
+
+    // Create an IntersectionObserver to watch the sections of the
+    // article as they scroll in and out of view
+    addIntersectionObserver();
+
+    function addIntersectionObserver() {
+        const observer = new IntersectionObserver((sections) => {
+            sections.forEach((section) => {
+                const heading = section.target.querySelector("h2, h3, h4, h5");
+                if (!heading) return;
+                const id = heading.getAttribute("id");
+
+                // Get the link to this section's heading
+                const link = document.querySelector(
+                    `nav.toc li a[href="#${id}"]`,
+                );
+                if (!link) return;
+
+                // Add/remove the .active class based on whether the
+                // section is visible
+                const addRemove =
+                    section.intersectionRatio > 0 ? "add" : "remove";
+                link.classList[addRemove]("active");
+            });
+            updatePath(); // We will write this next
+        });
+
+        // Observe all the sections of the article
+        document.querySelectorAll("article section").forEach((section) => {
+            observer.observe(section);
+        });
+    }
+
+    function updatePath() {
+        const path = document.querySelector("path.toc-marker");
+        const pathLength = path.getTotalLength();
+        const activeLinks = document.querySelectorAll("nav.toc a.active");
+        let linkStart = pathLength;
+        let linkEnd = 0;
+        activeLinks.forEach((link) => {
+            // Set linkStart to the top of the earliest active link
+            linkStart = Math.min(linkStart, linkStarts.get(link));
+            // Set linkEnd to the bottom of the furthest active link
+            linkEnd = Math.max(linkEnd, linkEnds.get(link));
+        });
+        // If there are no active links, hide the path
+        path.style.display = activeLinks.length ? "inline" : "none";
+        // FINALLY, do the thing!
+        path.setAttribute(
+            "stroke-dasharray",
+            `1 ${linkStart} ${linkEnd - linkStart} ${pathLength}`,
+        );
+    }
+</script>

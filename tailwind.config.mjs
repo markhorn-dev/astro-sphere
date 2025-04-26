@@ -9,13 +9,19 @@ export default {
       fontFamily: {
         "sans": ["Atkinson", ...defaultTheme.fontFamily.sans],
       },
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: {
             maxWidth: "full",
+            h1: { scrollMarginTop: theme('spacing.24') },
+            h2: { scrollMarginTop: theme('spacing.24') },
+            h3: { scrollMarginTop: theme('spacing.24') },
+            h4: { scrollMarginTop: theme('spacing.24') },
+            h5: { scrollMarginTop: theme('spacing.24') },
+            h6: { scrollMarginTop: theme('spacing.24') },
           },
         },
-      },
+      }),
       rotate: {
         "45": "45deg",
         "135": "135deg",
@@ -28,30 +34,30 @@ export default {
       },
       keyframes: {
         twinkle: {
-          "0%": { 
-            opacity: 0, 
-            transform: "rotate(0deg)" 
+          "0%": {
+            opacity: 0,
+            transform: "rotate(0deg)"
           },
-          "50%": { 
+          "50%": {
             opacity: 1,
-            transform: "rotate(180deg)" 
+            transform: "rotate(180deg)"
           },
-          "100%": { 
-            opacity: 0, 
-            transform: "rotate(360deg)" 
+          "100%": {
+            opacity: 0,
+            transform: "rotate(360deg)"
           },
         },
         meteor: {
-          "0%": { 
-            opacity: 0, 
-            transform: "translateY(200%)" 
+          "0%": {
+            opacity: 0,
+            transform: "translateY(200%)"
           },
-          "50%": { 
-            opacity: 1  
+          "50%": {
+            opacity: 1
           },
-          "100%": { 
-            opacity: 0, 
-            transform: "translateY(0)" 
+          "100%": {
+            opacity: 0,
+            transform: "translateY(0)"
           },
         },
       },

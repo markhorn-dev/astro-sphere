@@ -154,3 +154,11 @@ article img {
 #meteors .shower.ul {
   @apply rotate-315;
 }
+
+#main-article> :first-child {
+  margin-top: 0;
+}
+
+#main-article> :last-child {
+  margin-bottom: 0;
+}
