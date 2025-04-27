@@ -38,6 +38,10 @@ const next = items[(index + 1) % items.length];
       }}
     />
   </article>
-  {headings.length > 0 && <TableOfContents headings={headings} />}
+  {
+    headings.length > 0 && (
+      <TableOfContents headings={headings} nav_depth={entry.data.nav_depth} />
+    )
+  }
 </div>
 <PreviousNextButtons prev={prev} next={next} />

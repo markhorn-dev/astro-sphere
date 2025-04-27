@@ -15,10 +15,11 @@ type Heading = {
 
 type Props = {
   headings: HeadingSlug[];
+  nav_depth?: number;
 };
 
-const { headings } = Astro.props;
-const toc = collect_headings(headings, 3, 4); // TODO: maybe want to allow these as props?
+const { headings, nav_depth = 3 } = Astro.props;
+const toc = collect_headings(headings, nav_depth, 4); // TODO: maybe want to allow these as props?
 
 function collect_headings(
   heading_slugs: HeadingSlug[],
@@ -69,38 +70,48 @@ function collect_headings(
 }
 ---
 
-<nav
-  class="toc sticky top-24 pl-4 pb-12 max-width:25% w-full lg:block md:hidden"
->
-  <ul class="grid">
-    {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
-  </ul>
-  <svg
-    class="h-full absolute inset-0 pointer-events-none w-full"
-    xmlns="http://www.w3.org/2000/svg"
+<div class="sticky top-24 pl-4 pb-12">
+  <nav
+    class="toc max-width:25% w-full max-h-[88vh] overflow-y-auto lg:block md:hidden"
   >
-    <path
-      class="text-primary duration-300 stroke-current toc-marker transition-all"
-      fill="none"
-      stroke-dasharray="1 0 0 1000"
-      stroke-dashoffset="1"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-    >
-    </path>
-  </svg>
-</nav>
+    <div class="relative p-1 h-fit">
+      <ul class="grid">
+        {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
+      </ul>
+      <svg
+        class="h-full absolute inset-0 pointer-events-none w-full"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="text-primary duration-150 stroke-current toc-marker transition-all"
+          fill="none"
+          stroke-dasharray="1 0 0 5000"
+          stroke-dashoffset="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+        </path>
+      </svg>
+    </div>
+  </nav>
+</div>
 
-<!-- <script>
+<script>
   // Create some WeakMaps to store the distances to the top and
   // bottom of each link
   const linkStarts = new WeakMap();
   const linkEnds = new WeakMap();
 
   function drawPath() {
-    const path = document.querySelector("path.toc-marker");
-    const links = Array.from(document.querySelectorAll("nav.toc a"));
+    const path = document.querySelector(
+      "path.toc-marker",
+    ) as SVGPathElement | null;
+    if (!path) return;
+
+    const links = Array.from(document.querySelectorAll("nav.toc a")).map(
+      (element) => element as HTMLElement,
+    );
     if (!links.length) return;
 
     let pathData = [];
@@ -135,8 +146,6 @@ function collect_headings(
       // bottom of this link, and store it in our linkEnds WeakMap.
       linkEnds.set(link, path.getTotalLength());
     });
-    // We no longer need to call `path.setAttribute('d')` at the end
-    // since we are doing it in the loop.
   }
 
   drawPath();
@@ -148,7 +157,7 @@ function collect_headings(
   function addIntersectionObserver() {
     const observer = new IntersectionObserver((sections) => {
       sections.forEach((section) => {
-        const heading = section.target.querySelector("h2, h3, h4, h5");
+        const heading = section.target.querySelector("h1, h2, h3, h4, h5");
         if (!heading) return;
         const id = heading.getAttribute("id");
 
@@ -170,8 +179,9 @@ function collect_headings(
     });
   }
 
+  // TODO: avoid using DOM queries for this
   function updatePath() {
-    const path = document.querySelector("path.toc-marker");
+    const path = document.querySelector("path.toc-marker") as SVGPathElement;
     const pathLength = path.getTotalLength();
     const activeLinks = document.querySelectorAll("nav.toc a.active");
     let linkStart = pathLength;
@@ -187,7 +197,7 @@ function collect_headings(
     // FINALLY, do the thing!
     path.setAttribute(
       "stroke-dasharray",
-      `1 ${linkStart} ${linkEnd - linkStart} ${pathLength}`
+      `1 ${linkStart} ${linkEnd - linkStart} ${pathLength}`,
     );
   }
-</script> -->
+</script>

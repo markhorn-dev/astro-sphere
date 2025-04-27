@@ -162,3 +162,7 @@ article img {
 #main-article> :last-child {
   margin-bottom: 0;
 }
+
+[id] {
+  @apply scroll-mt-24;
+}

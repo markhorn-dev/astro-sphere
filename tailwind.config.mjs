@@ -9,19 +9,13 @@ export default {
       fontFamily: {
         "sans": ["Atkinson", ...defaultTheme.fontFamily.sans],
       },
-      typography: (theme) => ({
+      typography: {
         DEFAULT: {
           css: {
             maxWidth: "full",
-            h1: { scrollMarginTop: theme('spacing.24') },
-            h2: { scrollMarginTop: theme('spacing.24') },
-            h3: { scrollMarginTop: theme('spacing.24') },
-            h4: { scrollMarginTop: theme('spacing.24') },
-            h5: { scrollMarginTop: theme('spacing.24') },
-            h6: { scrollMarginTop: theme('spacing.24') },
           },
         },
-      }),
+      },
       rotate: {
         "45": "45deg",
         "135": "135deg",
