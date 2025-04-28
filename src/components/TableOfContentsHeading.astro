@@ -17,7 +17,9 @@ const { heading } = Astro.props;
     class="items-center inline-flex hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white py-2 px-4"
     href={"#" + heading.slug}
   >
-    {heading.text}
+    <div class="line-clamp-3">
+      {heading.text}
+    </div>
   </a>
   {
     heading.children.length > 0 && (

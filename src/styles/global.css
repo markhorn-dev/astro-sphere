@@ -155,11 +155,11 @@ article img {
   @apply rotate-315;
 }
 
-#main-article> :first-child {
+#main-article> :first-child> :first-child {
   margin-top: 0;
 }
 
-#main-article> :last-child {
+#main-article> :last-child> :last-child {
   margin-bottom: 0;
 }
 

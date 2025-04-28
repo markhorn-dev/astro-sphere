@@ -19,7 +19,7 @@ type Props = {
 };
 
 const { headings, nav_depth = 3 } = Astro.props;
-const toc = collect_headings(headings, nav_depth, 4); // TODO: maybe want to allow these as props?
+const toc = collect_headings(headings, nav_depth, 4);
 
 function collect_headings(
   heading_slugs: HeadingSlug[],
@@ -70,14 +70,14 @@ function collect_headings(
 }
 ---
 
-<div class="sticky top-24 pl-4 pb-12">
+<div class="sticky top-24 pl-4 pb-12 md:hidden lg:block max-w-[25%]">
   <div
     id="toc-fade-top"
     class="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-white dark:from-black to-transparent opacity-0 transition-opacity duration-[0.15s] z-40"
   >
   </div>
   <div
-    class="toc-container max-width:25% w-full max-h-[88vh] overflow-hidden hover:overflow-y-auto lg:block md:hidden"
+    class="toc-container w-full max-h-[88vh] overflow-hidden hover:overflow-y-auto lg:block"
   >
     <nav class="toc relative p-1 h-fit z-0">
       <ul class="grid">
