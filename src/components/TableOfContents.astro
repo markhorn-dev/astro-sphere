@@ -71,10 +71,15 @@ function collect_headings(
 ---
 
 <div class="sticky top-24 pl-4 pb-12">
-  <nav
-    class="toc max-width:25% w-full max-h-[88vh] overflow-y-auto lg:block md:hidden"
+  <div
+    id="toc-fade-top"
+    class="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-white dark:from-black to-transparent opacity-0 transition-opacity duration-[0.15s] z-40"
   >
-    <div class="relative p-1 h-fit">
+  </div>
+  <div
+    class="toc-container max-width:25% w-full max-h-[88vh] overflow-hidden hover:overflow-y-auto lg:block md:hidden"
+  >
+    <nav class="toc relative p-1 h-fit z-0">
       <ul class="grid">
         {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
       </ul>
@@ -93,11 +98,48 @@ function collect_headings(
         >
         </path>
       </svg>
-    </div>
-  </nav>
+    </nav>
+  </div>
+  <div
+    id="toc-fade-bottom"
+    class="pointer-events-none absolute inset-x-0 bottom-12 h-12 bg-gradient-to-t from-white dark:from-black to-transparent opacity-0 transition-opacity duration-[0.15s] z-40"
+  >
+  </div>
 </div>
 
 <script>
+  const toc_container = document.querySelector(".toc-container") as HTMLElement;
+  const fadeTop = document.getElementById("toc-fade-top");
+  const fadeBottom = document.getElementById("toc-fade-bottom");
+
+  function updateFades() {
+    if (toc_container === null) return;
+    const { scrollTop, scrollHeight, clientHeight } = toc_container;
+
+    // Show top fade if scrolled down past the top
+    if (fadeTop !== null) {
+      if (scrollTop > 10) {
+        fadeTop.classList.replace("opacity-0", "opacity-100");
+      } else {
+        fadeTop.classList.replace("opacity-100", "opacity-0");
+      }
+    }
+
+    // Show bottom fade if not yet scrolled to the bottom
+    if (fadeBottom !== null) {
+      if (scrollTop + clientHeight < scrollHeight - 10) {
+        fadeBottom.classList.replace("opacity-0", "opacity-100");
+      } else {
+        fadeBottom.classList.replace("opacity-100", "opacity-0");
+      }
+    }
+  }
+
+  // Initialize on load and update on scroll
+  window.addEventListener("load", updateFades);
+  if (toc_container !== null)
+    toc_container.addEventListener("scroll", updateFades);
+
   // Create some WeakMaps to store the distances to the top and
   // bottom of each link
   const linkStarts = new WeakMap();
@@ -154,6 +196,11 @@ function collect_headings(
   // article as they scroll in and out of view
   addIntersectionObserver();
 
+  import { debounce } from "@utils/debounce";
+  const debouncedScrollActiveLinksIntoView = debounce(
+    scrollActiveLinksIntoView,
+  );
+
   function addIntersectionObserver() {
     const observer = new IntersectionObserver((sections) => {
       sections.forEach((section) => {
@@ -171,6 +218,7 @@ function collect_headings(
         link.classList[addRemove]("active");
       });
       updatePath(); // We will write this next
+      debouncedScrollActiveLinksIntoView();
     });
 
     // Observe all the sections of the article
@@ -199,5 +247,40 @@ function collect_headings(
       "stroke-dasharray",
       `1 ${linkStart} ${linkEnd - linkStart} ${pathLength}`,
     );
+  }
+
+  let lastActiveCenter: number | null = null;
+
+  function scrollActiveLinksIntoView() {
+    const toc_container = document.querySelector(
+      ".toc-container",
+    ) as HTMLElement;
+    const activeLinks = toc_container.querySelectorAll(".active");
+
+    if (activeLinks.length > 0) {
+      const tocRect = toc_container.getBoundingClientRect();
+
+      let minTop = Infinity;
+      let maxBottom = -Infinity;
+
+      activeLinks.forEach((link) => {
+        const rect = link.getBoundingClientRect();
+        if (rect.top < minTop) minTop = rect.top;
+        if (rect.bottom > maxBottom) maxBottom = rect.bottom;
+      });
+
+      const activeCenter = (minTop + maxBottom) / 2;
+      const tocCenter = (tocRect.top + tocRect.bottom) / 2;
+      const offset = activeCenter - tocCenter;
+
+      // Only scroll if the center has changed significantly
+      if (lastActiveCenter === null || activeCenter !== lastActiveCenter) {
+        toc_container.scrollTo({
+          top: toc_container.scrollTop + offset,
+          behavior: "smooth",
+        });
+        lastActiveCenter = activeCenter;
+      }
+    }
   }
 </script>
