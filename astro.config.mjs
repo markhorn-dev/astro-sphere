@@ -17,7 +17,11 @@ export default defineConfig({
           // way which does not preserve whitespace. See CodeSnippet.astro
           hast.properties['data-code'] = JSON.stringify(this.source);
         }
-      }]
+      }],
+      themes: {
+        light: "github-light",
+        dark: "github-dark-high-contrast",
+      }
     }
   }
 });

@@ -28,8 +28,11 @@ if (meta_string) {
 }
 
 const file_name = meta.file;
-const title = meta.title;
+const caption = meta.caption;
 const link = meta.link;
+const lines_start = meta.lines_start;
+
+console.log(lines_start);
 
 const copy_button_id = $id("copy-button");
 
@@ -38,9 +41,11 @@ const copy_button_id = $id("copy-button");
 const code_text = JSON.parse(code_encoded);
 ---
 
-<figure>
+<figure
+  class="m-0 border rounded-lg border-black/15 dark:border-white/20 overflow-hidden"
+>
   <pre
-    {...props}><div class="toolbar"><button class="copy-button" id={copy_button_id}><svg class="copy-svg copy-svg-active"><use href="/copy.svg#filled" /></svg><svg class="copy-svg copy-svg-inactive"><use href="/copy.svg#empty" /></svg></button></div><slot /></pre>
+    {...props}><div class="toolbar"><button class="copy-button fill-current" id={copy_button_id}><svg class="copy-svg copy-svg-active fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"><use href="/ui.svg#copy-filled" /></svg><svg class="copy-svg copy-svg-inactive fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"><use href="/ui.svg#copy-open" /></svg></button></div><slot /></pre>
 </figure>
 
 <style>
@@ -63,31 +68,23 @@ const code_text = JSON.parse(code_encoded);
 
   .copy-button,
   .active .copy-svg-inactive {
-    opacity: 0;
+    display: none;
   }
 
   .copy-button,
   .active .copy-svg-active {
-    opacity: 0.9;
+    display: block;
   }
 
   .copy-svg {
     position: absolute;
     top: 0;
     right: 0;
-    @apply w-full aspect-square text-white;
-  }
-
-  .copy-svg-inactive {
-    @apply opacity-70 hover:opacity-90;
+    @apply w-full aspect-square;
   }
 
   .copy-svg-active {
-    opacity: 0;
-  }
-
-  .red {
-    width: 30px;
+    display: none;
   }
 </style>
 
