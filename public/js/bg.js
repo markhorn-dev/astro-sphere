@@ -70,6 +70,7 @@
       height: 1px;
       border-radius: 50%;
       box-shadow: ${starsSmall};
+      animation: animStar 50s linear infinite;
       `;
     }
 
@@ -79,6 +80,7 @@
       height: 1.5px;
       border-radius: 50%;
       box-shadow: ${starsMedium};
+      animation: animateParticle 100s linear infinite;
       `;
     }
 
@@ -88,6 +90,7 @@
       height: 2px;
       border-radius: 50%;
       box-shadow: ${starsLarge};
+      animation: animateParticle 150s linear infinite;
       `;
     }
   }
