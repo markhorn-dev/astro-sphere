@@ -19,8 +19,8 @@ export default defineConfig({
         }
       }],
       themes: {
-        light: "catppuccin-latte",
-        dark: "github-dark-default",
+        light: "light-plus",
+        dark: "dark-plus",
       }
     }
   }

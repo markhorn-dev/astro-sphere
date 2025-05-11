@@ -1,4 +1,6 @@
 ---
+import { undefined } from "astro:schema";
+
 // TODO: Fix the fact that the code we are provided by shiki is missing all
 // the necessary whitespace formatting which it is displayed with.
 
@@ -28,10 +30,11 @@ if (meta_string) {
 }
 
 const file_name = meta.file;
-const caption = meta.caption;
+const caption = meta.caption ? meta.caption : "";
 const link = meta.link;
 const lines_start = meta.lines_start;
 
+console.log(caption);
 console.log(lines_start);
 
 const copy_button_id = $id("copy-button");
@@ -42,34 +45,36 @@ const code_text = JSON.parse(code_encoded);
 ---
 
 <figure
-  class="m-0 border rounded-lg border-black/15 dark:border-white/20 overflow-hidden"
+  class="m-0 border rounded-lg border-black/15 dark:border-white/20 overflow-hidden bg-white dark:bg-black"
 >
-  {
-    caption && (
-      <figcaption class="flex justify-between items-center p-2 px-4 m-0 border-b border-black/15 dark:border-white/20 leading-normal bg-black/5 dark:bg-white/15">
-        <p class="m-0">{caption}</p>
-      </figcaption>
-    )
-  }
-  <pre
-    {...props}><div class="toolbar"><button class="copy-button fill-current" id={copy_button_id}><svg class="copy-svg copy-svg-active fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"><use href="/ui.svg#copy-filled" /></svg><svg class="copy-svg copy-svg-inactive fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"><use href="/ui.svg#copy-open" /></svg></button></div><slot /></pre>
+  <figcaption
+    class="flex justify-between items-center p-2 px-4 m-0 border-b border-black/15 dark:border-white/20 leading-normal bg-black/5 dark:bg-white/15"
+  >
+    <p class="m-0">{caption}</p>
+    <button
+      class="copy-button fill-current size-4"
+      id={copy_button_id}
+      aria-label="copy"
+    >
+      <>
+        <svg
+          class="copy-svg copy-svg-active size-full aspect-square fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
+        >
+          <use href="/ui.svg#copy-filled"></use>
+        </svg>
+        <svg
+          class="copy-svg copy-svg-inactive size-full aspect-square fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
+        >
+          <use href="/ui.svg#copy-open"></use>
+        </svg>
+      </>
+    </button>
+  </figcaption>
+  <pre {...props}><slot /></pre>
 </figure>
 
 <style>
-  .toolbar {
-    position: sticky;
-    top: 0;
-    left: 100%;
-    height: 0;
-    width: 0;
-    pointer-events: none;
-  }
-
   .copy-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
     pointer-events: auto;
   }
 
@@ -83,19 +88,54 @@ const code_text = JSON.parse(code_encoded);
     display: block;
   }
 
-  .copy-svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    @apply w-full aspect-square;
-  }
-
   .copy-svg-active {
     display: none;
   }
 
   .astro-code {
     border-radius: 0;
+    background-color: transparent !important;
+  }
+
+  .astro-code code {
+    /* Define a counter for each <code> inside .astro-code */
+    counter-reset: step;
+    /* Start from zero, increment the counter */
+    counter-increment: step 0;
+
+    font-size: 14px;
+
+    width: fit-content;
+    min-width: 100%;
+    display: block;
+  }
+
+  .astro-code code .line {
+    display: inline-block;
+    width: 100%;
+    padding-right: 2rem;
+  }
+
+  .astro-code code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 2rem;
+    margin-right: 1.25rem;
+    display: inline-block;
+    margin-left: auto;
+    text-align: right;
+
+    /* Fix element position during horizontal scroll */
+    position: sticky;
+    left: 0;
+    z-index: 1;
+
+    /* Give a bit of space to counter on horizontal scroll */
+    padding-right: 0.25rem;
+
+    /* Illustrative purpose, please extract the value from the theme instead */
+    background-color: white;
+    color: hsla(0, 0%, 0%, 0.5);
   }
 </style>
 
