@@ -45,12 +45,19 @@ const code_text = JSON.parse(code_encoded);
 ---
 
 <figure
-  class="m-0 border rounded-lg border-black/15 dark:border-white/20 overflow-hidden bg-white dark:bg-black"
+  class="m-0 border rounded-lg border-black/15 dark:border-white/20 overflow-hidden bg-neutral-50 dark:bg-neutral-950"
 >
   <figcaption
     class="flex justify-between items-center p-2 px-4 m-0 border-b border-black/15 dark:border-white/20 leading-normal bg-black/5 dark:bg-white/15"
   >
     <p class="m-0">{caption}</p>
+    <button class="snippet-link" aria-label="snippet-link"
+      ><svg
+        class="size-4 fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
+        ><use href="/ui.svg#link"></use></svg
+      ></button
+    >
+
     <button
       class="copy-button fill-current size-4"
       id={copy_button_id}

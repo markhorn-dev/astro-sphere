@@ -19,7 +19,7 @@ export default defineConfig({
         }
       }],
       themes: {
-        light: "light-plus",
+        light: "github-light",
         dark: "dark-plus",
       }
     }
