@@ -45,43 +45,43 @@ const code_text = JSON.parse(code_encoded);
 ---
 
 <figure
-  class="m-0 border rounded-lg border-black/15 dark:border-neutral-600 overflow-hidden bg-neutral-50 dark:bg-neutral-950"
+  class="m-0 border rounded-md border-black/15 dark:border-neutral-700 overflow-hidden bg-neutral-50 dark:bg-neutral-950"
 >
   <figcaption
-    class="flex min-h-8 justify-between items-center p-0 m-0 border-b border-black/15 dark:border-neutral-600 leading-normal bg-neutral-100 dark:bg-neutral-800"
+    class="flex text-sm min-h-10 justify-between items-center p-0 m-0 border-b border-black/15 dark:border-neutral-700 leading-normal bg-neutral-100 dark:bg-neutral-800"
   >
     <div>
       {
         caption && link && (
           <a
             href={link}
-            class="no-underline text-black/75 dark:text-white/75 hover:text-black hover:dark:text-white flex items-center p-2 px-4 gap-2 snippet-link fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
+            class="no-underline text-black/60 dark:text-white/60 hover:text-black/80 hover:dark:text-white/80 flex items-center p-2 px-4 gap-2 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
             aria-label="snippet-link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span>{caption}</span>
-            <svg class="size-4">
+            <svg class="size-3.5">
               <use href="/ui.svg#link" />
             </svg>
+            <span>{caption}</span>
           </a>
         )
       }
       {
         caption && !link && (
-          <p class="p-2 px-4 m-0 text-black/75 dark:text-white/75">{caption}</p>
+          <p class="p-2 px-4 m-0 text-black/60 dark:text-white/60">{caption}</p>
         )
       }
       {
         !caption && link && (
           <a
             href={link}
-            class="no-underline flex p-2 px-4 snippet-link fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
+            class="no-underline flex p-2 px-4 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
             aria-label="snippet-link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <svg class="size-4">
+            <svg class="size-3.5">
               <use href="/ui.svg#link" />
             </svg>
           </a>
@@ -90,19 +90,15 @@ const code_text = JSON.parse(code_encoded);
     </div>
 
     <button
-      class="copy-button h-full flex items-center justify-center p-2 px-4"
+      class="copy-button h-full flex items-center justify-center p-2 px-4 fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
       id={copy_button_id}
       aria-label="copy"
     >
       <>
-        <svg
-          class="copy-svg copy-svg-active size-4 aspect-square fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
-        >
+        <svg class="copy-svg copy-svg-active size-3.5 aspect-square">
           <use href="/ui.svg#copy-filled"></use>
         </svg>
-        <svg
-          class="copy-svg copy-svg-inactive size-4 aspect-square fill-black/75 dark:fill-white/75 hover:fill-black hover:dark:fill-white"
-        >
+        <svg class="copy-svg copy-svg-inactive size-3.5 aspect-square">
           <use href="/ui.svg#copy-open"></use>
         </svg>
       </>
