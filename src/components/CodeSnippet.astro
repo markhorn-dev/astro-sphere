@@ -1,9 +1,4 @@
 ---
-import { undefined } from "astro:schema";
-
-// TODO: Fix the fact that the code we are provided by shiki is missing all
-// the necessary whitespace formatting which it is displayed with.
-
 const { $id } = Astro.locals;
 
 const meta: Record<string, string> = {};
@@ -29,13 +24,36 @@ if (meta_string) {
   }
 }
 
-const file_name = meta.file;
-const caption = meta.caption ? meta.caption : "";
+var caption = meta.caption;
 const link = meta.link;
-const lines_start = meta.lines_start;
+var lines_start = !isNaN(Number(meta?.lines_start))
+  ? Number(meta.lines_start) - 1
+  : meta?.lines_start;
 
-console.log(caption);
-console.log(lines_start);
+// Check if the link is a GitHub snippet/permalink
+if (link && typeof link === "string") {
+  const githubSnippetRegex =
+    /https:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/[a-f0-9]+\/([^#]+)#L(\d+)(-L(\d+))?/;
+  const match = link.match(githubSnippetRegex);
+  if (match) {
+    const fileNameFromLink = match[1];
+    const startLineFromLink = Number(match[2]) - 1;
+
+    // If caption not set, use filename
+    if (!caption) {
+      caption = fileNameFromLink;
+    }
+
+    // If lines_start not set, use start line
+    if (
+      lines_start === undefined ||
+      lines_start === null ||
+      lines_start === ""
+    ) {
+      lines_start = startLineFromLink;
+    }
+  }
+}
 
 const copy_button_id = $id("copy-button");
 
@@ -48,49 +66,50 @@ const code_text = JSON.parse(code_encoded);
   class="m-0 border rounded-md border-black/15 dark:border-neutral-700 overflow-hidden bg-neutral-50 dark:bg-neutral-950"
 >
   <figcaption
-    class="flex text-sm min-h-10 justify-between items-center p-0 m-0 border-b border-black/15 dark:border-neutral-700 leading-normal bg-neutral-100 dark:bg-neutral-800"
+    class="flex text-sm min-h-10 justify-between items-center p-0 m-0 border-b border-black/15 dark:border-neutral-700 leading-normal bg-neutral-200 dark:bg-neutral-800"
   >
-    <div>
-      {
-        caption && link && (
-          <a
-            href={link}
-            class="no-underline text-black/60 dark:text-white/60 hover:text-black/80 hover:dark:text-white/80 flex items-center p-2 px-4 gap-2 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
-            aria-label="snippet-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg class="size-3.5">
-              <use href="/ui.svg#link" />
-            </svg>
-            <span>{caption}</span>
-          </a>
-        )
-      }
-      {
-        caption && !link && (
-          <p class="p-2 px-4 m-0 text-black/60 dark:text-white/60">{caption}</p>
-        )
-      }
-      {
-        !caption && link && (
-          <a
-            href={link}
-            class="no-underline flex p-2 px-4 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
-            aria-label="snippet-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg class="size-3.5">
-              <use href="/ui.svg#link" />
-            </svg>
-          </a>
-        )
-      }
-    </div>
+    {
+      caption && link && (
+        <a
+          href={link}
+          class="no-underline text-black/60 dark:text-white/60 hover:text-black/80 hover:dark:text-white/80 flex items-center p-2 px-4 gap-2 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
+          aria-label="snippet-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="size-3.5">
+            <use href="/ui.svg#link" />
+          </svg>
+          <p class="m-0">{caption}</p>
+        </a>
+      )
+    }
+    {
+      caption && !link && (
+        <p class="p-2 px-4 m-0 text-black/60 dark:text-white/60">{caption}</p>
+      )
+    }
+    {
+      !caption && link && (
+        <a
+          href={link}
+          class="no-underline flex p-2 px-4 snippet-link fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
+          aria-label="snippet-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="size-3.5">
+            <use href="/ui.svg#link" />
+          </svg>
+        </a>
+      )
+    }
 
     <button
-      class="copy-button h-full flex items-center justify-center p-2 px-4 fill-black/60 dark:fill-white/60 hover:fill-black/80 hover:dark:fill-white/80"
+      class="copy-button h-full flex items-center justify-center p-2 px-4
+          fill-black/60 dark:fill-white/60
+          hover:fill-black/80 hover:dark:fill-white/80
+          copied:fill-black/80 copied:dark:fill-white/80"
       id={copy_button_id}
       aria-label="copy"
     >
@@ -101,13 +120,18 @@ const code_text = JSON.parse(code_encoded);
         <svg class="copy-svg copy-svg-inactive size-3.5 aspect-square">
           <use href="/ui.svg#copy-open"></use>
         </svg>
+        <svg
+          class="copy-svg copy-svg-copied size-3.5 aspect-square fill-green-600 dark:fill-green-500"
+        >
+          <use href="/ui.svg#square-check"></use>
+        </svg>
       </>
     </button>
   </figcaption>
   <pre {...props}><slot /></pre>
 </figure>
 
-<style>
+<style define:vars={{ counter_start: lines_start }}>
   .copy-button {
     pointer-events: auto;
   }
@@ -126,37 +150,42 @@ const code_text = JSON.parse(code_encoded);
     display: none;
   }
 
+  .copy-svg-copied {
+    display: none;
+  }
+
   .astro-code {
     border-radius: 0;
     background-color: transparent !important;
+    padding-inline: 0;
+    padding-block: 6px;
   }
 
-  .astro-code code {
+  :global(.astro-code code) {
     /* Define a counter for each <code> inside .astro-code */
     counter-reset: step;
     /* Start from zero, increment the counter */
-    counter-increment: step 0;
-
-    font-size: 14px;
+    counter-increment: step var(--counter_start);
 
     width: fit-content;
     min-width: 100%;
     display: block;
   }
 
-  .astro-code code .line {
-    display: inline-block;
-    width: 100%;
-    padding-right: 2rem;
+  :global(.astro-code code > :last-child) {
+    display: none !important;
   }
 
-  .astro-code code .line::before {
+  :global(.astro-code code .line) {
+    display: inline-block;
+    width: 100%;
+    padding-right: 1rem;
+  }
+
+  :global(.astro-code code .line::before) {
     content: counter(step);
     counter-increment: step;
-    width: 2rem;
-    margin-right: 1.25rem;
     display: inline-block;
-    margin-left: auto;
     text-align: right;
 
     /* Fix element position during horizontal scroll */
@@ -164,31 +193,59 @@ const code_text = JSON.parse(code_encoded);
     left: 0;
     z-index: 1;
 
-    /* Give a bit of space to counter on horizontal scroll */
-    padding-right: 0.25rem;
+    pointer-events: none;
 
-    /* Illustrative purpose, please extract the value from the theme instead */
-    background-color: white;
-    color: hsla(0, 0%, 0%, 0.5);
+    @apply bg-neutral-50 dark:bg-neutral-950 text-black/25 dark:text-white/25 px-4 w-12;
+  }
+
+  :global(.astro-code code .line.highlighted) {
+    background-color: oklch(95.03% 0.0017 247.84);
+
+    @apply dark:bg-neutral-800;
+  }
+
+  :global(.astro-code code .line.highlighted::before) {
+    @apply bg-transparent dark:bg-neutral-800 border-l-2 border-blue-500;
   }
 </style>
 
 <script define:vars={{ copy_button_id, code_text }}>
   const button = document.getElementById(copy_button_id);
+  const copiedIconDuration = 750; // Change this to customize the display duration (in milliseconds)
+  const activeIcon = button.querySelector(".copy-svg-active");
+  const inactiveIcon = button.querySelector(".copy-svg-inactive");
+  const copiedIcon = button.querySelector(".copy-svg-copied");
 
   let is_active = false;
+
+  const showCopiedIcon = () => {
+    // Show copied icon
+    activeIcon.style.display = "none";
+    inactiveIcon.style.display = "none";
+    copiedIcon.style.display = "block";
+
+    setTimeout(() => {
+      // Reset icon visibility
+      activeIcon.style.display = "";
+      inactiveIcon.style.display = "";
+      copiedIcon.style.display = "";
+    }, copiedIconDuration);
+  };
 
   button.addEventListener("mousedown", () => {
     button.classList.add("active");
     is_active = true;
   });
+
   button.addEventListener("mouseleave", () => {
     button.classList.remove("active");
     is_active = false;
   });
+
   button.addEventListener("mouseup", () => {
     if (is_active) {
       navigator.clipboard.writeText(code_text);
+      showCopiedIcon();
     }
 
     button.classList.remove("active");

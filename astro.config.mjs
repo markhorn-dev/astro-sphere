@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import solidJs from "@astrojs/solid-js"
 
+import { transformerMetaHighlight } from '@shikijs/transformers';
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-sphere-demo.vercel.app",
@@ -16,8 +18,9 @@ export default defineConfig({
           // Somewhere along the line, the properties are getting encoded in a
           // way which does not preserve whitespace. See CodeSnippet.astro
           hast.properties['data-code'] = JSON.stringify(this.source);
-        }
-      }],
+        },
+      },
+    transformerMetaHighlight()],
       themes: {
         light: "github-light",
         dark: "dark-plus",
