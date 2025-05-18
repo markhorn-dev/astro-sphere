@@ -12,7 +12,7 @@ tags:
 
 Create a folder in the respective collection you wish to create content. The name of the folder will be the slug in which your content will be found.
 
-```text
+```text copy=false
 creating the following
 
 /content/blog/my-new-post/index.md
@@ -20,7 +20,6 @@ creating the following
 will be published to
 
 https://yourdomain.com/blog/my-new-post
-
 ```
 
 ### Frontmatter
@@ -37,9 +36,8 @@ Front matter is in yaml if you are familiar with the format. All posts and proje
 | tags    | array   | yes  | Post topic. Array of strings. Used in filtering.              |
 | draft   | boolean | no   | Hides the post from collections. Unpublished entry.           |
 
-Example blog post frontmatter
 
-```yaml
+```yaml caption="Example blog post frontmatter"
 ---
 title: "Astro Sphere: Adding a new post or project."
 summary: "Adding a new article (blog post or project) is pretty easy."
@@ -64,9 +62,8 @@ tags:
 | demoUrl | string  | no   | A link to the deployed project, if applicable.                |
 | repoUrl | string  | no   | A link to the repository, if applicable.                      |
 
-Example project frontmatter
 
-```yaml
+```yaml caption="Example project frontmatter"
 ---
 title: "Astro Sphere"
 summary: "Astro Sphere, a portfolio and blog for designers and developers."
