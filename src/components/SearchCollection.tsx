@@ -99,7 +99,6 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
                       "flex gap-2 items-center",
                       "bg-black/5 dark:bg-white/10",
                       "hover:bg-black/10 hover:dark:bg-white/15",
-                      "transition-colors duration-300 ease-in-out",
                       filter().has(tag) && "text-black dark:text-white"
                     )}
                   >
