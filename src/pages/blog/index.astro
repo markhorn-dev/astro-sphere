@@ -13,7 +13,7 @@ const posts = (await getCollection("blog"))
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
   (a, b) => a.localeCompare(b),
 );
-console.log(posts.length);
+
 const estimated_initial_size =
   28 + posts.length * 158 + (posts.length - 1) * 12;
 ---
