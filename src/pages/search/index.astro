@@ -17,8 +17,13 @@ const data = [...posts, ...projects] as CollectionEntry<"blog">[];
 
 <PageLayout title={SEARCH.TITLE} description={SEARCH.DESCRIPTION}>
   <TopLayout>
-    <div class="animate page-heading">
-      {SEARCH.TITLE}
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        {SEARCH.TITLE}
+      </h1>
+      <div class="mt-1">
+        {SEARCH.DESCRIPTION}
+      </div>
     </div>
   </TopLayout>
   <BottomLayout>
