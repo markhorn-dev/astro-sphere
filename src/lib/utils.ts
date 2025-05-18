@@ -19,3 +19,18 @@ export function readingTime(html: string) {
   const readingTimeMinutes = ((wordCount / 200) + 1).toFixed()
   return `${readingTimeMinutes} min read`
 }
+
+
+export function truncateText(str: string, maxLength: number): string {
+  const ellipsis = '…';
+
+  if (str.length <= maxLength) return str;
+
+  const trimmed = str.trimEnd();
+  if (trimmed.length <= maxLength) return trimmed;
+
+  const cutoff = maxLength - ellipsis.length;
+  let sliced = str.slice(0, cutoff).trimEnd();
+
+  return sliced + ellipsis;
+}

@@ -1,4 +1,4 @@
-import { formatDate } from "@lib/utils"
+import { formatDate, truncateText } from "@lib/utils"
 import type { CollectionEntry } from "astro:content"
 
 type Props = {
@@ -6,9 +6,9 @@ type Props = {
   pill?: boolean
 }
 
-export default function ArrowCard({entry, pill}: Props) {
-    return (
-      <a href={`/${entry.collection}/${entry.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+export default function ArrowCard({ entry, pill }: Props) {
+  return (
+    <a href={`/${entry.collection}/${entry.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
       <div class="w-full group-hover:text-black group-hover:dark:text-white blend">
         <div class="flex flex-wrap items-center gap-2">
           {pill &&
@@ -20,7 +20,7 @@ export default function ArrowCard({entry, pill}: Props) {
             {formatDate(entry.data.date)}
           </div>
         </div>
-        <div class="font-semibold mt-3 text-black dark:text-white">
+        <div class="font-semibold mt-3 text-black dark:text-white line-clamp-2">
           {entry.data.title}
         </div>
 
@@ -28,9 +28,9 @@ export default function ArrowCard({entry, pill}: Props) {
           {entry.data.summary}
         </div>
         <ul class="flex flex-wrap mt-2 gap-1">
-          {entry.data.tags.map((tag:string) => ( // this line has an error; Parameter 'tag' implicitly has an 'any' type.ts(7006)
-            <li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
-              {tag}
+          {entry.data.tags.map((tag: string) => ( // this line has an error; Parameter 'tag' implicitly has an 'any' type.ts(7006)
+            <li class="text-xs uppercase py-0.5 px-2 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
+              {truncateText(tag, 20)}
             </li>
           ))}
         </ul>
@@ -40,5 +40,5 @@ export default function ArrowCard({entry, pill}: Props) {
         <polyline points="12 5 19 12 12 19" class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out" />
       </svg>
     </a>
-   )
+  )
 }

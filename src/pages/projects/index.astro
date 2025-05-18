@@ -1,28 +1,47 @@
 ---
-import { getCollection } from "astro:content"
-import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
-import Projects from "@components/Projects"
-import { PROJECTS } from "@consts"
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import SearchCollection from "@components/SearchCollection";
+import { PROJECTS } from "@consts";
+import type { CollectionEntry } from "astro:content";
 
 const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const tags = [...new Set(projects.flatMap(project => project.data.tags))]
-  .sort((a, b) => a.localeCompare(b))
+const tags = [
+  ...new Set(projects.flatMap((project) => project.data.tags)),
+].sort((a, b) => a.localeCompare(b));
+
+const estimated_initial_size =
+  28 + projects.length * 158 + (projects.length - 1) * 12;
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <TopLayout>
-    <div class="animate page-heading">
-      {PROJECTS.TITLE}
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        {PROJECTS.TITLE}
+      </h1>
+      <div class="mt-1">
+        {PROJECTS.DESCRIPTION}
+      </div>
     </div>
   </TopLayout>
   <BottomLayout>
-    <div class="animate">
-      <Projects client:load tags={tags} data={projects} />
+    <div
+      id="search-collection-wrapper"
+      class="animate"
+      style={{ minHeight: `${estimated_initial_size}px` }}
+    >
+      <SearchCollection
+        client:load
+        entry_name={"projects"}
+        tags={tags}
+        data={projects}
+      />
     </div>
   </BottomLayout>
 </PageLayout>
