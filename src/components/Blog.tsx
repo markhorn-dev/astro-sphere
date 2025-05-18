@@ -49,13 +49,13 @@ export default function Blog({ data, tags }: Props) {
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       {/* Control Panel*/}
       <div class="col-span-3 sm:col-span-1">
-        <div class="sticky top-24">
+        <div class="sticky top-24 mt-7">
           {/* Search Bar */}
           <div class="relative">
             <svg class="absolute size-6 left-2 top-[0.45rem] stroke-neutral-400 dark:stroke-neutral-500 pointer-events-none">
               <use href={`/ui.svg#search`} />
             </svg>
-            <input name="search" type="text" value={query()} onInput={onSearchInput} autocomplete="off" spellcheck={false} placeholder="Search posts" class="w-full px-2.5 py-1.5 pl-10 rounded outline-none text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 focus:bg-black/10 focus:dark:bg-white/15 border border-black/10 dark:border-white/10 focus:border-black/40 focus:dark:border-white/40" />
+            <input name="search" type="text" value={query()} onInput={onSearchInput} autocomplete="off" spellcheck={false} placeholder="Search posts" class="w-full px-2.5 py-1.5 pl-10 rounded outline-none placeholder-neutral-400 dark:placeholder-neutral-500 text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 focus:bg-black/10 focus:dark:bg-white/15 border border-black/10 dark:border-white/10 focus:border-black/40 focus:dark:border-white/40" />
             {query().length > 0 && (
               <button
                 onClick={() => setQuery("")}
@@ -101,7 +101,7 @@ export default function Blog({ data, tags }: Props) {
                       />
                     </svg>
 
-                    <span class="truncate block min-w-0">
+                    <span class="truncate block min-w-0 pt-[2px]">
                       {tag}
                     </span>
                   </button>
