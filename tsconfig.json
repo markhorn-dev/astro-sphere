@@ -9,7 +9,8 @@
       ]
     },
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "allowJs": true
   },
   "include": [
     "src/**/*.ts",

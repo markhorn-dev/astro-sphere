@@ -8,7 +8,7 @@ import sectionize from "remark-sectionize"
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-sphere-demo.vercel.app",
-  integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
+  integrations: [sitemap(), solidJs(), tailwind({ applyBaseStyles: false }), mdx()],
   markdown: {
     shikiConfig: {
       transformers: [{
